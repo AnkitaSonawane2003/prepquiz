@@ -1,0 +1,85 @@
+.footer {
+  background-color: #111827; /* Tailwind gray-900 */
+  color: #E5E7EB; /* gray-200 */
+  padding: 2rem 1.5rem;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Brand Info */
+.footer-brand h2 {
+  color: #0D9488;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand p {
+  font-size: 0.95rem;
+  color: #9CA3AF; /* gray-400 */
+}
+
+/* Sections */
+.footer-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: #F3F4F6; /* gray-100 */
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #E5E7EB;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color:#0D9488;
+}
+
+/* Contact */
+.footer-section p {
+  margin: 0.25rem 0;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.social-icons a {
+  color: #E5E7EB;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color:#0D9488;
+}
+
+/* Bottom */
+.footer-bottom {
+  border-top: 1px solid #374151; /* gray-700 */
+  margin-top: 2rem;
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #9CA3AF;
+}

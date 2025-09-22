@@ -1,0 +1,42 @@
+/* General Page Styling */
+.faq-page, .terms-page, .privacy-page {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.7;
+  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+}
+.faq-page, .terms-page, .privacy-page {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1f2937; /* gray-800 */
+  background-color: #f9fafb;
+    margin-bottom: 40px;
+}
+/* Section Titles */
+.faq-section h1,
+.terms-section h1,
+.privacy-section h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #0D9488;
+}
+
+/* List Styling */
+.terms-list li,
+.privacy-list li {
+  margin-bottom: 1rem;
+}
+
+/* FAQ Styling */
+.faq-item {
+  margin-bottom: 1.5rem;
+}
+
+.faq-item h3 {
+  color: #444;
+  margin-bottom: 0.5rem;
+}
