@@ -65,6 +65,10 @@ const Navbar = () => {
         <li>
           <Link to="/login" onClick={closeMenu}>Login/Register</Link>
         </li>
+        {/* <li>
+  <Link to="/login" onClick={closeMenu}>Login/Register</Link>
+</li> */}
+
       </ul>
     </nav>
   );

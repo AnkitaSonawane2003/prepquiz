@@ -1,0 +1,114 @@
+/* Container */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f3f4f6; /* light gray */
+  padding: 16px;
+}
+
+/* Card */
+.register-card {
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Title */
+.register-title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #1f2937;
+}
+
+/* Form */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Labels aligned to the left */
+.form-group label {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #374151;
+  margin-bottom: 6px;
+  text-align: left;   /* 👈 ensures label text stays left */
+}
+
+/* Inputs & Selects */
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Button */
+.register-btn {
+  width: 100%;
+  padding: 12px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.register-btn:hover {
+  background: #4338ca;
+}
+
+/* Footer */
+.register-footer {
+  text-align: center;
+  font-size: 1.15rem;
+  color: #6b7280;
+  margin-top: 16px;
+}
+
+.register-footer a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .register-card {
+    padding: 24px 20px;
+  }
+
+  .register-title {
+    font-size: 1.4rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+  }
+}

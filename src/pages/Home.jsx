@@ -1,4 +1,5 @@
-import "../styles/Home.css"
+import "../styles/Home.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -8,22 +9,24 @@ const Home = () => {
       <section className="hero">
         <h1>Welcome to PrepQuiz</h1>
         <h2>"Practice. Analyze. Succeed."</h2>
-        <button>Get Started</button>
+
+        {/* Get Started button navigates to Login/Register */}
+        <Link to="/login">
+          <button>Get Started</button>
+        </Link>
       </section>
 
-       {/* About Section */}
+      {/* About Section */}
       <section className="about">
         <h2>About PrepQuiz</h2>
         <p>
           <strong>PrepQuiz</strong> is a smart aptitude and technical assessment platform tailored for students preparing
           for competitive exams and campus placements. We provide an all-in-one solution for practicing aptitude,
-          technical MCQs, and coding challenges, with detailed analytics to guide your improvement. Whether you're 
-          aiming for a job or just improving your skills, PrepQuiz supports your journey with targeted practice and 
+          technical MCQs, and coding challenges, with detailed analytics to guide your improvement. Whether you're
+          aiming for a job or just improving your skills, PrepQuiz supports your journey with targeted practice and
           performance insights.
         </p>
       </section>
-
-
 
       {/* Features Section */}
       <section className="features">
@@ -47,11 +50,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-     
-
-     
-      
     </div>
   );
 };
