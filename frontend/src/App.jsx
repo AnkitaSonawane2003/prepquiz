@@ -14,6 +14,7 @@ import Contact from "./components/Contact";
 import Faq from "./components/Faq";
 import Terms from "./components/Terms";
 import Privacy from "./components/Privacy";
+import Adminpage from "./components/Adminpage";
 
 // Auth Forms
 import Register from "./pages/Register";
@@ -39,6 +40,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/teacher" element={<RegisterTeacher />} />
+         <Route path="/admin" element={<Adminpage />} />
       </Routes>
 
       <Footer />

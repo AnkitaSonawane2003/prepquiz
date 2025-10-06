@@ -11,6 +11,23 @@
   margin-right: 300px;
 
 }
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-wrapper input {
+  flex: 1;
+  padding-right: 40px; /* give space for icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  color: #555;
+}
+
 
 /* Card */
 .login-card {
