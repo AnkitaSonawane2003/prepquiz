@@ -6,6 +6,9 @@
   min-height: 100vh;
   background-color: #f3f4f6; /* light gray */
   padding: 16px;
+    margin-bottom: 20px;
+  margin-left: 300px;
+  margin-right: 300px;
 }
 
 /* Card */
