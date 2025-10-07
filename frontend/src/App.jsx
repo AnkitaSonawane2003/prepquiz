@@ -15,11 +15,17 @@ import Faq from "./components/Faq";
 import Terms from "./components/Terms";
 import Privacy from "./components/Privacy";
 import Adminpage from "./components/Adminpage";
+import Teacherpage from "./components/Teacherpage";
+import Registerstudent from "./pages/Registerstudent";
+
 
 // Auth Forms
 import Register from "./pages/Register";
 import RegisterTeacher from "./pages/RegisterTeacher";
-import Login from "./pages/Login";
+import TeacherLogin from "./pages/TeacherLogin";
+import Selection from "./pages/Selection";
+import Studentlogin from "./pages/Studentlogin";
+import Adminlogin from "./pages/Adminlogin";
 
 function App() {
   return (
@@ -37,10 +43,15 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
 
         {/* Auth routes */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<TeacherLogin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/teacher" element={<RegisterTeacher />} />
          <Route path="/admin" element={<Adminpage />} />
+          <Route path="/teacherpage" element={<Teacherpage />} />
+            <Route path="/select" element={<Selection />} />
+               <Route path="/adminlog" element={<Adminlogin />} />
+              <Route path="/student" element={<Studentlogin />} />
+                 <Route path="/regstud" element={<Registerstudent/>} />
       </Routes>
 
       <Footer />

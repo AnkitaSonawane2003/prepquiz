@@ -11,7 +11,7 @@ const Home = () => {
         <h2>"Practice. Analyze. Succeed."</h2>
 
         {/* Get Started button navigates to Login/Register */}
-        <Link to="/login">
+        <Link to="/select">
           <button>Get Started</button>
         </Link>
       </section>

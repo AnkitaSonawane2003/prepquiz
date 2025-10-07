@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -5,8 +6,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import "../styles/Login.css";
 
-export default function Login({ userType = "admin" }) {
-  // userType can be "admin" or "teacher" to switch API endpoint
+export default function TeacherLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,7 +15,7 @@ export default function Login({ userType = "admin" }) {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
-  const navigate = useNavigate(); // for redirection
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -30,16 +30,11 @@ export default function Login({ userType = "admin" }) {
     setLoading(true);
 
     try {
-      // Determine URL based on user type
-      const url =
-        userType === "teacher"
-          ? "http://localhost:5000/api/teacher/login"
-          : "http://localhost:5000/api/auth/login";
+      const url = "http://localhost:5000/api/teacher/login";
 
-      // ✅ Convert email to lowercase before sending
       const payload = {
         email: formData.email.toLowerCase(),
-        password: formData.password
+        password: formData.password,
       };
 
       const response = await fetch(url, {
@@ -51,51 +46,48 @@ export default function Login({ userType = "admin" }) {
       const data = await response.json();
 
       if (response.ok) {
-        // Save JWT token
         localStorage.setItem("token", data.token);
         setError(null);
-
-        // Redirect based on user type
-        if (userType === "teacher") navigate("/teacher-dashboard");
-        else navigate("/admin"); // Admin page
+        navigate("/teacherpage");
       } else {
         setError(data.message || "Login failed. Please try again.");
       }
     } catch (err) {
       console.error("Login error:", err);
       setError("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2 className="login-title">
-          {userType === "teacher" ? "Teacher Login" : "Admin Login"}
-        </h2>
+        <h2 className="login-title">Teacher Login</h2>
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
               placeholder="Enter your email"
+              autoComplete="username"
             />
           </div>
 
           <div className="form-group">
-            <label>Password</label>
+            <label htmlFor="password">Password</label>
             <div
               className="password-wrapper"
               style={{ display: "flex", alignItems: "center" }}
             >
               <input
+                id="password"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
@@ -103,12 +95,18 @@ export default function Login({ userType = "admin" }) {
                 required
                 placeholder="Enter your password"
                 style={{ flex: 1 }}
+                autoComplete="current-password"
               />
               <span
                 onClick={togglePasswordVisibility}
                 className="eye-icon"
                 style={{ cursor: "pointer", marginLeft: "8px" }}
                 aria-label={showPassword ? "Hide password" : "Show password"}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") togglePasswordVisibility();
+                }}
               >
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </span>
@@ -128,10 +126,7 @@ export default function Login({ userType = "admin" }) {
 
         <p>
           Don’t have an account?{" "}
-          <Link
-            to={userType === "teacher" ? "/register-teacher" : "/register"}
-            style={{ color: "blue", cursor: "pointer" }}
-          >
+          <Link to="/teacher" style={{ color: "blue", cursor: "pointer" }}>
             Register
           </Link>
         </p>

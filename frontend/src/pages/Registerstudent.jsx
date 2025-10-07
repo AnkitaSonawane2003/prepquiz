@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/RegisterTeacher.css";
 
-export default function RegisterTeacher() {
+export default function Registerstudent() {
   const navigate = useNavigate(); // for redirection after registration
 
   const [formData, setFormData] = useState({
@@ -56,7 +56,7 @@ export default function RegisterTeacher() {
   return (
     <div className="register-container">
       <div className="register-card">
-        <h2 className="register-title">Create a Teacher Account</h2>
+        <h2 className="register-title">Create a Student Account</h2>
 
         <form onSubmit={handleSubmit} className="register-form">
           <div className="form-group">
@@ -122,7 +122,7 @@ export default function RegisterTeacher() {
 
         <p>
           Already have an account?{" "}
-          <Link to="/login" style={{ color: "blue", cursor: "pointer" }}>
+          <Link to="/student" style={{ color: "blue", cursor: "pointer" }}>
             Login
           </Link>
         </p>
