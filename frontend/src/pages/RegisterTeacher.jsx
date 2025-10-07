@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/RegisterTeacher.css";
 
 export default function RegisterTeacher() {
+  const navigate = useNavigate(); // for redirection after registration
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -10,21 +12,52 @@ export default function RegisterTeacher() {
     department: "",
   });
 
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
+    setError(null);
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/teacher/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message || "Teacher registered successfully!");
+        // Clear form
+        setFormData({ fullName: "", email: "", password: "", department: "" });
+        // Redirect to login page
+        navigate("/login");
+      } else {
+        setError(data.message || "Registration failed. Try again.");
+      }
+    } catch (err) {
+      console.error("Registration error:", err);
+      setError("Server error. Please try again later.");
+    }
+
+    setLoading(false);
   };
 
   return (
     <div className="register-container">
       <div className="register-card">
-        
         <h2 className="register-title">Create a Teacher Account</h2>
+
         <form onSubmit={handleSubmit} className="register-form">
           <div className="form-group">
             <label>Full Name</label>
@@ -80,8 +113,10 @@ export default function RegisterTeacher() {
             </select>
           </div>
 
-          <button type="submit" className="register-btn">
-            Register
+          {error && <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>}
+
+          <button type="submit" className="register-btn" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
