@@ -16,24 +16,25 @@ import Terms from "./components/Terms";
 import Privacy from "./components/Privacy";
 import Adminpage from "./components/Adminpage";
 import Teacherpage from "./components/Teacherpage";
-import Registerstudent from "./pages/Registerstudent";
 
-
-// Auth Forms
+// Auth Pages
 import Register from "./pages/Register";
 import RegisterTeacher from "./pages/RegisterTeacher";
 import TeacherLogin from "./pages/TeacherLogin";
 import Selection from "./pages/Selection";
-import Studentlogin from "./pages/Studentlogin";
-import Adminlogin from "./pages/Adminlogin";
+import StudentLogin from "./pages/Studentlogin";
+import RegisterStudent from "./pages/Registerstudent";
+import AdminLogin from "./pages/Adminlogin";
+import Studentpage from "./components/Studentpage"
 
 function App() {
   return (
     <>
+      {/* Common Header */}
       <Navbar />
 
       <Routes>
-        {/* Normal routes */}
+        {/* General Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/features" element={<Features />} />
@@ -42,18 +43,26 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
 
-        {/* Auth routes */}
-        <Route path="/login" element={<TeacherLogin />} />
+        {/* Authentication & User Routes */}
+        <Route path="/teacherlogin" element={<TeacherLogin />} />
+        <Route path="/teacherregister" element={<RegisterTeacher />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/teacher" element={<RegisterTeacher />} />
-         <Route path="/admin" element={<Adminpage />} />
-          <Route path="/teacherpage" element={<Teacherpage />} />
-            <Route path="/select" element={<Selection />} />
-               <Route path="/adminlog" element={<Adminlogin />} />
-              <Route path="/student" element={<Studentlogin />} />
-                 <Route path="/regstud" element={<Registerstudent/>} />
+
+        {/* ✅ Corrected Path */}
+        <Route path="/selection" element={<Selection />} />
+
+        {/* Student Routes */}
+        <Route path="/studentlogin" element={<StudentLogin />} />
+        <Route path="/regstud" element={<RegisterStudent />} />
+
+        {/* Admin & Dashboard Routes */}
+        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/adminpage" element={<Adminpage />} />
+        <Route path="/teacherpage" element={<Teacherpage />} />
+        <Route path="/studentpage" element={<Studentpage />} />
       </Routes>
 
+      {/* Common Footer */}
       <Footer />
     </>
   );

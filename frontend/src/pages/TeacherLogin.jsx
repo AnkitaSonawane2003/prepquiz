@@ -126,7 +126,7 @@ export default function TeacherLogin() {
 
         <p>
           Don’t have an account?{" "}
-          <Link to="/teacher" style={{ color: "blue", cursor: "pointer" }}>
+          <Link to="/teacherregister" style={{ color: "blue", cursor: "pointer" }}>
             Register
           </Link>
         </p>

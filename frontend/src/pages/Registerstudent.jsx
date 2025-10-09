@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/RegisterTeacher.css";
+import "../styles/RegisterTeacher.css"; // same styling reused
 
-export default function Registerstudent() {
-  const navigate = useNavigate(); // for redirection after registration
+export default function RegisterStudent() {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -15,7 +15,7 @@ export default function Registerstudent() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Handle input changes
+  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -28,7 +28,7 @@ export default function Registerstudent() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/teacher/register", {
+      const response = await fetch("http://localhost:5000/api/student/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -37,20 +37,25 @@ export default function Registerstudent() {
       const data = await response.json();
 
       if (response.ok) {
-        alert(data.message || "Teacher registered successfully!");
-        // Clear form
-        setFormData({ fullName: "", email: "", password: "", department: "" });
-        // Redirect to login page
-        navigate("/login");
+        alert(data.message || "Student registered successfully!");
+        // Clear form fields
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+          department: "",
+        });
+        // Redirect immediately to login page
+        navigate("/studentlogin", { replace: true });
       } else {
-        setError(data.message || "Registration failed. Try again.");
+        setError(data.message || "Registration failed. Please try again.");
       }
     } catch (err) {
       console.error("Registration error:", err);
       setError("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -79,7 +84,7 @@ export default function Registerstudent() {
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="Enter your email/username"
+              placeholder="Enter your email"
             />
           </div>
 
@@ -113,7 +118,9 @@ export default function Registerstudent() {
             </select>
           </div>
 
-          {error && <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>}
+          {error && (
+            <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>
+          )}
 
           <button type="submit" className="register-btn" disabled={loading}>
             {loading ? "Registering..." : "Register"}
@@ -122,12 +129,10 @@ export default function Registerstudent() {
 
         <p>
           Already have an account?{" "}
-          <Link to="/student" style={{ color: "blue", cursor: "pointer" }}>
+          <Link to="/studentlogin" style={{ color: "blue", cursor: "pointer" }}>
             Login
           </Link>
         </p>
-
-        
       </div>
     </div>
   );
