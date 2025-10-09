@@ -6,6 +6,8 @@
   color: #1f2937; /* gray-800 */
   background-color: #f9fafb;
   margin-bottom: 40px;
+      margin-top: 150px;
+      border-radius: 80px;
 }
 
 .features-header {
@@ -32,10 +34,10 @@
 
 .feature-card {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 40px;
   padding: 25px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease;
+  transition: transform 0.4s ease;
 }
 
 .feature-card:hover {

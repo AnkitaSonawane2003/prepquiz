@@ -1,55 +1,113 @@
+/* GLOBAL STYLES */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color:rgb(206, 203, 203);
+  background-color: rgb(206, 203, 203);
   color: #0D9488;
+}
+
+* {
+  transition: all 0.3s ease;
 }
 
 .home-container {
   padding: 40px 20px;
   max-width: 1200px;
   margin: auto;
+  margin-top: 80px;
+  cursor: default;
 }
 
-/* Hero Section */
+/* ------------------- */
+/* 🎯 Hero Section     */
+/* ------------------- */
 .hero {
-  background-color:  #f9fafb;
+  background-color: #f9fafb;
   padding: 60px 20px;
   text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 60px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   margin-bottom: 50px;
+  margin-top: 50px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
-
 .hero h1 {
   font-size: 2.5rem;
-  color: #0D9488;
+  overflow: hidden;
+  border-right: 3px solid #0D9488;
+  white-space: nowrap;
+  animation: typing 3s steps(30), blink 0.75s step-end infinite;
+  width: fit-content;
+  margin: 0 auto 15px auto;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.hero:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* ✨ Animated Heading */
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(to right, #0D9488, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 15px;
+  animation: fadeInZoom 1.2s ease-out;
+}
+
+@keyframes fadeInZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .hero h2 {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   margin-bottom: 20px;
   font-weight: 500;
+  color: #1f2937;
 }
 
 .hero button {
   background-color: #0D9488;
   color: #fff;
-  padding: 10px 20px;
+  padding: 12px 28px;
   font-size: 1rem;
+  font-weight: bold;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .hero button:hover {
-  background-color: #0D9488;
+  background-color: #0f766e;
+  transform: translateY(-2px);
 }
 
-/* Features Section */
+/* ------------------- */
+/* 🌟 Features Section */
+/* ------------------- */
 .features {
   margin-bottom: 50px;
+  border-radius: 60px;
 }
 
 .features h2 {
@@ -57,34 +115,59 @@ body {
   text-align: center;
   margin-bottom: 30px;
   font-weight: bold;
+  color: #0D9488;
 }
 
 .feature-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .feature-item {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 40px;
+  border-radius: 40px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  max-width: 1000px;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.feature-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .feature-item h3 {
   margin-bottom: 10px;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #0D9488;
 }
 
-/* About Section */
+.feature-item p {
+  font-size: 1rem;
+  color: #374151;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+/* ------------------- */
+/* 📘 About Section    */
+/* ------------------- */
 .about {
   background-color: #fff;
   padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 60px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   margin-bottom: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.about:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
 }
 
 .about h2 {
@@ -98,9 +181,12 @@ body {
   font-size: 1rem;
   line-height: 1.7;
   text-align: justify;
+  color: #374151;
 }
 
-/* Footer */
+/* ------------------- */
+/* 🔻 Footer           */
+/* ------------------- */
 footer-text {
   text-align: center;
   margin-top: 40px;
