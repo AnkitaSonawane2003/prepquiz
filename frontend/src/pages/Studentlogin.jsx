@@ -1,12 +1,10 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Login.css";
 
-export default function Studentlogin() {
+export default function StudentLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -30,7 +28,8 @@ export default function Studentlogin() {
     setLoading(true);
 
     try {
-      const url = "http://localhost:5000/api/teacher/login";
+      // ✅ Student route (not teacher)
+      const url = "http://localhost:5000/api/student/login";
 
       const payload = {
         email: formData.email.toLowerCase(),
@@ -46,9 +45,9 @@ export default function Studentlogin() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("studentToken", data.token);
         setError(null);
-        navigate("/teacherpage");
+        navigate("/studentpage"); // redirect to student dashboard
       } else {
         setError(data.message || "Login failed. Please try again.");
       }
@@ -105,7 +104,8 @@ export default function Studentlogin() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") togglePasswordVisibility();
+                  if (e.key === "Enter" || e.key === " ")
+                    togglePasswordVisibility();
                 }}
               >
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />

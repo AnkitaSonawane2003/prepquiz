@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/RegisterTeacher.css";
 
 export default function RegisterTeacher() {
-  const navigate = useNavigate(); // for redirection after registration
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -15,7 +15,7 @@ export default function RegisterTeacher() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Handle input changes
+  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -38,19 +38,24 @@ export default function RegisterTeacher() {
 
       if (response.ok) {
         alert(data.message || "Teacher registered successfully!");
-        // Clear form
-        setFormData({ fullName: "", email: "", password: "", department: "" });
-        // Redirect to login page
-        navigate("/login");
+        // Clear form fields
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+          department: "",
+        });
+        // Redirect immediately to login page
+        navigate("/teacherlogin", { replace: true });
       } else {
-        setError(data.message || "Registration failed. Try again.");
+        setError(data.message || "Registration failed. Please try again.");
       }
     } catch (err) {
       console.error("Registration error:", err);
       setError("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -113,7 +118,9 @@ export default function RegisterTeacher() {
             </select>
           </div>
 
-          {error && <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>}
+          {error && (
+            <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>
+          )}
 
           <button type="submit" className="register-btn" disabled={loading}>
             {loading ? "Registering..." : "Register"}
@@ -122,12 +129,10 @@ export default function RegisterTeacher() {
 
         <p>
           Already have an account?{" "}
-          <Link to="/login" style={{ color: "blue", cursor: "pointer" }}>
+          <Link to="/teacherlogin" style={{ color: "blue", cursor: "pointer" }}>
             Login
           </Link>
         </p>
-
-        
       </div>
     </div>
   );
