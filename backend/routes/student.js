@@ -7,17 +7,21 @@ const Student = require("../models/Student");
 // Register student
 router.post("/register", async (req, res) => {
   try {
-    const { fullName, email, password, department } = req.body;
+    const { fullName, email, rollNumber, password, department } = req.body;
 
-    const existing = await Student.findOne({ email });
-    if (existing) return res.status(400).json({ message: "Student already exists" });
+    // Check if email or rollNumber already exists
+    const existingEmail = await Student.findOne({ email });
+    if (existingEmail) return res.status(400).json({ message: "Email already registered" });
 
-    const newStudent = new Student({ fullName, email, password, department });
+    const existingRoll = await Student.findOne({ rollNumber });
+    if (existingRoll) return res.status(400).json({ message: "Roll number already registered" });
+
+    const newStudent = new Student({ fullName, email, rollNumber, password, department });
     await newStudent.save();
 
     res.status(201).json({ message: "Student registered successfully!" });
   } catch (err) {
-    console.error(err);
+    console.error("Register error:", err);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -33,11 +37,11 @@ router.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, student.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign({ id: student._id }, "secretKey", { expiresIn: "1d" });
+    const token = jwt.sign({ id: student._id }, process.env.JWT_SECRET || "secretKey", { expiresIn: "1d" });
 
     res.json({ token, message: "Login successful" });
   } catch (err) {
-    console.error(err);
+    console.error("Login error:", err);
     res.status(500).json({ message: "Server error" });
   }
 });

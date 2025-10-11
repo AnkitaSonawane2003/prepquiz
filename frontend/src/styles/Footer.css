@@ -73,7 +73,10 @@
 .social-icons a:hover {
   color:#0D9488;
 }
+.footer-section .email{
+    cursor: pointer;
 
+}
 /* Bottom */
 .footer-bottom {
   border-top: 1px solid #374151; /* gray-700 */

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/RegisterTeacher.css"; // same styling reused
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import "../styles/RegisterTeacher.css";
 
 export default function RegisterStudent() {
   const navigate = useNavigate();
@@ -8,20 +10,22 @@ export default function RegisterStudent() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
+    rollNumber: "", // new field
     password: "",
     department: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -38,14 +42,13 @@ export default function RegisterStudent() {
 
       if (response.ok) {
         alert(data.message || "Student registered successfully!");
-        // Clear form fields
         setFormData({
           fullName: "",
           email: "",
+          rollNumber: "",
           password: "",
           department: "",
         });
-        // Redirect immediately to login page
         navigate("/studentlogin", { replace: true });
       } else {
         setError(data.message || "Registration failed. Please try again.");
@@ -89,15 +92,50 @@ export default function RegisterStudent() {
           </div>
 
           <div className="form-group">
-            <label>Password</label>
+            <label>Roll Number</label>
             <input
-              type="password"
-              name="password"
-              value={formData.password}
+              type="text"
+              name="rollNumber"
+              value={formData.rollNumber}
               onChange={handleChange}
               required
-              placeholder="Enter your password"
+              placeholder="Enter your roll number"
+              pattern="[A-Za-z0-9]+" // allows letters and numbers only
+              title="Roll number must be alphanumeric"
             />
+          </div>
+
+          <div className="form-group">
+            <label>Password</label>
+            <div
+              className="password-wrapper"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                placeholder="Enter your password"
+                style={{ flex: 1 }}
+                autoComplete="new-password"
+              />
+              <span
+                onClick={togglePasswordVisibility}
+                className="eye-icon"
+                style={{ cursor: "pointer", marginLeft: "8px" }}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    togglePasswordVisibility();
+                }}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </span>
+            </div>
           </div>
 
           <div className="form-group">

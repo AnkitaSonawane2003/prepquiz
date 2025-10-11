@@ -17,6 +17,8 @@ connectDB()
   .then(() => console.log("✅ MongoDB connected successfully"))
   .catch((err) => console.error("❌ MongoDB connection failed:", err));
 
+
+
 // Middleware
 app.use(cors());           // Enable CORS for frontend-backend connection
 app.use(express.json());   // Parse JSON request bodies

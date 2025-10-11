@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Register.css";
 
 export default function Register() {
@@ -10,6 +12,9 @@ export default function Register() {
     department: "",
     year: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,14 +57,35 @@ export default function Register() {
 
           <div className="form-group">
             <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="Enter your password"
-            />
+            <div
+              className="password-wrapper"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                placeholder="Enter your password"
+                style={{ flex: 1 }}
+                autoComplete="new-password"
+              />
+              <span
+                onClick={togglePasswordVisibility}
+                className="eye-icon"
+                style={{ cursor: "pointer", marginLeft: "8px" }}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    togglePasswordVisibility();
+                }}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </span>
+            </div>
           </div>
 
           <div className="form-group">

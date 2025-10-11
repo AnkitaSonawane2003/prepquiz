@@ -1,26 +1,35 @@
 // routes/admin.js
-const express = require('express'); 
-const router = express.Router();
+const express = require('express');
+const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
-const bcrypt = require('bcryptjs');
-router.post('/create', async (req, res) => {
+
+const router = express.Router();
+
+router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const existingAdmin = await Admin.findOne({ email });
-    if (existingAdmin) {
-      return res.status(400).json({ message: 'Email already registered' });
+    const admin = await Admin.findOne({ email: email.toLowerCase() });
+    if (!admin) {
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // Store password as plain text (NOT recommended for production)
-    const newAdmin = new Admin({ email, password });
+    // Comparing plain password (you must hash later!)
+    if (admin.password !== password) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
 
-    await newAdmin.save();
-    res.status(201).json({ message: 'Admin created successfully' });
+    const token = jwt.sign(
+      { id: admin._id, email: admin.email },
+      process.env.JWT_SECRET || 'admin-secret',
+      { expiresIn: '1h' }
+    );
+
+    res.json({ token, message: "Login successful" });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    console.error("Admin login error:", err);
+    res.status(500).json({ message: "Server error" });
   }
 });
-
 
 module.exports = router;

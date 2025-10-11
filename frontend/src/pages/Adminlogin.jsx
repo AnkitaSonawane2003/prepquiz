@@ -1,9 +1,7 @@
-
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Login.css";
 
 export default function Adminlogin() {
@@ -30,31 +28,23 @@ export default function Adminlogin() {
     setLoading(true);
 
     try {
-      const url = "http://localhost:5000/api/teacher/login";
-
-      const payload = {
-        email: formData.email.toLowerCase(),
-        password: formData.password,
-      };
-
-      const response = await fetch(url, {
+      const response = await fetch("http://localhost:5000/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        setError(null);
-        navigate("/teacherpage");
+        navigate("/adminpage"); // redirect to teacher/admin page
       } else {
-        setError(data.message || "Login failed. Please try again.");
+        setError(data.message || "Invalid credentials");
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("An error occurred. Please try again later.");
+      setError("Server error. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -76,16 +66,12 @@ export default function Adminlogin() {
               onChange={handleChange}
               required
               placeholder="Enter your email"
-              autoComplete="username"
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <div
-              className="password-wrapper"
-              style={{ display: "flex", alignItems: "center" }}
-            >
+            <div className="password-wrapper" style={{ display: "flex", alignItems: "center" }}>
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
@@ -95,7 +81,6 @@ export default function Adminlogin() {
                 required
                 placeholder="Enter your password"
                 style={{ flex: 1 }}
-                autoComplete="current-password"
               />
               <span
                 onClick={togglePasswordVisibility}
@@ -113,18 +98,12 @@ export default function Adminlogin() {
             </div>
           </div>
 
-          {error && (
-            <p className="error-message" style={{ color: "red" }}>
-              {error}
-            </p>
-          )}
+          {error && <p className="error-message" style={{ color: "red" }}>{error}</p>}
 
           <button type="submit" className="login-btn" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-
-        
       </div>
     </div>
   );

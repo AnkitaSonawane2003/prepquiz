@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "../styles/RegisterTeacher.css";
 
 export default function RegisterTeacher() {
@@ -12,6 +14,9 @@ export default function RegisterTeacher() {
     department: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -22,41 +27,44 @@ export default function RegisterTeacher() {
   };
 
   // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError(null);
+  setLoading(true);
 
-    try {
-      const response = await fetch("http://localhost:5000/api/teacher/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+  console.log("Submitting data:", formData);
+
+  try {
+    const response = await fetch("http://localhost:5000/api/teacher/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    console.log("Response status:", response.status);
+    const data = await response.json();
+    console.log("Response data:", data);
+
+    if (response.ok) {
+      alert(data.message || "Teacher registered successfully!");
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
+        department: "",
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert(data.message || "Teacher registered successfully!");
-        // Clear form fields
-        setFormData({
-          fullName: "",
-          email: "",
-          password: "",
-          department: "",
-        });
-        // Redirect immediately to login page
-        navigate("/teacherlogin", { replace: true });
-      } else {
-        setError(data.message || "Registration failed. Please try again.");
-      }
-    } catch (err) {
-      console.error("Registration error:", err);
-      setError("Server error. Please try again later.");
-    } finally {
-      setLoading(false);
+      navigate("/teacherlogin", { replace: true });
+    } else {
+      setError(data.message || "Registration failed. Please try again.");
     }
-  };
+  } catch (err) {
+    console.error("Registration error:", err);
+    setError("Server error. Please try again later.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="register-container">
@@ -90,14 +98,34 @@ export default function RegisterTeacher() {
 
           <div className="form-group">
             <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="Enter your password"
-            />
+            <div
+              className="password-wrapper"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                placeholder="Enter your password"
+                style={{ flex: 1 }}
+                autoComplete="new-password"
+              />
+              <span
+                onClick={togglePasswordVisibility}
+                className="eye-icon"
+                style={{ cursor: "pointer", marginLeft: "8px" }}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") togglePasswordVisibility();
+                }}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </span>
+            </div>
           </div>
 
           <div className="form-group">
@@ -118,9 +146,7 @@ export default function RegisterTeacher() {
             </select>
           </div>
 
-          {error && (
-            <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>
-          )}
+          {error && <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>}
 
           <button type="submit" className="register-btn" disabled={loading}>
             {loading ? "Registering..." : "Register"}
@@ -136,4 +162,4 @@ export default function RegisterTeacher() {
       </div>
     </div>
   );
-}
+}  

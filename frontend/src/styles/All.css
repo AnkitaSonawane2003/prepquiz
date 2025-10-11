@@ -1,42 +1,45 @@
 /* General Page Styling */
 .faq-page, .terms-page, .privacy-page {
-  padding: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-  line-height: 1.7;
-  color: #333;
-  font-family: 'Segoe UI', sans-serif;
-}
-.faq-page, .terms-page, .privacy-page {
+  padding: 2rem 70px;
   max-width: 1000px;
-  margin: auto;
-  padding: 40px 20px;
+  margin: 10rem auto 40px auto;  /* Added 4rem top margin to separate from navbar */
+  line-height: 1.8;
+  color: #1f2937;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #1f2937; /* gray-800 */
   background-color: #f9fafb;
-    margin-bottom: 40px;
+  overflow: visible; /* ensure nothing is clipped */
+  border-radius: 60px;
 }
+
 /* Section Titles */
 .faq-section h1,
 .terms-section h1,
 .privacy-section h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  margin-top: 3rem;       /* increased top margin */
+  margin-bottom: 2rem;
   color: #0D9488;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 /* List Styling */
 .terms-list li,
 .privacy-list li {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+  color: #374151;
 }
 
 /* FAQ Styling */
 .faq-item {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .faq-item h3 {
-  color: #444;
-  margin-bottom: 0.5rem;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+  font-size: 1.3rem;
+  font-weight: 600;
 }

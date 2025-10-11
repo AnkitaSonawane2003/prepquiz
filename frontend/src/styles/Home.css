@@ -18,6 +18,7 @@ body {
   cursor: default;
 }
 
+
 /* ------------------- */
 /* 🎯 Hero Section     */
 /* ------------------- */
@@ -121,6 +122,47 @@ body {
 .feature-grid {
   display: flex;
   justify-content: center;
+
+}
+.hero {
+  background-color: #f9fafb;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 60px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
+  margin-top: 50px;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;  /* allow wrapping */
+  word-break: break-word;     /* break long words */
+}
+
+.typing-text {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #0D9488, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 auto 15px auto;
+  max-width: 90vw;
+  overflow: visible;          /* show full content */
+  white-space: normal;        /* allow wrapping */
+  /* REMOVE any nowrap or ellipsis */
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .typing-text {
+    font-size: 2rem;
+    max-width: 100%;
+    white-space: normal;      /* wrap text */
+    overflow: visible;
+  }
+
+  .hero {
+    padding: 30px 15px;
+  }
 }
 
 .feature-item {

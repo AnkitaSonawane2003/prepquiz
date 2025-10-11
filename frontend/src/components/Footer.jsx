@@ -38,8 +38,8 @@ const Footer = () => {
         {/* Contact */}
         <div className="footer-section">
           <h3>Contact</h3>
-          <p>📧 prepquiz@gmail.com</p>
-          <p>📍 Chhatrapati Sambhajinagar</p>
+          <p className="email">📧 prepquiz@gmail.com</p>
+          <p >📍 Chhatrapati Sambhajinagar</p>
                  <div className="footer-section">
   <h3>Follow Us</h3>
   <div className="social-icons">
