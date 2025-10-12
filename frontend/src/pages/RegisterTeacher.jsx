@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify"; // ✅ Add toastify
+import "react-toastify/dist/ReactToastify.css"; // ✅ Toast styles
 import "../styles/RegisterTeacher.css";
 
 export default function RegisterTeacher() {
@@ -17,7 +19,6 @@ export default function RegisterTeacher() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // Handle input change
@@ -27,44 +28,41 @@ export default function RegisterTeacher() {
   };
 
   // Handle form submission
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError(null);
-  setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  console.log("Submitting data:", formData);
-
-  try {
-    const response = await fetch("http://localhost:5000/api/teacher/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    console.log("Response status:", response.status);
-    const data = await response.json();
-    console.log("Response data:", data);
-
-    if (response.ok) {
-      alert(data.message || "Teacher registered successfully!");
-      setFormData({
-        fullName: "",
-        email: "",
-        password: "",
-        department: "",
+    try {
+      const response = await fetch("http://localhost:5000/api/teacher/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-      navigate("/teacherlogin", { replace: true });
-    } else {
-      setError(data.message || "Registration failed. Please try again.");
-    }
-  } catch (err) {
-    console.error("Registration error:", err);
-    setError("Server error. Please try again later.");
-  } finally {
-    setLoading(false);
-  }
-};
 
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(data.message || "Teacher registered successfully!");
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+          department: "",
+        });
+
+        setTimeout(() => {
+          navigate("/teacherlogin", { replace: true });
+        }, 2000);
+      } else {
+        toast.error(data.message || "Registration failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Registration error:", err);
+      toast.error("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="register-container">
@@ -146,8 +144,6 @@ const handleSubmit = async (e) => {
             </select>
           </div>
 
-          {error && <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>}
-
           <button type="submit" className="register-btn" disabled={loading}>
             {loading ? "Registering..." : "Register"}
           </button>
@@ -160,6 +156,9 @@ const handleSubmit = async (e) => {
           </Link>
         </p>
       </div>
+
+      {/* ✅ Toast Container for showing messages */}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
-}  
+}

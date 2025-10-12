@@ -1,61 +1,66 @@
-import React from 'react'
-import "../styles/Contact.css"
+import React from 'react';
+import "../styles/Contact.css";
+
 function Contact() {
   return (
-   <div className="contact-page">
-      {/* Contact Header */}
-      <section className="contact-header">
-        <h1>Contact Us</h1>
-        <p>
-          Have questions, feedback, or inquiries? We would be glad to hear from you. Fill
-          out the form below and we'll get back to you shortly.
-        </p>
-      </section>
+    <div className="contact-page">
+      <div className="contact-card">
+        {/* Contact Header */}
+        <section className="contact-header">
+          <h1>Contact Us</h1>
+          <p>
+            Have questions, feedback, or inquiries? We would be glad to hear from you. Fill
+            out the form below and we’ll get back to you as soon as possible.
+          </p>
+        </section>
 
-      {/* Contact Form Section */}
-      <section className="contact-form-section">
-        <form className="contact-form" >
-          <label>Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            
-            required
-          />
+        {/* Contact Form Section */}
+        <section className="contact-form-section">
+          <form className="contact-form">
+            <div className="input-group">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Your Name"
+                required
+              />
+            </div>
 
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email"
-           
-            required
-          />
+            <div className="input-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Your Email"
+                required
+              />
+            </div>
 
-         
+            <div className="input-group">
+              <label htmlFor="message">Message</label>
+              <textarea
+                name="message"
+                id="message"
+                placeholder="Your Message"
+                required
+              ></textarea>
+            </div>
 
-          <label>Message</label>
-          <textarea
-            name="message"
-            placeholder="Your Message"
-           
-            required
-          ></textarea>
+            <button type="submit">Submit</button>
+          </form>
+        </section>
 
-          <button type="submit">Submit</button>
-        </form>
-
-       
-      </section>
-
-      {/* Contact Info (Optional) */}
-      <section className="contact-info">
-        <p>Email:📧 prepquiz@gmail.com</p>
-        <p>Phone: 123-456-7890</p>
-      </section>
+        {/* Contact Info */}
+        <section className="contact-info">
+          <p>📧 Email: prepquiz@gmail.com</p>
+          <p>📞 Phone: 123-456-7890</p>
+        </section>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Contact
+export default Contact;

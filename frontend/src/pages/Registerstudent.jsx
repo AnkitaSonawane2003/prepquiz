@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify"; // ✅ NEW
+import "react-toastify/dist/ReactToastify.css"; // ✅ NEW
 import "../styles/RegisterTeacher.css";
 
 export default function RegisterStudent() {
@@ -10,7 +12,7 @@ export default function RegisterStudent() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    rollNumber: "", // new field
+    rollNumber: "",
     password: "",
     department: "",
   });
@@ -41,7 +43,7 @@ export default function RegisterStudent() {
       const data = await response.json();
 
       if (response.ok) {
-        alert(data.message || "Student registered successfully!");
+        toast.success(data.message || "Student registered successfully!"); // ✅ REPLACED alert
         setFormData({
           fullName: "",
           email: "",
@@ -49,13 +51,17 @@ export default function RegisterStudent() {
           password: "",
           department: "",
         });
-        navigate("/studentlogin", { replace: true });
+
+        // Delay redirect to allow time for toast message
+        setTimeout(() => {
+          navigate("/studentlogin", { replace: true });
+        }, 2000);
       } else {
-        setError(data.message || "Registration failed. Please try again.");
+        toast.error(data.message || "Registration failed. Please try again."); // ✅ TOAST for errors
       }
     } catch (err) {
       console.error("Registration error:", err);
-      setError("Server error. Please try again later.");
+      toast.error("Server error. Please try again later."); // ✅ TOAST for server errors
     } finally {
       setLoading(false);
     }
@@ -100,7 +106,7 @@ export default function RegisterStudent() {
               onChange={handleChange}
               required
               placeholder="Enter your roll number"
-              pattern="[A-Za-z0-9]+" // allows letters and numbers only
+              pattern="[A-Za-z0-9]+"
               title="Roll number must be alphanumeric"
             />
           </div>
@@ -129,8 +135,7 @@ export default function RegisterStudent() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ")
-                    togglePasswordVisibility();
+                  if (e.key === "Enter" || e.key === " ") togglePasswordVisibility();
                 }}
               >
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
@@ -172,6 +177,9 @@ export default function RegisterStudent() {
           </Link>
         </p>
       </div>
+
+      {/* ✅ Toast container */}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }

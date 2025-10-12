@@ -16,14 +16,15 @@
   transition: all 0.3s ease;
 }
 
+/* Prevent content from hiding behind navbar */
 body {
   margin: 0;
-  padding-top: 150px; /* To prevent content hidden behind navbar */
+  padding-top: 150px;
 }
 
 /* Scroll effect */
 .navbar.scrolled {
-  background: #111827; /* Dark mode style when scrolling */
+  background: #111827; /* Darker when scrolled */
   padding: 0.5rem 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -54,17 +55,17 @@ body {
   margin: 0;
   padding: 0;
   transition: max-height 0.4s ease, opacity 0.3s ease;
-  align-items: center; /* Vertically center items */
+  align-items: center;
 }
 
 .navbar-links li {
   display: flex;
-  align-items: center; /* Center children vertically */
+  align-items: center;
 }
 
-/* Links */
+/* ✅ SHARED LINK STYLES FOR <a> AND <button> */
 .navbar-links li a,
-.navbar-links li button.logout-btn {
+.navbar-links li button.nav-link {
   color: white;
   text-decoration: none;
   font-weight: 500;
@@ -76,47 +77,31 @@ body {
   padding: 6px 14px;
   border-radius: 20px;
   font-family: Arial, sans-serif;
-  font-size: 1.2rem;  /* Increased font size */
+  font-size: 1.2rem;
 }
 
-/* Hover underline animation for links */
+/* Hover underline animation */
 .navbar-links li a::after,
-.navbar-links li button.logout-btn::after {
+.navbar-links li button.nav-link::after {
   content: "";
   position: absolute;
   left: 0;
   bottom: -4px;
   width: 0%;
   height: 2px;
-  background: #93C5FD; /* Default link underline color */
+  background: #93C5FD;
   transition: width 0.3s ease;
 }
 
-.navbar-links li a:hover::after {
-  width: 100%;
-}
-
-.navbar-links li a:hover {
+/* Hover effects for both links and buttons */
+.navbar-links li a:hover,
+.navbar-links li button.nav-link:hover {
   color: #FFD700; /* Gold glow */
   transform: scale(1.1);
 }
 
-/* Logout button specific styling */
-.logout-btn {
-  color: red; /* Red text */
-
-}
-
-.logout-btn::after {
-  background: red; /* Red underline */
-}
-
-.logout-btn:hover {
-  color: #ff4d4d; /* lighter red on hover */
-  transform: scale(1.1);
-}
-
-.logout-btn:hover::after {
+.navbar-links li a:hover::after,
+.navbar-links li button.nav-link:hover::after {
   width: 100%;
 }
 

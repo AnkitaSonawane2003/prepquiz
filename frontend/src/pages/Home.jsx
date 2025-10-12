@@ -41,7 +41,7 @@ const Home = () => {
         <h2>"Practice. Analyze. Succeed."</h2>
 
         {/* Get Started button navigates to Login/Register */}
-        <Link to="/select" aria-label="Navigate to selection page">
+        <Link to="/selection" aria-label="Navigate to selection page">
           <button>Get Started</button>
         </Link>
       </section>

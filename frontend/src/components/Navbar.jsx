@@ -88,17 +88,18 @@ const Navbar = () => {
             <Link to="/selection" onClick={closeMenu}>Login/Register</Link>
           </li>
         ) : (
-          <li>
+     <li>
   <button
     onClick={() => {
       closeMenu();
       handleLogout();
     }}
-    className="logout-btn"
+    className="nav-link"
   >
     Logout
   </button>
 </li>
+
 
         )}
       </ul>
