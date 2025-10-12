@@ -1,0 +1,126 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px; /* slightly below navbar */
+  padding: 10px;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.profile-card {
+  width: 420px;
+  max-width: 90%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+.profile-card h2 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+}
+
+.profile-image {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.profile-image img {
+  width: 110px;
+  border-radius: 50%;
+  border: 3px solid #007bff;
+  padding: 5px;
+  transition: transform 0.3s ease;
+}
+
+.profile-image img:hover {
+  transform: scale(1.1) rotate(3deg);
+}
+
+.profile-details {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.profile-details label {
+  font-weight: 600;
+  color: #444;
+  display: block;
+  margin-bottom: 3px;
+  transition: color 0.3s ease;
+}
+
+.profile-details input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 12px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-details input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0,123,255,0.3);
+  outline: none;
+}
+
+.profile-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.edit-btn,
+.save-btn,
+.cancel-btn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-btn { background: #007bff; color: #fff; }
+.save-btn { background: #28a745; color: #fff; }
+.cancel-btn { background: #dc3545; color: #fff; }
+
+.edit-btn:hover,
+.save-btn:hover,
+.cancel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+  .profile-card {
+    width: 100%;
+    padding: 20px;
+  }
+  .profile-image img {
+    width: 90px;
+  }
+  .edit-btn, .save-btn, .cancel-btn {
+    width: 100%;
+    margin: 5px 0;
+  }
+}

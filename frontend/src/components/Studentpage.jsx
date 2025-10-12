@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import "../styles/student.css";
 
 const StudentPage = () => {
@@ -24,8 +24,6 @@ const StudentPage = () => {
     { id: 2, title: "HTML & CSS", score: 92, status: "Passed" },
   ];
 
-  const profileCompletion = 75; // percent
-
   const motivationalThought1 =
     "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill";
   const motivationalThought2 =
@@ -42,27 +40,44 @@ const StudentPage = () => {
         <h2 className="sidebar-title">Student Portal</h2>
         <ul className="nav-links">
           <li>
-            <NavLink to="/dashboard" activeClassName="active-link">
+            <NavLink
+              to="/studentpage"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               Dashboard
             </NavLink>
           </li>
           <li>
-            <NavLink to="/modules" activeClassName="active-link">
+            <NavLink
+              to="/studentmodules"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               Coding Practice
             </NavLink>
           </li>
           <li>
-            <NavLink to="/tests" activeClassName="active-link">
+            <NavLink
+              to="/studenttests"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               Tests
             </NavLink>
           </li>
           <li>
-            <NavLink to="/profile" activeClassName="active-link">
+            <NavLink
+              to="/studentprofile"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               Profile
             </NavLink>
           </li>
           <li>
-            <NavLink to="/logout">Evaluation</NavLink>
+            <NavLink
+              to="/studentevaluation"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
+              Evaluation
+            </NavLink>
           </li>
         </ul>
       </nav>
@@ -123,30 +138,12 @@ const StudentPage = () => {
           </ul>
         </section>
 
-        {/* Profile Completion */}
-        <section className="dashboard-section profile-completion">
-          <h3>Profile Completion</h3>
-          <div className="progress-bar">
-            <div
-              className="progress-bar-fill"
-              style={{ width: `${profileCompletion}%` }}
-            >
-              {profileCompletion}%
-            </div>
-          </div>
-          {profileCompletion < 100 && (
-            <p className="completion-note">Complete your profile for best experience!</p>
-          )}
-        </section>
-
         {/* Motivational Cards */}
         <div className="motivation-cards-container">
           <div className="motivation-card" title={motivationalThought1}>
-            <h3>Motivational Thought</h3>
             <p>{motivationalThought1}</p>
           </div>
           <div className="motivation-card" title={motivationalThought2}>
-            <h3>Motivational Thought</h3>
             <p>{motivationalThought2}</p>
           </div>
         </div>
@@ -160,8 +157,6 @@ const StudentPage = () => {
             ))}
           </ul>
         </section>
-
-        <Outlet />
       </main>
     </div>
   );
