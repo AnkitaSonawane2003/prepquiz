@@ -31,6 +31,14 @@ app.use('/api/admin', require('./routes/admin'));     // Admin creation
 app.use('/api/teacher', require('./routes/teacher')); // Teacher registration & login
 app.use('/api/student', require('./routes/student')); // ✅ Student registration & login
 
+
+//contact
+
+// Add this line with your other route imports:
+app.use('/api/contact', require('./routes/contact'));
+
+
+
 // ==============================
 // 🌐 Serve React frontend in production
 // ==============================
