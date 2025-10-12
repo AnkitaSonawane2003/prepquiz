@@ -140,16 +140,22 @@
 /* Each motivational card */
 .motivation-card {
   flex: 1 1 45%;
-  background: #f39c12;
+  background: #00bfa5; /* teal-ish */
   border-radius: 15px;
   padding: 30px;
-  box-shadow: 0 8px 20px rgba(243, 156, 18, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 191, 165, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: white;
   min-width: 280px;
+  transition: transform 0.3s ease;
 }
+
+.motivation-card:hover {
+  transform: translateY(-5px);
+}
+
 
 .motivation-card h3 {
   font-size: 2rem;

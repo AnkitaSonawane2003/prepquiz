@@ -23,17 +23,17 @@ const Teacherpage = () => {
               Add Test
             </NavLink>
           </li>
-         
+          <li>
+            <NavLink to="/logout">
+              Add Coding question
+            </NavLink>
+          </li>
           <li>
             <NavLink to="/profile" activeClassName="active-link">
               Student Reports
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/logout">
-              
-            </NavLink>
-          </li>
+         
         </ul>
       </nav>
 
