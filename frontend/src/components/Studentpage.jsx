@@ -1,190 +1,146 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import axios from 'axios';
+import React, { useState } from "react";
+
+const questionsData = {
+  aptitude: [
+    { id: 1, question: "What is the next number in the series: 2, 4, 8, 16, ?" },
+    { id: 2, question: "If a train travels at 60km/h for 2 hours, how far does it go?" },
+  ],
+  dsa: [
+    { id: 1, question: "Explain the difference between an array and linked list." },
+    { id: 2, question: "Implement a function to reverse a string." },
+  ],
+  gd: [
+    { id: 1, question: "Discuss the impact of social media on youth." },
+    { id: 2, question: "Is online education better than traditional classrooms?" },
+  ],
+};
 
 const StudentDashboard = () => {
-  const navigate = useNavigate();
-  const [profile, setProfile] = useState(null);
-  const [modules, setModules] = useState([]);
-  const [quickStats, setQuickStats] = useState([]);
-  const [recentActivity, setRecentActivity] = useState([]);
-  const [upcomingTests, setUpcomingTests] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("aptitude");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
+  const studentProfile = {
+    name: "John Doe",
+    rollNo: "12345",
+    course: "B.Tech Computer Science",
+    email: "john.doe@studentmail.com",
+  };
 
-        // Fetch profile
-        const profileRes = await axios.get('/api/student/profile', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setProfile(profileRes.data);
-
-        // Fetch modules, stats, activity, and tests
-        const [modulesRes, statsRes, activityRes, testsRes] = await Promise.all([
-          axios.get('/api/student/modules', { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get('/api/student/quick-stats', { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get('/api/student/recent-activity', { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get('/api/student/upcoming-tests', { headers: { Authorization: `Bearer ${token}` } }),
-        ]);
-
-        // Ensure all responses are arrays
-        setModules(Array.isArray(modulesRes.data) ? modulesRes.data : []);
-        setQuickStats(Array.isArray(statsRes.data) ? statsRes.data : []);
-        setRecentActivity(Array.isArray(activityRes.data) ? activityRes.data : []);
-        setUpcomingTests(Array.isArray(testsRes.data) ? testsRes.data : []);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  if (loading)
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  const performanceData = {
+    aptitudeScore: 75,
+    dsaScore: 60,
+    gdScore: 80,
+  };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-      {/* Profile Card */}
-      <div className="bg-white rounded-xl shadow-md p-6 flex flex-col md:flex-row items-center gap-6 mb-8">
-        <div className="relative">
-          <img
-            src={profile?.avatar || 'https://via.placeholder.com/150'}
-            alt={profile?.name || 'Student'}
-            className="w-24 h-24 rounded-full object-cover border-2 border-blue-400"
-          />
-          <button
-            onClick={() => navigate('/edit-profile')}
-            className="absolute bottom-0 right-0 bg-blue-500 p-1.5 rounded-full hover:bg-blue-600 transition"
-          >
-            <PencilSquareIcon className="w-5 h-5 text-white" />
-          </button>
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 via-white to-blue-50 p-8 font-sans text-gray-900">
+      {/* Header */}
+      <header className="flex items-center justify-between bg-teal-700 rounded-lg shadow-lg p-4 mb-8">
+        <div className="flex items-center gap-3">
+          <img src="/logo192.png" alt="PrepQuiz Logo" className="w-12 h-12 rounded-full shadow" />
+          <h1 className="text-yellow-400 font-extrabold text-2xl select-none">PrepQuiz</h1>
         </div>
-        <div className="flex-1 text-center md:text-left">
-          <h2 className="text-2xl font-bold text-gray-900">{profile?.name}</h2>
-          <p className="text-gray-500">{profile?.course || 'Computer Science Student'}</p>
-          <div className="flex justify-center md:justify-start gap-6 mt-4">
-            <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">{profile?.questionsSolved || 0}</p>
-              <p className="text-sm text-gray-500">Questions Solved</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-green-600">{profile?.accuracy || 0}%</p>
-              <p className="text-sm text-gray-500">Accuracy Rate</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">{profile?.weeklyGoal || '0/7'}</p>
-              <p className="text-sm text-gray-500">Weekly Goal</p>
-            </div>
-          </div>
-          <button
-            onClick={() => navigate('/edit-profile')}
-            className="mt-4 w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
-          >
-            Edit Profile
-          </button>
-        </div>
-      </div>
+        <nav className="space-x-6 text-white font-semibold text-lg">
+          <a href="#" className="hover:text-yellow-300 transition-colors">Home</a>
+          <a href="#" className="hover:text-yellow-300 transition-colors">About</a>
+          <a href="#" className="hover:text-yellow-300 transition-colors">Features</a>
+          <a href="#" className="hover:text-yellow-300 transition-colors">Logout</a>
+        </nav>
+      </header>
 
-      {/* Practice Modules */}
-      <h3 className="text-xl font-bold text-gray-900 mb-4">Practice Modules</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        {Array.isArray(modules) &&
-          modules.map((mod, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition cursor-pointer"
-            >
-              <img src={mod.image} alt={mod.title} className="w-full h-32 object-cover" />
-              <div className="p-4">
-                <h4 className="text-lg font-bold text-gray-900 mb-1">{mod.title}</h4>
-                <p className="text-gray-500 text-sm mb-3">{mod.description}</p>
-                <div className="bg-gray-200 h-2 rounded-full mb-3">
+      <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Profile Card */}
+        <aside className="bg-gradient-to-br from-cyan-200 to-teal-300 rounded-xl p-6 shadow-md text-center transition-transform hover:scale-105 duration-300">
+          <img
+            src="https://randomuser.me/api/portraits/men/75.jpg"
+            alt="Profile"
+            className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white shadow"
+          />
+          <h2 className="text-2xl font-bold text-teal-900 mb-1">{studentProfile.name}</h2>
+          <p className="text-teal-800 my-1">
+            <span className="font-semibold">Roll No:</span> {studentProfile.rollNo}
+          </p>
+          <p className="text-teal-700 my-1">
+            <span className="font-semibold">Course:</span> {studentProfile.course}
+          </p>
+          <p className="text-teal-700 my-3 break-words">
+            <span className="font-semibold">Email:</span>{" "}
+            <a href={`mailto:${studentProfile.email}`} className="text-blue-700 hover:underline">
+              {studentProfile.email}
+            </a>
+          </p>
+        </aside>
+
+        {/* Main content area */}
+        <main className="md:col-span-3 flex flex-col gap-10">
+          {/* Tabs */}
+          <div className="border-b border-gray-300 flex justify-center md:justify-start gap-6 mb-6">
+            {["aptitude", "dsa", "gd"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`uppercase font-semibold text-lg px-5 py-2 rounded-md transition duration-300 ${
+                  activeTab === tab
+                    ? "bg-teal-600 text-white shadow-lg shadow-teal-400/40"
+                    : "bg-gray-100 text-gray-600 hover:bg-teal-200 hover:text-teal-700"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          {/* Questions section */}
+          <section className="bg-gradient-to-tr from-white to-teal-50 rounded-lg p-6 shadow-md max-h-[400px] overflow-y-auto">
+            <h3 className="text-xl font-bold text-teal-700 mb-4">{activeTab.toUpperCase()} Questions</h3>
+            <ul className="list-disc list-inside space-y-3 text-teal-600">
+              {questionsData[activeTab].map((q) => (
+                <li key={q.id} className="hover:text-teal-800 transition-colors cursor-pointer">
+                  {q.question}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Performance analysis */}
+          <section className="bg-white rounded-xl p-6 shadow-xl">
+            <h3 className="text-xl font-bold text-teal-900 mb-6 border-b border-teal-200 pb-2 select-none">
+              Performance Analysis
+            </h3>
+
+            <div className="grid grid-cols-3 gap-8 text-center">
+              <div className="bg-teal-100 rounded-xl p-6 shadow-inner">
+                <h4 className="font-semibold text-teal-800 mb-2">Aptitude</h4>
+                <p className="text-3xl font-extrabold text-teal-700">{performanceData.aptitudeScore}%</p>
+                <div className="mt-3 h-3 bg-teal-300 rounded-full overflow-hidden">
                   <div
-                    className="h-2 rounded-full bg-blue-500"
-                    style={{ width: `${mod.progress || 0}%` }}
+                    style={{ width: `${performanceData.aptitudeScore}%` }}
+                    className="h-full bg-teal-600 rounded-full transition-width duration-700 ease-in-out"
                   ></div>
                 </div>
-                <button
-                  onClick={() => navigate(mod.route)}
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white py-1 rounded-md text-sm transition"
-                >
-                  Start Practice
-                </button>
+              </div>
+              <div className="bg-green-100 rounded-xl p-6 shadow-inner">
+                <h4 className="font-semibold text-green-700 mb-2">DSA</h4>
+                <p className="text-3xl font-extrabold text-green-700">{performanceData.dsaScore}%</p>
+                <div className="mt-3 h-3 bg-green-300 rounded-full overflow-hidden">
+                  <div
+                    style={{ width: `${performanceData.dsaScore}%` }}
+                    className="h-full bg-green-600 rounded-full transition-width duration-700 ease-in-out"
+                  ></div>
+                </div>
+              </div>
+              <div className="bg-purple-100 rounded-xl p-6 shadow-inner">
+                <h4 className="font-semibold text-purple-700 mb-2">GD</h4>
+                <p className="text-3xl font-extrabold text-purple-700">{performanceData.gdScore}%</p>
+                <div className="mt-3 h-3 bg-purple-300 rounded-full overflow-hidden">
+                  <div
+                    style={{ width: `${performanceData.gdScore}%` }}
+                    className="h-full bg-purple-600 rounded-full transition-width duration-700 ease-in-out"
+                  ></div>
+                </div>
               </div>
             </div>
-          ))}
-      </div>
-
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        {Array.isArray(quickStats) &&
-          quickStats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center"
-            >
-              <p className="text-sm text-gray-500">{stat.label}</p>
-              <p className="text-xl font-bold text-gray-900">{stat.value}</p>
-              {stat.change && (
-                <p
-                  className={`text-sm ${
-                    stat.change > 0 ? 'text-green-600' : 'text-red-600'
-                  }`}
-                >
-                  {stat.change > 0 ? `+${stat.change}` : stat.change}
-                </p>
-              )}
-            </div>
-          ))}
-      </div>
-
-      {/* Recent Activity & Upcoming Tests */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-md p-4">
-          <h4 className="font-bold text-gray-900 mb-3">Recent Activity</h4>
-          <ul className="space-y-2">
-            {Array.isArray(recentActivity) &&
-              recentActivity.map((act, idx) => (
-                <li
-                  key={idx}
-                  className="text-sm text-gray-500 border-b last:border-0 pb-2"
-                >
-                  {act.title} - {act.progress}
-                </li>
-              ))}
-          </ul>
-        </div>
-        <div className="bg-white rounded-xl shadow-md p-4">
-          <h4 className="font-bold text-gray-900 mb-3">Upcoming Tests</h4>
-          <ul className="space-y-2">
-            {Array.isArray(upcomingTests) &&
-              upcomingTests.map((test, idx) => (
-                <li
-                  key={idx}
-                  className="flex justify-between items-center border-b last:border-0 pb-2"
-                >
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{test.title}</p>
-                    <p className="text-xs text-gray-500">
-                      {test.date} • {test.duration} min
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => navigate(test.route)}
-                    className="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded-md text-sm transition"
-                  >
-                    Start Test
-                  </button>
-                </li>
-              ))}
-          </ul>
-        </div>
+          </section>
+        </main>
       </div>
     </div>
   );
