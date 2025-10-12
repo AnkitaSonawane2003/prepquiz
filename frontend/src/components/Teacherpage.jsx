@@ -33,6 +33,11 @@ const Teacherpage = () => {
               Student Reports
             </NavLink>
           </li>
+            <li>
+            <NavLink to="/profile" activeClassName="active-link">
+              Add Announcement
+            </NavLink>
+          </li>
          
         </ul>
       </nav>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom'; // assuming React Router for navigation
 import "../styles/admin.css";
-
 const Adminpage = () => {
   return (
     <div className="student-page-container">
@@ -33,6 +32,11 @@ const Adminpage = () => {
               Tests count
             </NavLink>
           </li>
+           <li>
+                      <NavLink to="/profile" activeClassName="active-link">
+                        Add Announcement
+                      </NavLink>
+                    </li>
         </ul>
       </nav>
 
