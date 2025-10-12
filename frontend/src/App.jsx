@@ -25,6 +25,7 @@ import Selection from "./pages/Selection";
 import StudentLogin from "./pages/Studentlogin";
 import RegisterStudent from "./pages/Registerstudent";
 import AdminLogin from "./pages/Adminlogin";
+import Doubt from "./admin/Doubt";
 import Studentpage from "./components/Studentpage"
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
         <Route path="/adminpage" element={<Adminpage />} />
         <Route path="/teacherpage" element={<Teacherpage />} />
         <Route path="/studentpage" element={<Studentpage />} />
+        <Route path="doubt" element={<Doubt />}/>
       </Routes>
 
       {/* Common Footer */}

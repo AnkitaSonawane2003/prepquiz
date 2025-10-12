@@ -24,7 +24,7 @@ const StudentPage = () => {
     { id: 2, title: "HTML & CSS", score: 92, status: "Passed" },
   ];
 
-  const profileCompletion = 75; // percent
+
 
   const motivationalThought1 =
     "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill";
@@ -123,30 +123,16 @@ const StudentPage = () => {
           </ul>
         </section>
 
-        {/* Profile Completion */}
-        <section className="dashboard-section profile-completion">
-          <h3>Profile Completion</h3>
-          <div className="progress-bar">
-            <div
-              className="progress-bar-fill"
-              style={{ width: `${profileCompletion}%` }}
-            >
-              {profileCompletion}%
-            </div>
-          </div>
-          {profileCompletion < 100 && (
-            <p className="completion-note">Complete your profile for best experience!</p>
-          )}
-        </section>
+      
 
         {/* Motivational Cards */}
         <div className="motivation-cards-container">
           <div className="motivation-card" title={motivationalThought1}>
-            <h3>Motivational Thought</h3>
+           
             <p>{motivationalThought1}</p>
           </div>
           <div className="motivation-card" title={motivationalThought2}>
-            <h3>Motivational Thought</h3>
+          
             <p>{motivationalThought2}</p>
           </div>
         </div>

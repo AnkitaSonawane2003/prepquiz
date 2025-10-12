@@ -23,7 +23,7 @@ const Adminpage = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/profile" activeClassName="active-link">
+            <NavLink to="/doubt" activeClassName="active-link">
             Doubts Section
             </NavLink>
           </li>

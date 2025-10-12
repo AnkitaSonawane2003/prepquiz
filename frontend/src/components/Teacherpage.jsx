@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom'; // assuming React Router for navigation
-import "../styles/teacher.css";
+import "../styles/Teacher.css";
 
 const Teacherpage = () => {
   return (
