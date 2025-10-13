@@ -116,11 +116,6 @@
   background-color: #34495e;
 }
 
-/* Active nav link */
-.active-link {
-  background-color: #1abc9c;
-  font-weight: bold;
-}
 
 .profile-completion .progress-bar {
   background: #ddd;
@@ -195,6 +190,7 @@
   color: white;
   min-width: 280px;
   transition: transform 0.3s ease;
+
 }
 
 .motivation-card:hover {
@@ -208,7 +204,9 @@
   letter-spacing: 1px;
   text-align: center;
 }
-
+.main-content{
+        margin-top: 100px;
+}
 .motivation-card p {
   font-size: 1.3rem;
   font-style: italic;

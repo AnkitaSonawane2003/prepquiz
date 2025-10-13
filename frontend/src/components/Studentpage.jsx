@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import "../styles/student.css";
 import "../styles/sidebar.css"
 
@@ -25,8 +25,6 @@ const StudentPage = () => {
     { id: 2, title: "HTML & CSS", score: 92, status: "Passed" },
   ];
 
-
-
   const motivationalThought1 =
     "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill";
   const motivationalThought2 =
@@ -43,7 +41,11 @@ const StudentPage = () => {
         <h2 className="unified-sidebar-title">Student Portal</h2>
         <ul className="unified-nav-links">
           <li>
-            <NavLink to="/studentpage" activeClassName="active-link">
+           
+            <NavLink
+              to="/studentpage"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               Dashboard
             </NavLink>
           </li>
@@ -53,18 +55,37 @@ const StudentPage = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/modules" activeClassName="active-link">
+            <NavLink
+              to="/studentmodules"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               Coding Practice
             </NavLink>
           </li>
           <li>
-            <NavLink to="/tests" activeClassName="active-link">
+            <NavLink
+              to="/studenttests"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
               Tests
             </NavLink>
           </li>
          
           <li>
-            <NavLink to="/logout">Evaluation</NavLink>
+            <NavLink
+              to="/studentprofile"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
+              Profile
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/studentevaluation"
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
+              Evaluation
+            </NavLink>
           </li>
         </ul>
       </nav>
@@ -125,16 +146,12 @@ const StudentPage = () => {
           </ul>
         </section>
 
-      
-
         {/* Motivational Cards */}
         <div className="motivation-cards-container">
           <div className="motivation-card" title={motivationalThought1}>
-           
             <p>{motivationalThought1}</p>
           </div>
           <div className="motivation-card" title={motivationalThought2}>
-          
             <p>{motivationalThought2}</p>
           </div>
         </div>
@@ -148,8 +165,6 @@ const StudentPage = () => {
             ))}
           </ul>
         </section>
-
-        <Outlet />
       </main>
     </div>
   );

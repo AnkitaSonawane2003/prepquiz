@@ -39,6 +39,7 @@ const Adminpage = () => {
           <li>
             <NavLink to="/doubt" >
               Doubts Section
+           
             </NavLink>
           </li>
           <li>
