@@ -30,6 +30,8 @@ app.use('/api/auth', require('./routes/auth'));       // Admin login
 app.use('/api/admin', require('./routes/admin'));     // Admin creation
 app.use('/api/teacher', require('./routes/teacher')); // Teacher registration & login
 app.use('/api/student', require('./routes/student')); // ✅ Student registration & login
+app.use('/api/announcement', require('./routes/announcement'));
+
 
 
 //contact

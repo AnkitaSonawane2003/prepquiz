@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import "../styles/student.css";
 import "../styles/sidebar.css"
@@ -30,10 +30,26 @@ const StudentPage = () => {
   const motivationalThought2 =
     "Don’t watch the clock; do what it does. Keep going. – Sam Levenson";
 
-  const announcements = [
-    { id: 1, message: "New coding challenges added for October!" },
-    { id: 2, message: "Platform maintenance scheduled on Oct 20th." },
-  ];
+  
+  const [announcements, setAnnouncements] = useState([]);
+
+  useEffect(() => {
+    async function fetchAnnouncements() {
+      try {
+        const res = await fetch('http://localhost:5000/api/announcement?limit=3'); // Backend should support ?limit=3
+        const data = await res.json();
+        if (data.success) {
+          setAnnouncements(data.announcements);
+        } else {
+          console.error("Failed to fetch announcements");
+        }
+      } catch (err) {
+        console.error("Error fetching announcements:", err);
+      }
+    }
+
+    fetchAnnouncements();
+  }, []);
 
   return (
     <div className="student-page-container">
@@ -158,13 +174,17 @@ const StudentPage = () => {
 
         {/* Announcements */}
         <section className="dashboard-section">
-          <h3>Announcements</h3>
-          <ul className="announcement-list">
-            {announcements.map((item) => (
-              <li key={item.id}>{item.message}</li>
-            ))}
-          </ul>
-        </section>
+      <h3>Announcements</h3>
+      <ul className="announcement-list">
+        {announcements.length > 0 ? (
+          announcements.map(item => (
+            <li key={item._id || item.id}>{item.message}</li>
+          ))
+        ) : (
+          <li>No announcements available</li>
+        )}
+      </ul>
+    </section>
       </main>
     </div>
   );

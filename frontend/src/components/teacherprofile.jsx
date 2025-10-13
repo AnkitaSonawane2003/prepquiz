@@ -1,25 +1,59 @@
-import React, { useState } from "react";
-import "../styles/studentprofile.css"; // reuse student profile styles
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../styles/studentprofile.css"; // reuse your existing styles
 
 const TeacherProfile = () => {
-  const [profile, setProfile] = useState({
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    department: "Computer Science",
-    employeeId: "EMP2025001",
-    phone: "9876543210",
-  });
-
+  const navigate = useNavigate();
+  const [profile, setProfile] = useState(null);
+  const [editedProfile, setEditedProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const [editedProfile, setEditedProfile] = useState({ ...profile });
+  const [loading, setLoading] = useState(true);
+
+  // Fetch teacher profile on component mount
+  useEffect(() => {
+    const token = localStorage.getItem("teacherToken");
+    if (!token) {
+      navigate("/login"); // redirect if not logged in
+      return;
+    }
+
+    axios
+      .get("http://localhost:5000/api/teachers/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setProfile(res.data);
+        setEditedProfile(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching profile:", err);
+        localStorage.removeItem("teacherToken");
+        navigate("/login"); // redirect if token invalid
+      });
+  }, [navigate]);
 
   const handleEditChange = (e) => {
     setEditedProfile({ ...editedProfile, [e.target.name]: e.target.value });
   };
 
   const handleSave = () => {
-    setProfile(editedProfile);
-    setIsEditing(false);
+    const token = localStorage.getItem("teacherToken");
+    axios
+      .put("http://localhost:5000/api/teachers/profile", editedProfile, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setProfile(res.data);
+        setEditedProfile(res.data);
+        setIsEditing(false);
+        alert("Profile updated successfully!");
+      })
+      .catch((err) => {
+        console.error("Error updating profile:", err);
+        alert("Failed to update profile.");
+      });
   };
 
   const handleCancel = () => {
@@ -27,10 +61,14 @@ const TeacherProfile = () => {
     setIsEditing(false);
   };
 
+  if (loading) return <p>Loading profile...</p>;
+  if (!profile) return <p>Profile not found.</p>;
+
   return (
     <div className="profile-container">
       <div className="profile-card">
         <h2>Teacher Profile</h2>
+
         <div className="profile-image">
           <img
             src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
@@ -39,50 +77,63 @@ const TeacherProfile = () => {
         </div>
 
         <div className="profile-details">
-          <label>Name:</label>
+          <label>Full Name:</label>
           {isEditing ? (
-            <input type="text" name="name" value={editedProfile.name} onChange={handleEditChange} />
+            <input
+              type="text"
+              name="fullName"
+              value={editedProfile.fullName}
+              onChange={handleEditChange}
+            />
           ) : (
-            <p>{profile.name}</p>
+            <p>{profile.fullName}</p>
           )}
 
           <label>Email:</label>
-          {isEditing ? (
-            <input type="email" name="email" value={editedProfile.email} onChange={handleEditChange} />
-          ) : (
-            <p>{profile.email}</p>
-          )}
+          <p>{profile.email}</p> {/* Email usually not editable */}
 
           <label>Department:</label>
           {isEditing ? (
-            <input type="text" name="department" value={editedProfile.department} onChange={handleEditChange} />
+            <input
+              type="text"
+              name="department"
+              value={editedProfile.department}
+              onChange={handleEditChange}
+            />
           ) : (
             <p>{profile.department}</p>
           )}
 
           <label>Employee ID:</label>
-          {isEditing ? (
-            <input type="text" name="employeeId" value={editedProfile.employeeId} onChange={handleEditChange} />
-          ) : (
-            <p>{profile.employeeId}</p>
-          )}
+          <p>{profile.employeeId || "Not assigned"}</p>
 
           <label>Phone:</label>
           {isEditing ? (
-            <input type="text" name="phone" value={editedProfile.phone} onChange={handleEditChange} />
+            <input
+              type="text"
+              name="phone"
+              value={editedProfile.phone || ""}
+              onChange={handleEditChange}
+            />
           ) : (
-            <p>{profile.phone}</p>
+            <p>{profile.phone || "Not provided"}</p>
           )}
         </div>
 
         <div className="profile-buttons">
           {isEditing ? (
             <>
-              <button className="save-btn" onClick={handleSave}>Save</button>
-              <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+              <button className="save-btn" onClick={handleSave}>
+                Save
+              </button>
+              <button className="cancel-btn" onClick={handleCancel}>
+                Cancel
+              </button>
             </>
           ) : (
-            <button className="edit-btn" onClick={() => setIsEditing(true)}>Edit Profile</button>
+            <button className="edit-btn" onClick={() => setIsEditing(true)}>
+              Edit Profile
+            </button>
           )}
         </div>
       </div>

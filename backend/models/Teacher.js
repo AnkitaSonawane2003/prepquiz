@@ -5,6 +5,8 @@ const teacherSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   department: { type: String, required: true },
-});
+  phone: { type: String, default: '' },        // optional phone number
+  employeeId: { type: String, default: '' },   // optional employee ID
+}, { timestamps: true }); // add timestamps for createdAt and updatedAt
 
 module.exports = mongoose.model('Teacher', teacherSchema);

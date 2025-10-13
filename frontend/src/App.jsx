@@ -24,6 +24,8 @@ import Doubt from "./admin/Doubt";
 import Studentpage from "./components/Studentpage"
 import Studentdata from "./admin/Studentdata";
 import Teacherdata from "./admin/Teacherdata";
+import Addannouncement from "./admin/Addannouncement";
+
 
 import Adminpage from "./components/Adminpage";
 import Teacherpage from "./components/Teacherpage";
@@ -61,6 +63,9 @@ function App() {
          <Route path="studdata" element={<Studentdata />}/>
         <Route path="/studentpage" element={<StudentPage />} />
           <Route path="/teacherdata" element={<Teacherdata />} />
+           <Route path="/announce" element={<Addannouncement />} />
+          
+
 
         {/* Profile pages */}
         <Route path="/studentprofile" element={<StudentProfile />} />
