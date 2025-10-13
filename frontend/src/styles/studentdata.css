@@ -1,0 +1,37 @@
+.student-data-container {
+  margin-top: 20px;
+  
+}
+
+.student-data-container h2 {
+  margin-bottom: 15px;
+  color: #333;
+  margin-top: 30px;
+}
+
+.student-data-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.student-data-container th,
+.student-data-container td {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.student-data-container th {
+  background-color: #1abc9c;
+  color: white;
+}
+
+.student-data-container tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.student-data-container tr:hover {
+  background-color: #f1f1f1;
+}

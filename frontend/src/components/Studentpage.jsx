@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import "../styles/student.css";
+import "../styles/sidebar.css"
 
 const StudentPage = () => {
   // Mocked data
@@ -38,12 +39,17 @@ const StudentPage = () => {
 
   return (
     <div className="student-page-container">
-      <nav className="sidebar">
-        <h2 className="sidebar-title">Student Portal</h2>
-        <ul className="nav-links">
+      <nav className="unified-sidebar">
+        <h2 className="unified-sidebar-title">Student Portal</h2>
+        <ul className="unified-nav-links">
           <li>
-            <NavLink to="/dashboard" activeClassName="active-link">
+            <NavLink to="/studentpage" activeClassName="active-link">
               Dashboard
+            </NavLink>
+          </li>
+           <li>
+            <NavLink to="/profile" activeClassName="active-link">
+              Profile
             </NavLink>
           </li>
           <li>
@@ -56,11 +62,7 @@ const StudentPage = () => {
               Tests
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/profile" activeClassName="active-link">
-              Profile
-            </NavLink>
-          </li>
+         
           <li>
             <NavLink to="/logout">Evaluation</NavLink>
           </li>

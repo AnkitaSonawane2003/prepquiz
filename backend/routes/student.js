@@ -46,4 +46,18 @@ router.post("/login", async (req, res) => {
   }
 });
 
+
+
+// Get all students (for admin / staff usage)
+router.get("/students", async (req, res) => {
+  try {
+    const students = await Student.find({}, "-password"); // exclude password field
+    res.json({ success: true, students });
+  } catch (err) {
+    console.error("Error fetching students:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+
 module.exports = router;
