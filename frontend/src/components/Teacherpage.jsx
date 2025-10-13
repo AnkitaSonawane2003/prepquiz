@@ -18,7 +18,7 @@ function TeacherPage() {
     { id: 1, event: "Array Challenge", date: "2025-10-10" },
   ];
 
-  const motivationalQuotes = ["Keep pushing forward!", "Code is power!"];
+  const motivationalQuotes = ["Teaching is the one profession that creates all other professions", "A good teacher is like a candle — it consumes itself to light the way for others."];
   const announcements = [{ id: 1, message: "New test added" }];
 
   return (
@@ -48,7 +48,7 @@ function TeacherPage() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/student-data" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink to="/studdata" className={({ isActive }) => isActive ? "active-link" : ""}>
               Student Data
             </NavLink>
           </li>

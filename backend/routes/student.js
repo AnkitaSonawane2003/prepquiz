@@ -62,6 +62,7 @@ router.post("/login", async (req, res) => {
 
 // Get all students (for admin / staff usage)
 router.get("/students", async (req, res) => {
+   console.log("GET /students route hit");
   try {
     const students = await Student.find({}, "-password"); // exclude password field
     res.json({ success: true, students });
@@ -86,5 +87,20 @@ router.get("/profile", auth, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+
+
+
+// GET /api/student/count
+router.get('/count', async (req, res) => {
+  try {
+    const count = await Student.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    console.error("Student count error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 module.exports = router;

@@ -8,25 +8,28 @@ function Studentdata() {
 
   useEffect(() => {
     // Fetch the student data when component mounts
+    
     const fetchStudents = async () => {
-      try {
-        const response = await fetch("/api/students");  // adjust URL based on your API
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        if (data.success) {
-          setStudents(data.students);
-        } else {
-          throw new Error(data.message || "Failed to fetch students");
-        }
-      } catch (err) {
-        console.error("Error fetching students:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  try {
+    const response = await fetch("http://localhost:5000/api/student/students")
+    console.log("Response object:", response);
+    const data = await response.json();
+    console.log("Parsed JSON data:", data);
+
+    if (response.ok && data.success) {
+      setStudents(data.students);
+    } else {
+      console.error("Backend returned error:", data);
+      throw new Error(data.message || "Failed to fetch students");
+    }
+  } catch (err) {
+    console.error("Error fetching students:", err);
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
     fetchStudents();
   }, []);
@@ -39,13 +42,14 @@ function Studentdata() {
     return <div>Error: {error}</div>;
   }
 
-  return (
-    <div className="student-data-container">
+return (
+  <div className="student-data-container">
+    <div>  {/* This div gets the white background and shadow */}
       <h2>All Students</h2>
       {students.length === 0 ? (
-        <div>No students found.</div>
+        <div  className="table-wrapper">No students found.</div>
       ) : (
-        <table>
+        <table >
           <thead>
             <tr>
               <th>Name</th>
@@ -67,7 +71,9 @@ function Studentdata() {
         </table>
       )}
     </div>
-  );
+  </div>
+);
+
 }
 
 export default Studentdata;

@@ -33,4 +33,15 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /api/contact/count
+router.get('/count', async (req, res) => {
+  try {
+    const count = await Contact.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    console.error("Error fetching contact count:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;

@@ -23,6 +23,7 @@ import AdminLogin from "./pages/Adminlogin";
 import Doubt from "./admin/Doubt";
 import Studentpage from "./components/Studentpage"
 import Studentdata from "./admin/Studentdata";
+import Teacherdata from "./admin/Teacherdata";
 
 import Adminpage from "./components/Adminpage";
 import Teacherpage from "./components/Teacherpage";
@@ -59,6 +60,7 @@ function App() {
         <Route path="doubt" element={<Doubt />}/>
          <Route path="studdata" element={<Studentdata />}/>
         <Route path="/studentpage" element={<StudentPage />} />
+          <Route path="/teacherdata" element={<Teacherdata />} />
 
         {/* Profile pages */}
         <Route path="/studentprofile" element={<StudentProfile />} />

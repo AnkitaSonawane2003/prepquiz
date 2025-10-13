@@ -70,4 +70,34 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+
+// In your teacher routes file
+
+// Get all teachers
+router.get('/all', async (req, res) => {
+  try {
+    const teachers = await Teacher.find({}, '-password'); // exclude password field
+    res.json({ success: true, teachers });
+  } catch (err) {
+    console.error('Error fetching teachers:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+});
+
+
+
+
+// GET /api/teacher/count
+router.get('/count', async (req, res) => {
+  try {
+    const count = await Teacher.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    console.error("Teacher count error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 module.exports = router;

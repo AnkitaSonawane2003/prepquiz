@@ -1,5 +1,5 @@
 /* Outer container with cream background filling viewport */
-.student-data-container {
+.teacher-data-container {
   min-height: 100vh;
   width: 100%;
   padding: 40px 50px;
@@ -11,16 +11,16 @@
   justify-content: flex-start;
   margin-top: 110px; /* space at top */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
   color: #333;
 }
 
 /* Inner white card fills almost whole viewport */
-.student-data-container > div {
+.teacher-data-container > div {
   max-width: none;           /* allow full width */
   width: 100%;               /* full width inside padding */
   min-height: calc(100vh - 110px - 80px); /* height minus margins */
   margin: 0 auto;            /* centered */
-  
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -31,12 +31,12 @@
 }
 
 /* Card hover shadow */
-.student-data-container > div:hover {
+.teacher-data-container > div:hover {
   box-shadow: 0 12px 40px rgba(26, 188, 156, 0.3);
 }
 
 /* Header */
-.student-data-container h2 {
+.teacher-data-container h2 {
   font-size: 2.4rem;
   font-weight: 700;
   color: #1abc9c;
@@ -53,7 +53,7 @@
 }
 
 /* Table styles */
-.student-data-container table {
+.teacher-data-container table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 10px;
@@ -65,7 +65,7 @@
 }
 
 /* Table head */
-.student-data-container thead tr {
+.teacher-data-container thead tr {
   background-color: #1abc9c;
   color: white;
   text-transform: uppercase;
@@ -74,8 +74,8 @@
 }
 
 /* Table header and data cells */
-.student-data-container th,
-.student-data-container td {
+.teacher-data-container th,
+.teacher-data-container td {
   padding: 14px 20px;
   text-align: left;
   border: none;
@@ -83,7 +83,7 @@
 }
 
 /* Table body rows */
-.student-data-container tbody tr {
+.teacher-data-container tbody tr {
   background: #f9f9f9;
   border-radius: 10px;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -92,53 +92,53 @@
 }
 
 /* Hover effect on rows */
-.student-data-container tbody tr:hover {
+.teacher-data-container tbody tr:hover {
   background-color: #e0f7f4;
   transform: translateY(-4px);
   box-shadow: 0 6px 18px rgba(26, 188, 156, 0.3);
 }
 
 /* First column styling */
-.student-data-container tbody tr td:first-child {
+.teacher-data-container tbody tr td:first-child {
   font-weight: 600;
   color: #16a085;
 }
 
 /* Italic style for 3rd and 4th columns */
-.student-data-container tbody tr td:nth-child(3),
-.student-data-container tbody tr td:nth-child(4) {
+.teacher-data-container tbody tr td:nth-child(3),
+.teacher-data-container tbody tr td:nth-child(4) {
   font-style: italic;
   color: #555;
 }
 
 /* Responsive for smaller screens */
 @media (max-width: 900px) {
-  .student-data-container h2 {
+  .teacher-data-container h2 {
     font-size: 2rem;
   }
-  .student-data-container th,
-  .student-data-container td {
+  .teacher-data-container th,
+  .teacher-data-container td {
     padding: 12px 16px;
     font-size: 0.9rem;
   }
 }
 
 @media (max-width: 600px) {
-  .student-data-container {
+  .teacher-data-container {
     padding: 25px 15px;
   }
-  .student-data-container > div {
+  .teacher-data-container > div {
     padding: 10px 15px;
     min-height: auto;
   }
-  .student-data-container h2 {
+  .teacher-data-container h2 {
     font-size: 1.8rem;
   }
-  .student-data-container table {
+  .teacher-data-container table {
     font-size: 0.9rem;
   }
-  .student-data-container th,
-  .student-data-container td {
+  .teacher-data-container th,
+  .teacher-data-container td {
     padding: 10px 12px;
   }
 }
