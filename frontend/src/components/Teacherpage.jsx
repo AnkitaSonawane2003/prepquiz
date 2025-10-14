@@ -59,12 +59,12 @@ const [announcements, setAnnouncements] = useState([]);
                       </NavLink>
           </li>
           <li>
-            <NavLink to="/teacherpage/tests" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink to="/add-test" className={({ isActive }) => isActive ? "active-link" : ""}>
               Add Tests
             </NavLink>
           </li>
           <li>
-            <NavLink to="assignments" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink to="/add-aptitude" className={({ isActive }) => isActive ? "active-link" : ""}>
               Add Problems
             </NavLink>
           </li>
