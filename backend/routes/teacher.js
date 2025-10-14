@@ -64,7 +64,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 
 
 // In your teacher routes file
@@ -95,7 +94,6 @@ router.get('/count', async (req, res) => {
 });
 
 
-=======
 // -----------------------------
 // Get logged-in teacher profile
 // -----------------------------
@@ -135,5 +133,4 @@ router.put('/profile', verifyToken, async (req, res) => {
   }
 });
 
->>>>>>> 3cefe17a5c895b66a95802ab77c6cf13053ef71d
 module.exports = router;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/studentprofile.css"; // reuse your existing styles
+import "../styles/studentprofile.css";
 
 const TeacherProfile = () => {
   const navigate = useNavigate();
@@ -9,12 +9,13 @@ const TeacherProfile = () => {
   const [editedProfile, setEditedProfile] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Fetch teacher profile on component mount
+  // Fetch teacher profile on mount
   useEffect(() => {
     const token = localStorage.getItem("teacherToken");
     if (!token) {
-      navigate("/login"); // redirect if not logged in
+      navigate("/login");
       return;
     }
 
@@ -23,14 +24,17 @@ const TeacherProfile = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
+        // Assuming the API returns the profile directly
         setProfile(res.data);
         setEditedProfile(res.data);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching profile:", err);
+        setError("Failed to load profile. Please login again.");
         localStorage.removeItem("teacherToken");
-        navigate("/login"); // redirect if token invalid
+        window.dispatchEvent(new Event("logout")); // Notify others like Navbar
+        navigate("/login");
       });
   }, [navigate]);
 
@@ -40,6 +44,12 @@ const TeacherProfile = () => {
 
   const handleSave = () => {
     const token = localStorage.getItem("teacherToken");
+    if (!token) {
+      alert("You must be logged in to update your profile.");
+      navigate("/login");
+      return;
+    }
+
     axios
       .put("http://localhost:5000/api/teachers/profile", editedProfile, {
         headers: { Authorization: `Bearer ${token}` },
@@ -62,6 +72,7 @@ const TeacherProfile = () => {
   };
 
   if (loading) return <p>Loading profile...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!profile) return <p>Profile not found.</p>;
 
   return (
@@ -82,7 +93,7 @@ const TeacherProfile = () => {
             <input
               type="text"
               name="fullName"
-              value={editedProfile.fullName}
+              value={editedProfile.fullName || ""}
               onChange={handleEditChange}
             />
           ) : (
@@ -90,14 +101,14 @@ const TeacherProfile = () => {
           )}
 
           <label>Email:</label>
-          <p>{profile.email}</p> {/* Email usually not editable */}
+          <p>{profile.email}</p>
 
           <label>Department:</label>
           {isEditing ? (
             <input
               type="text"
               name="department"
-              value={editedProfile.department}
+              value={editedProfile.department || ""}
               onChange={handleEditChange}
             />
           ) : (

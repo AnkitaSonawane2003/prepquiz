@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +10,6 @@ export default function TeacherLogin() {
     email: "",
     password: "",
   });
-
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
@@ -30,7 +28,7 @@ export default function TeacherLogin() {
     setLoading(true);
 
     try {
-      const url = "http://localhost:5000/api/teacher/login";
+      const url = "http://localhost:5000/api/teacher/login"; // ensure correct route
 
       const payload = {
         email: formData.email.toLowerCase(),
@@ -46,7 +44,10 @@ export default function TeacherLogin() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token);
+        // Store the token under teacherToken
+        localStorage.setItem("teacherToken", data.token);
+        // Notify other components (Navbar) about login
+        window.dispatchEvent(new Event("login"));
         setError(null);
         navigate("/teacherpage");
       } else {
@@ -105,7 +106,9 @@ export default function TeacherLogin() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") togglePasswordVisibility();
+                  if (e.key === "Enter" || e.key === " ") {
+                    togglePasswordVisibility();
+                  }
                 }}
               >
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />

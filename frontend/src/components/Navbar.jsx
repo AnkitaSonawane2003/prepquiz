@@ -6,41 +6,66 @@ import Logo from "../assets/logo.jpg";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null); // "teacher", "student", "admin", or null
+
   const navigate = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
-  // Check login status on mount
- useEffect(() => {
-  const checkLogin = () => {
-    const token = localStorage.getItem("token") || localStorage.getItem("studentToken") || localStorage.getItem("teacherToken");
-    setIsLoggedIn(!!token);
+  // utility to check login and role from localStorage
+  const checkLoginStatus = () => {
+    if (localStorage.getItem("teacherToken")) {
+      return { isLoggedIn: true, userRole: "teacher" };
+    } else if (localStorage.getItem("studentToken")) {
+      return { isLoggedIn: true, userRole: "student" };
+    } else if (localStorage.getItem("token")) {
+      return { isLoggedIn: true, userRole: "admin" };
+    } else {
+      return { isLoggedIn: false, userRole: null };
+    }
   };
 
-  checkLogin();
+  // On mount, set login state from storage
+  useEffect(() => {
+    const { isLoggedIn, userRole } = checkLoginStatus();
+    setIsLoggedIn(isLoggedIn);
+    setUserRole(userRole);
+  }, []);
 
-  window.addEventListener("login", checkLogin);
-  window.addEventListener("logout", checkLogin);
+  // Listen to login/logout events
+  useEffect(() => {
+    const updateLoginStatus = () => {
+      const { isLoggedIn, userRole } = checkLoginStatus();
+      setIsLoggedIn(isLoggedIn);
+      setUserRole(userRole);
+    };
 
-  return () => {
-    window.removeEventListener("login", checkLogin);
-    window.removeEventListener("logout", checkLogin);
-  };
-}, []);
+    window.addEventListener("login", updateLoginStatus);
+    window.addEventListener("logout", updateLoginStatus);
 
+    return () => {
+      window.removeEventListener("login", updateLoginStatus);
+      window.removeEventListener("logout", updateLoginStatus);
+    };
+  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("studentToken");
     localStorage.removeItem("teacherToken");
+    localStorage.removeItem("studentToken");
+    localStorage.removeItem("token");
+
     setIsLoggedIn(false);
+    setUserRole(null);
+    window.dispatchEvent(new Event("logout"));
     navigate("/");
   };
 
+  // Scroll effect (optional)
   useEffect(() => {
     const handleScroll = () => {
       const navbar = document.querySelector(".navbar");
+      if (!navbar) return;
       if (window.scrollY > 50) {
         navbar.classList.add("scrolled");
       } else {
@@ -50,6 +75,13 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const getProfileLink = () => {
+    if (userRole === "teacher") return "/teacherprofile";
+    if (userRole === "student") return "/studentprofile";
+    if (userRole === "admin") return "/admin/dashboard";
+    return "/";
+  };
 
   return (
     <nav className="navbar">
@@ -68,39 +100,56 @@ const Navbar = () => {
         <span className="brand-name">PrepQuiz</span>
       </div>
 
-      <button className="menu-icon" onClick={toggleMenu} aria-label="Toggle Menu">
+      <button
+        className="menu-icon"
+        onClick={toggleMenu}
+        aria-label="Toggle Menu"
+      >
         ☰
       </button>
 
       <ul className={`navbar-links ${isOpen ? "active" : ""}`}>
         <li>
-          <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/" onClick={closeMenu}>
+            Home
+          </Link>
         </li>
         <li>
-          <Link to="/about" onClick={closeMenu}>About</Link>
+          <Link to="/about" onClick={closeMenu}>
+            About
+          </Link>
         </li>
         <li>
-          <Link to="/features" onClick={closeMenu}>Features</Link>
+          <Link to="/features" onClick={closeMenu}>
+            Features
+          </Link>
         </li>
 
         {!isLoggedIn ? (
           <li>
-            <Link to="/selection" onClick={closeMenu}>Login/Register</Link>
+            <Link to="/selection" onClick={closeMenu}>
+              Login/Register
+            </Link>
           </li>
         ) : (
-     <li>
-  <button
-    onClick={() => {
-      closeMenu();
-      handleLogout();
-    }}
-    className="nav-link"
-  >
-    Logout
-  </button>
-</li>
-
-
+          <>
+            <li>
+              <Link to={getProfileLink()} onClick={closeMenu}>
+                Profile
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  closeMenu();
+                  handleLogout();
+                }}
+                className="nav-link"
+              >
+                Logout
+              </button>
+            </li>
+          </>
         )}
       </ul>
     </nav>
