@@ -5,7 +5,14 @@
   font-family: Arial, sans-serif;
 
 }
-
+.admin-main-content{
+  margin-top: 10px;
+   flex-grow: 1;
+  background-color: #ecf0f1; /* light gray */
+  padding: 30px;
+  overflow-y: auto;
+        margin-top: 100px;
+}
 /* Sidebar styles */
 .sidebar {
   width: 220px;
@@ -52,10 +59,7 @@
   background-color: #34495e; /* slightly lighter */
 }
 
-.active-link {
-  background-color: #1abc9c; /* turquoise highlight */
-  font-weight: bold;
-}
+
 
 /* Main content area */
 .main-content {

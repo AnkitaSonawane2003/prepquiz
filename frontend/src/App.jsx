@@ -20,6 +20,12 @@ import Selection from "./pages/Selection";
 import StudentLogin from "./pages/Studentlogin";
 import RegisterStudent from "./pages/Registerstudent";
 import AdminLogin from "./pages/Adminlogin";
+import Doubt from "./admin/Doubt";
+import Studentpage from "./components/Studentpage"
+import Studentdata from "./admin/Studentdata";
+import Teacherdata from "./admin/Teacherdata";
+import Addannouncement from "./admin/Addannouncement";
+
 
 import Adminpage from "./components/Adminpage";
 import Teacherpage from "./components/Teacherpage";
@@ -54,7 +60,15 @@ function App() {
 
         {/* Dashboards */}
         <Route path="/adminpage" element={<Adminpage />} />
+        <Route path="/teacherpage" element={<Teacherpage />} />
+        <Route path="/studentpage" element={<Studentpage />} />
+        <Route path="doubt" element={<Doubt />}/>
+         <Route path="studdata" element={<Studentdata />}/>
         <Route path="/studentpage" element={<StudentPage />} />
+          <Route path="/teacherdata" element={<Teacherdata />} />
+           <Route path="/announce" element={<Addannouncement />} />
+          
+
 
         {/* Teacher Dashboard with Nested Routes */}
         <Route path="/teacherpage" element={<Teacherpage />}>
