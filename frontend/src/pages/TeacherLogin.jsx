@@ -44,11 +44,10 @@ export default function TeacherLogin() {
       const data = await response.json();
 
       if (response.ok) {
-        // Store the token under teacherToken
         localStorage.setItem("teacherToken", data.token);
-        // Notify other components (Navbar) about login
-        window.dispatchEvent(new Event("login"));
-        setError(null);
+        console.log("Token saved:", localStorage.getItem("teacherToken"));
+        localStorage.setItem("userRole", "teacher"); // optional
+        window.dispatchEvent(new Event("login"));    // notify Navbar
         navigate("/teacherpage");
       } else {
         setError(data.message || "Login failed. Please try again.");

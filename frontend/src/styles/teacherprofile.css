@@ -4,6 +4,9 @@
   margin-top: 80px; /* slightly below navbar */
   padding: 10px;
   animation: fadeIn 0.8s ease-in-out;
+  margin-top: 130px;
+  margin-bottom: 30px;
+
 }
 
 .profile-card {
