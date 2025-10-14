@@ -1,0 +1,214 @@
+/* 🌟 Modern Add Problem Page Styling */
+
+.add-problem-container-modern {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  font-family: 'Poppins', sans-serif;
+  background: #f5f7fa;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  color: #333;
+  animation: fadeIn 1s ease-out;
+}
+
+/* 🌀 Animated Page Title */
+.page-title-modern {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 35px;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  animation: fadeInUp 1s ease-out;
+  position: relative;
+}
+
+/* 🧡 Emoji Icon */
+.page-title-modern .icon {
+  font-size: 3.3rem;
+  background: linear-gradient(90deg, #ff8c00, #ffb347, #ffd700);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 3s ease-in-out infinite;
+  text-shadow: 0 0 12px rgba(255, 195, 0, 0.4);
+}
+
+/* 💙 Gradient Text */
+.page-title-modern .text {
+  background: linear-gradient(270deg, #6a11cb, #2575fc, #00c6ff);
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 6s ease infinite, glowPulse 3s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(37,117,252,0.3);
+}
+
+/* ✨ Underline */
+.page-title-modern::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 4px;
+  margin: 10px auto 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #6a11cb, #2575fc, #00c6ff);
+  animation: underlineExpand 1.5s ease forwards;
+}
+
+/* 🔷 Card Grid Layout */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* 🧩 Card Design */
+.card, .card-large {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #e0e4e8;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  animation: cardAppear 0.7s ease both;
+}
+
+.card-large {
+  grid-column: span 2;
+}
+
+.card:hover, .card-large:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+}
+
+/* 🖋️ Headings inside Cards */
+.card h2 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #1f3c88;
+}
+
+/* 🧠 Input Fields, Textareas & Dropdowns */
+.card input, 
+.card textarea, 
+.card select,
+.card-large textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 1px solid #cbd2d9;
+  outline: none;
+  font-size: 1rem;
+  resize: vertical;
+  color: #1f3c88;
+  background-color: #f0f4f8;
+  transition: border 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+}
+
+.card input::placeholder,
+.card textarea::placeholder {
+  color: #7a869a;
+}
+
+.card input:focus,
+.card textarea:focus,
+.card select:focus {
+  border-color: #1f3c88;
+  box-shadow: 0 0 8px rgba(31,60,136,0.2);
+}
+
+/* 🎯 Custom Dropdown Arrow */
+.card select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 30px;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%231f3c88' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 16px;
+}
+
+/* 🚀 Submit Button */
+.submit-btn-modern {
+  display: block;
+  margin: 40px auto 0;
+  padding: 15px 50px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #1f3c88, #3a70c3);
+  color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.submit-btn-modern:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* 📱 Responsive Layout */
+@media (max-width: 768px) {
+  .card-large {
+    grid-column: span 1;
+  }
+  .page-title-modern {
+    font-size: 2.2rem;
+  }
+  .page-title-modern .icon {
+    font-size: 2.6rem;
+  }
+}
+
+/* 🎬 Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes underlineExpand {
+  from { width: 0; opacity: 0; }
+  to { width: 120px; opacity: 1; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow: 0 0 8px rgba(37,117,252,0.3), 0 0 20px rgba(37,117,252,0.2);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(106,17,203,0.6), 0 0 40px rgba(0,198,255,0.4);
+  }
+}
+
+@keyframes goldShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes cardAppear {
+  0% { opacity: 0; transform: translateY(20px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}

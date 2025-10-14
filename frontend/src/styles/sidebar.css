@@ -1,0 +1,45 @@
+/* Shared Sidebar Styles for Both Student and Teacher */
+.unified-sidebar {
+  width: 220px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  margin-top: 100px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.unified-sidebar-title {
+  margin: 0 0 30px 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.unified-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.unified-nav-links li {
+  margin-bottom: 25px;
+}
+
+.unified-nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.3rem;
+  padding: 10px 12px;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.unified-nav-links a:hover {
+  background-color: #34495e;
+}
+

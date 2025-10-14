@@ -1,52 +1,59 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink, Outlet } from "react-router-dom";
 import "../styles/teacher.css";
+import "../styles/sidebar.css";
 
-const Teacherpage = () => {
+function TeacherPage() {
   return (
     <div className="teacher-page-container">
-      <nav className="sidebar">
+      {/* Sidebar */}
+      <aside className="sidebar">
         <h2 className="sidebar-title">Teacher Portal</h2>
         <ul className="nav-links">
           <li>
-            <NavLink to="/teacherpage" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink end to="dashboard" className={({ isActive }) => (isActive ? "active-link" : "")}>
               Dashboard
             </NavLink>
           </li>
           <li>
-            <NavLink to="/teacherprofile" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink to="teacherprofile" className={({ isActive }) => (isActive ? "active-link" : "")}>
               Profile
             </NavLink>
           </li>
           <li>
-            <NavLink to="/add-test" className={({ isActive }) => isActive ? "active-link" : ""}>
-              Add Test
+            <NavLink to="tests" className={({ isActive }) => (isActive ? "active-link" : "")}>
+              Add Tests
             </NavLink>
           </li>
           <li>
-            <NavLink to="/add-coding" className={({ isActive }) => isActive ? "active-link" : ""}>
-              Add Coding Question
+            <NavLink to="add-aptitude" className={({ isActive }) => (isActive ? "active-link" : "")}>
+              Add Problems
             </NavLink>
           </li>
           <li>
-            <NavLink to="/student-reports" className={({ isActive }) => isActive ? "active-link" : ""}>
-              Student Reports
+            <NavLink to="studdata" className={({ isActive }) => (isActive ? "active-link" : "")}>
+              Student Data
             </NavLink>
           </li>
           <li>
-            <NavLink to="/announcement" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink to="student-evaluation" className={({ isActive }) => (isActive ? "active-link" : "")}>
+              Student Evaluation
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="announce" className={({ isActive }) => (isActive ? "active-link" : "")}>
               Add Announcement
             </NavLink>
           </li>
         </ul>
-      </nav>
+      </aside>
 
-      <main className="main-content">
-        <h2>Welcome to Teacher Dashboard</h2>
-        {/* Other dashboard widgets can go here */}
+      {/* Main Content */}
+      <main className="teacher-main-content">
+        <Outlet />
       </main>
     </div>
   );
-};
+}
 
-export default Teacherpage;
+export default TeacherPage;
