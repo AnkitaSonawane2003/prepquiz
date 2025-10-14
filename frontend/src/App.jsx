@@ -20,20 +20,19 @@ import Selection from "./pages/Selection";
 import StudentLogin from "./pages/Studentlogin";
 import RegisterStudent from "./pages/Registerstudent";
 import AdminLogin from "./pages/Adminlogin";
+
 import Doubt from "./admin/Doubt";
-import Studentpage from "./components/Studentpage"
 import Studentdata from "./admin/Studentdata";
 import Teacherdata from "./admin/Teacherdata";
 import Addannouncement from "./admin/Addannouncement";
-import AddTest from "./components/AddTest";
-
 
 import Adminpage from "./components/Adminpage";
 import Teacherpage from "./components/Teacherpage";
 import AddProblem from "./components/addaptitudequestion";
+import AddTest from "./components/AddTest";
 import StudentTests from "./components/StudentTests";
 
-import StudentPage from "./components/Studentpage";
+import Studentpage from "./components/Studentpage"; // ✅ correct import
 import StudentProfile from "./components/studentprofile";
 import TeacherProfile from "./components/teacherprofile";
 import Dashboard from "./components/Dashboard";
@@ -44,7 +43,7 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* Public Routes */}
+        {/* 🌐 Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/features" element={<Features />} />
@@ -60,36 +59,24 @@ function App() {
         <Route path="/regstud" element={<RegisterStudent />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
 
-        {/* Dashboards */}
+        {/* 🧑‍💻 Admin Dashboard */}
         <Route path="/adminpage" element={<Adminpage />} />
+        <Route path="/doubt" element={<Doubt />} />
+        <Route path="/studdata" element={<Studentdata />} />
+        <Route path="/teacherdata" element={<Teacherdata />} />
+        <Route path="/announce" element={<Addannouncement />} />
+
+        {/* 👩‍🏫 Teacher Dashboard */}
         <Route path="/teacherpage" element={<Teacherpage />} />
+        <Route path="/teacher-dashboard" element={<Dashboard />} />
+        <Route path="/add-aptitude" element={<AddProblem />} />
+        <Route path="/teacherprofile" element={<TeacherProfile />} />
+        <Route path="/add-test" element={<AddTest />} />
+
+        {/* 🎓 Student Dashboard */}
         <Route path="/studentpage" element={<Studentpage />} />
-        <Route path="doubt" element={<Doubt />}/>
-         <Route path="studdata" element={<Studentdata />}/>
-        <Route path="/studentpage" element={<StudentPage />} />
-          <Route path="/teacherdata" element={<Teacherdata />} />
-           <Route path="/announce" element={<Addannouncement />} />
-        <Route path="/studenttests" element={<StudentTests />} />
-          
-
-
-        {/* Teacher Dashboard with Nested Routes */}
-        <Route path="/teacherpage" element={<Teacherpage />}>
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          {/* Default dashboard content */}
-          {/* <Route
-            index
-            element={<h2 style={{ padding: "20px" }}>Welcome to Teacher Dashboard</h2>}
-          /> */}
-          {/* Nested routes */}
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="tests" element={<AddTest />} />
-          <Route path="assignments" element={<AddProblem />} />
-          <Route path="teacherprofile" element={<TeacherProfile />} />
-        </Route>
-
-        {/* Profile Pages */}
         <Route path="/studentprofile" element={<StudentProfile />} />
+        <Route path="/studenttests" element={<StudentTests />} />
       </Routes>
 
       <Footer />

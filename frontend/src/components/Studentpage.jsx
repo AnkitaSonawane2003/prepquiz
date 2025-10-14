@@ -66,7 +66,7 @@ const StudentPage = () => {
             </NavLink>
           </li>
            <li>
-            <NavLink to="/profile" activeClassName="active-link">
+            <NavLink to="/studentprofile" activeClassName="active-link">
               Profile
             </NavLink>
           </li>
@@ -95,6 +95,7 @@ const StudentPage = () => {
               Profile
             </NavLink>
           </li> */}
+       
           <li>
             <NavLink
               to="/studentevaluation"
