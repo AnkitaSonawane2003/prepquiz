@@ -29,9 +29,12 @@ import Addannouncement from "./admin/Addannouncement";
 
 import Adminpage from "./components/Adminpage";
 import Teacherpage from "./components/Teacherpage";
+import AddProblem from "./components/addaptitudequestion";
+
 import StudentPage from "./components/Studentpage";
 import StudentProfile from "./components/studentprofile";
 import TeacherProfile from "./components/teacherprofile";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
@@ -67,9 +70,22 @@ function App() {
           
 
 
-        {/* Profile pages */}
+        {/* Teacher Dashboard with Nested Routes */}
+        <Route path="/teacherpage" element={<Teacherpage />}>
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          {/* Default dashboard content */}
+          {/* <Route
+            index
+            element={<h2 style={{ padding: "20px" }}>Welcome to Teacher Dashboard</h2>}
+          /> */}
+          {/* Nested routes */}
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="add-aptitude" element={<AddProblem />} />
+          <Route path="teacherprofile" element={<TeacherProfile />} />
+        </Route>
+
+        {/* Profile Pages */}
         <Route path="/studentprofile" element={<StudentProfile />} />
-        <Route path="/teacherprofile" element={<TeacherProfile />} />
       </Routes>
 
       <Footer />
