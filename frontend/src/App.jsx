@@ -25,11 +25,13 @@ import Studentpage from "./components/Studentpage"
 import Studentdata from "./admin/Studentdata";
 import Teacherdata from "./admin/Teacherdata";
 import Addannouncement from "./admin/Addannouncement";
+import AddTest from "./components/AddTest";
 
 
 import Adminpage from "./components/Adminpage";
 import Teacherpage from "./components/Teacherpage";
 import AddProblem from "./components/addaptitudequestion";
+import StudentTests from "./components/StudentTests";
 
 import StudentPage from "./components/Studentpage";
 import StudentProfile from "./components/studentprofile";
@@ -67,6 +69,7 @@ function App() {
         <Route path="/studentpage" element={<StudentPage />} />
           <Route path="/teacherdata" element={<Teacherdata />} />
            <Route path="/announce" element={<Addannouncement />} />
+        <Route path="/studenttests" element={<StudentTests />} />
           
 
 
@@ -80,7 +83,8 @@ function App() {
           /> */}
           {/* Nested routes */}
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="add-aptitude" element={<AddProblem />} />
+          <Route path="tests" element={<AddTest />} />
+          <Route path="assignments" element={<AddProblem />} />
           <Route path="teacherprofile" element={<TeacherProfile />} />
         </Route>
 

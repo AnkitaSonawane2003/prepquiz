@@ -87,14 +87,14 @@ const StudentPage = () => {
             </NavLink>
           </li>
          
-          <li>
+          {/* <li>
             <NavLink
               to="/studentprofile"
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >
               Profile
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink
               to="/studentevaluation"

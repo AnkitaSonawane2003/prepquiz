@@ -1,4 +1,3 @@
-
 import React , { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import "../styles/teacher.css";
@@ -64,7 +63,7 @@ const [announcements, setAnnouncements] = useState([]);
             </NavLink>
           </li>
           <li>
-            <NavLink to="/teacherpage/assignments" className={({ isActive }) => isActive ? "active-link" : ""}>
+            <NavLink to="assignments" className={({ isActive }) => isActive ? "active-link" : ""}>
               Add Problems
             </NavLink>
           </li>
