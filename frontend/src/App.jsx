@@ -28,9 +28,10 @@ import Addannouncement from "./admin/Addannouncement";
 
 import Adminpage from "./components/Adminpage";
 import Teacherpage from "./components/Teacherpage";
-import AddProblem from "./components/addaptitudequestion";
+import AddProblem from "./components/AddProblem";
 import AddTest from "./components/AddTest";
 import StudentTests from "./components/StudentTests";
+import StudentPractice from "./components/StudentPractice";
 
 import Studentpage from "./components/Studentpage"; // ✅ correct import
 import StudentProfile from "./components/studentprofile";
@@ -77,6 +78,7 @@ function App() {
         <Route path="/studentpage" element={<Studentpage />} />
         <Route path="/studentprofile" element={<StudentProfile />} />
         <Route path="/studenttests" element={<StudentTests />} />
+        <Route path="/studentmodules" element={<StudentPractice />} />
       </Routes>
 
       <Footer />

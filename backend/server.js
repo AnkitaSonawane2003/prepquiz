@@ -29,6 +29,7 @@ app.use("/api/student", require("./routes/student"));   // Student registration 
 app.use("/api/announcement", require("./routes/announcement"));
 app.use("/api/tests", testRoutes);                      // ✅ Tests route
 app.use("/api/contact", require("./routes/contact"));
+app.use('/api/problems', require('./routes/problemRoutes'));
 
 // ========================================
 // 🌍 Serve React Frontend (Production Mode)
