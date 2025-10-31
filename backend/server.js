@@ -4,6 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const connectDB = require("./config/db");
 const testRoutes = require("./routes/testRoutes");
+const geminiRoutes = require("./routes/geminiRoutes");
 
 // 📦 Load Environment Variables
 dotenv.config();
@@ -30,6 +31,8 @@ app.use("/api/announcement", require("./routes/announcement"));
 app.use("/api/tests", testRoutes);                      // ✅ Tests route
 app.use("/api/contact", require("./routes/contact"));
 app.use('/api/problems', require('./routes/problemRoutes'));
+
+app.use("/api/gemini", geminiRoutes);
 
 // ========================================
 // 🌍 Serve React Frontend (Production Mode)

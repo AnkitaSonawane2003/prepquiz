@@ -47,11 +47,7 @@ const [announcements, setAnnouncements] = useState([]);
       <nav className="sidebar">
         <h2 className="sidebar-title">Teacher Portal</h2>
         <ul className="nav-links">
-          <li>
-            <NavLink to="/teacherpage" className={({ isActive }) => isActive ? "active-link" : ""}>
-              Dashboard
-            </NavLink>
-          </li>
+         
           <li>
            <NavLink to="/teacherprofile"
                 className={({ isActive }) => (isActive ? "active-link" : "")}>
@@ -80,7 +76,7 @@ const [announcements, setAnnouncements] = useState([]);
           </li>
           <li>
             <NavLink to="/announce" className={({ isActive }) => isActive ? "active-link" : ""}>
-              Add Announcement
+              Add Alert
             </NavLink>
           </li>
         </ul>

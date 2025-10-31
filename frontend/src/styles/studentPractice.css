@@ -9,6 +9,8 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   animation: fadeIn 1s ease-in-out;
+  margin-top: 80px;
+   
 }
 
 /* 🌐 Main container */
@@ -34,7 +36,7 @@
   font-size: 2rem;
   color: #0f172a;
   margin-bottom: 8px;
-  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  background: linear-gradient(90deg, #0D9488, #0D9488);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: glowText 3s infinite alternate;
@@ -119,7 +121,7 @@
 }
 
 .sp-card:hover h2 {
-  color: #2563eb;
+  color: #0D9488;
 }
 
 /* 🏷️ Difficulty Tags */
@@ -176,7 +178,7 @@
 .btn.view-btn {
   padding: 10px 16px;
   border-radius: 10px;
-  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  background: linear-gradient(90deg, #0D9488, #06b6d4);
   color: white;
   border: none;
   cursor: pointer;
@@ -186,7 +188,7 @@
 }
 
 .btn.view-btn:hover {
-  background: linear-gradient(90deg, #1d4ed8, #0891b2);
+  background: linear-gradient(90deg, #0D9488, #0891b2);
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
 }

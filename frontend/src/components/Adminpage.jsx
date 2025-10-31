@@ -163,12 +163,12 @@ const Adminpage = () => {
       <nav className="unified-sidebar">
         <h2 className="unified-sidebar-title">Admin Portal</h2>
         <ul className="unified-nav-links">
-          <li><NavLink to="/adminpage">Dashboard</NavLink></li>
+          
           <li><NavLink to="/studdata">Student Data</NavLink></li>
           <li><NavLink to="/teacherdata">Teacher Data</NavLink></li>
           <li><NavLink to="/doubt">Doubts Section</NavLink></li>
           <li><NavLink to="/testcount">Tests Evaluation</NavLink></li>
-          <li><NavLink to="/announce">Add Announcement</NavLink></li>
+          <li><NavLink to="/announce">Add Alert</NavLink></li>
         </ul>
       </nav>
 
