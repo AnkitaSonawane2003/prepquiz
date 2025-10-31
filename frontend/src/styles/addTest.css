@@ -331,6 +331,28 @@ textarea:focus {
     width: 90%;
   }
 }
+/* Ensure AI inputs are clickable and not blocked by overlays */
+.ai-generate-panel { z-index: 20; position: relative; }
+.ai-generate-panel .ai-input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  outline: none;
+  font-size: 14px;
+}
+
+/* small input */
+.ai-input.small { padding: 7px 8px; }
+
+/* If something accidentally sets pointer-events none on parent, override */
+.add-test-container, .ai-generate-panel, .ai-input, .gen-btn {
+  pointer-events: auto !important;
+}
+
+/* show focus so you can see it's active */
+.ai-input:focus { box-shadow: 0 0 0 3px rgba(0,123,255,0.12); border-color: #007bff; }
+
 
 @media (max-width: 480px) {
   .add-test-title {
