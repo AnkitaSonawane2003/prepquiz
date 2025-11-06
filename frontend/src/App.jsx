@@ -37,6 +37,7 @@ import Studentpage from "./components/Studentpage"; // ✅ correct import
 import StudentProfile from "./components/studentprofile";
 import TeacherProfile from "./components/teacherprofile";
 import Dashboard from "./components/Dashboard";
+import Compiler from "./components/Compiler";
 
 function App() {
   return (
@@ -79,6 +80,10 @@ function App() {
         <Route path="/studentprofile" element={<StudentProfile />} />
         <Route path="/studenttests" element={<StudentTests />} />
         <Route path="/studentmodules" element={<StudentPractice />} />
+
+         
+          <Route path="/compiler" element={<Compiler />} />
+
       </Routes>
 
       <Footer />

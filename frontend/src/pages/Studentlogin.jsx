@@ -456,6 +456,7 @@ export default function StudentLogin() {
 
       if (response.ok) {
         localStorage.setItem("studentToken", data.token);
+        localStorage.setItem("userEmail", payload.email); // ✅ store email
         setError(null);
         navigate("/studentpage"); // redirect to student dashboard
       } else {

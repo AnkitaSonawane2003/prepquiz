@@ -154,6 +154,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Student = require("../models/Student");
 const auth = require("../middleware/auth");
+const Test = require("../models/Test");
+const Problem = require("../models/Problem");
 
 // --------------------
 // Register Student
@@ -261,5 +263,29 @@ router.get("/count", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+router.get("/stats", async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit) || 3;
+
+    const recentTests = await Test.find({}, "title date createdAt")
+      .sort({ createdAt: -1 })
+      .limit(limit);
+
+    const recentChallenges = await Problem.find({}, "title createdAt")
+      .sort({ createdAt: -1 })
+      .limit(limit);
+
+    res.json({
+      success: true,
+      recentTests,
+      recentChallenges,
+    });
+  } catch (err) {
+    console.error("Error fetching student stats:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
 
 module.exports = router;

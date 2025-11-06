@@ -58,6 +58,8 @@ const morgan = require("morgan");
 const connectDB = require("./config/db");
 const testRoutes = require("./routes/testRoutes");
 const geminiRoutes = require("./routes/geminiRoutes");
+const compiler = require("./routes/compiler");
+
 
 // 📦 Load Environment Variables
 dotenv.config();
@@ -88,6 +90,12 @@ app.use("/api/contact", require("./routes/contact"));
 app.use("/api/problems", require("./routes/problemRoutes"));
 
 app.use("/api/gemini", geminiRoutes);
+
+
+app.use("/api/submissions", require("./routes/submissionRoutes"));
+app.use("/api/compiler", compiler);
+
+
 
 // ========================================
 // 🌍 Serve React Frontend (Production Mode)

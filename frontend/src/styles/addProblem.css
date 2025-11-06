@@ -39,6 +39,41 @@
   transition: 0.3s;
   margin-bottom: 20px;
 }
+.ai-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.ai-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.ai-select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.ai-generate-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ai-generate-btn:hover {
+  background-color: #0056b3;
+}
 
 .ai-generate-btn:hover {
   transform: scale(1.05);
