@@ -7,7 +7,50 @@
   margin-top: 80px; /* Added extra top spacing to move below navbar */
   padding: 15px; /* Some padding for small screens */
 }
+.image-upload-wrapper {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
 
+.clickable-image {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.clickable-image:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+.image-upload-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.image-upload-wrapper::after {
+  content: "📷";
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+  font-size: 22px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-upload-wrapper:hover::after {
+  opacity: 1;
+}
+
+.profile-image img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4a90e2;
+}
 /* Card styling */
 .profile-card {
   width: 420px;

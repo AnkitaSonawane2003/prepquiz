@@ -172,34 +172,48 @@ function TeacherPage() {
   const [showAllTests, setShowAllTests] = useState(false);
   const [showAllChallenges, setShowAllChallenges] = useState(false);
   const [showAllAnnouncements, setShowAllAnnouncements] = useState(false);
-
   const [announcements, setAnnouncements] = useState([]);
+  const [totalCodeSubmissions, setTotalCodeSubmissions] = useState(0); // ✅ new state
 
   const motivationalQuotes = [
-    "Teaching is the one profession that creates all other professions",
+    "Teaching is the one profession that creates all other professions.",
     "A good teacher is like a candle — it consumes itself to light the way for others."
   ];
 
-  const testsSubmittedByStudents = 10; // Placeholder; replace with actual backend data
-
-  // Fetch teacher stats
-useEffect(() => {
-  async function fetchStats() {
-    try {
-      const res = await fetch(`http://localhost:5000/api/teacher/stats?limit=${showAllTests || showAllChallenges ? 50 : 3}`);
-      const data = await res.json();
-      if (data.success) {
-        setStats(data.stats);
+  // ✅ Fetch teacher stats
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const res = await fetch(`http://localhost:5000/api/teacher/stats?limit=${showAllTests || showAllChallenges ? 50 : 3}`);
+        const data = await res.json();
+        if (data.success) {
+          setStats(data.stats);
+        }
+      } catch (err) {
+        console.error("Error fetching stats:", err);
       }
-    } catch (err) {
-      console.error("Error fetching stats:", err);
     }
-  }
-  fetchStats();
-}, [showAllTests, showAllChallenges]);
+    fetchStats();
+  }, [showAllTests, showAllChallenges]);
 
+  // ✅ Fetch total code submissions (from your evaluation data)
+  useEffect(() => {
+    async function fetchCodeSubmissions() {
+      try {
+        const res = await fetch("http://localhost:5000/api/evaluation/all-evaluations");
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          const total = data.reduce((acc, e) => acc + e.totalSubmissions, 0);
+          setTotalCodeSubmissions(total);
+        }
+      } catch (err) {
+        console.error("Error fetching code submissions:", err);
+      }
+    }
+    fetchCodeSubmissions();
+  }, []);
 
-  // Fetch announcements
+  // ✅ Fetch announcements
   useEffect(() => {
     async function fetchAnnouncements() {
       try {
@@ -227,7 +241,7 @@ useEffect(() => {
           <li><NavLink to="/add-test" className={({ isActive }) => isActive ? "active-link" : ""}>Add Tests</NavLink></li>
           <li><NavLink to="/add-aptitude" className={({ isActive }) => isActive ? "active-link" : ""}>Add Problems</NavLink></li>
           <li><NavLink to="/studdata" className={({ isActive }) => isActive ? "active-link" : ""}>Student Data</NavLink></li>
-          <li><NavLink to="/student-evaluation" className={({ isActive }) => isActive ? "active-link" : ""}>Student Evaluation</NavLink></li>
+          <li><NavLink to="/allevaluation" className={({ isActive }) => isActive ? "active-link" : ""}>Student Evaluation</NavLink></li>
           <li><NavLink to="/announce" className={({ isActive }) => isActive ? "active-link" : ""}>Add Alert</NavLink></li>
         </ul>
       </nav>
@@ -247,28 +261,26 @@ useEffect(() => {
               <div className="summary-label">Tests Created</div>
             </div>
             <div className="summary-item">
-              <div className="summary-number">{testsSubmittedByStudents}</div>
-              <div className="summary-label">Tests Submitted by Students</div>
+              <div className="summary-number">{totalCodeSubmissions}</div>
+              <div className="summary-label">Codes Submitted by Students</div>
             </div>
           </div>
         </div>
 
         {/* Recent Tests */}
-    <section className="dashboard-section">
-  <h3>Recent Tests</h3>
-  <ul className="schedule-list">
-    {(showAllTests ? recentTests : recentTests.slice(0, 3)).map((item) => (
-      <li key={item._id || item.id}>
-        {item.title} - <strong>{new Date(item.date || item.createdAt).toLocaleDateString()}</strong>
-      </li>
-    ))}
-  </ul>
-  <button onClick={() => setShowAllTests(!showAllTests)} className="view-btn">
-    {showAllTests ? "Show Less" : "View All"}
-  </button>
-</section>
-
-
+        <section className="dashboard-section">
+          <h3>Recent Tests</h3>
+          <ul className="schedule-list">
+            {(showAllTests ? recentTests : recentTests.slice(0, 3)).map((item) => (
+              <li key={item._id || item.id}>
+                {item.title} - <strong>{new Date(item.date || item.createdAt).toLocaleDateString()}</strong>
+              </li>
+            ))}
+          </ul>
+          <button onClick={() => setShowAllTests(!showAllTests)} className="view-btn">
+            {showAllTests ? "Show Less" : "View All"}
+          </button>
+        </section>
 
         {/* Recent Coding Challenges */}
         <section className="dashboard-section">

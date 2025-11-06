@@ -38,6 +38,8 @@ import StudentProfile from "./components/studentprofile";
 import TeacherProfile from "./components/teacherprofile";
 import Dashboard from "./components/Dashboard";
 import Compiler from "./components/Compiler";
+import Evaluation from "./components/Evaluation"
+import AllEvaluation from "./components/AllEvaluation"
 
 function App() {
   return (
@@ -80,6 +82,8 @@ function App() {
         <Route path="/studentprofile" element={<StudentProfile />} />
         <Route path="/studenttests" element={<StudentTests />} />
         <Route path="/studentmodules" element={<StudentPractice />} />
+        <Route path="/studentevaluation" element={<Evaluation/>}/>
+        <Route path="allevaluation" element={<AllEvaluation/>}/>
 
          
           <Route path="/compiler" element={<Compiler />} />

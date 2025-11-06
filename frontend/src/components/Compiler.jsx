@@ -589,7 +589,7 @@ const handleSubmit = async () => {
         "success"
       ).then(() => {
         // redirect to practice page
-        window.location.href = "/student/practice";
+        window.location.href = "/studentmodules";
       });
     } else {
       Swal.fire("Error", data.message || "Failed to save submission.", "error");

@@ -1,0 +1,134 @@
+/* === Page Layout === */
+.evaluation-page {
+  background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
+  min-height: 100vh;
+  padding: 80px 40px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* === Page Title === */
+.evaluation-title {
+  text-align: center;
+  color: #004aad;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 60px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 74, 173, 0.15);
+}
+
+/* === Layout Container === */
+.evaluation-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 80px; /* ✅ more space between card and chart */
+  flex-wrap: wrap; /* allows wrapping on smaller screens */
+  width: 100%;
+}
+
+/* === Evaluation Card === */
+.evaluation-card {
+  flex: 0 0 380px;
+  background: #f9fbff; /* soft white-blue tone to make it pop */
+  border-radius: 16px;
+  padding: 35px 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 74, 173, 0.08);
+  transition: all 0.3s ease;
+  margin-bottom: 30px; /* ✅ space between stacked cards if any */
+}
+
+.evaluation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 74, 173, 0.15);
+}
+
+.evaluation-card h2 {
+  text-align: center;
+  color: #003a94;
+  font-size: 1.4rem;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.evaluation-card p {
+  font-size: 1.05rem;
+  color: #444;
+  margin: 12px 0;
+  line-height: 1.6;
+  border-left: 4px solid #004aad;
+  padding-left: 12px;
+  background: rgba(0, 74, 173, 0.03);
+  border-radius: 4px;
+}
+
+/* === Chart Container === */
+.chart-container {
+  flex: 0 0 650px;
+  background: #f9fbff; /* ✅ same tone as card */
+  border-radius: 16px;
+  padding: 35px 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 74, 173, 0.08);
+  transition: all 0.3s ease;
+}
+
+.chart-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 74, 173, 0.15);
+}
+
+.chart-container h3 {
+  text-align: center;
+  color: #003a94;
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+/* === Responsive Layout === */
+@media (max-width: 992px) {
+  .evaluation-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .chart-container,
+  .evaluation-card {
+    width: 90%;
+    max-width: 600px;
+  }
+
+  .evaluation-title {
+    font-size: 2rem;
+  }
+}
+
+/* === Loading / No Data States === */
+.loading,
+.no-data {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #777;
+  margin-top: 80px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.loading::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  border: 2px solid #004aad;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

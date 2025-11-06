@@ -389,9 +389,8 @@ import "../styles/student.css";
 import "../styles/sidebar.css";
 
 const StudentPage = () => {
-  const studentId = "12345"; // ✅ Replace with logged-in student's ID dynamically later
+  const studentEmail = localStorage.getItem("userEmail"); // example: "geeta@gmail.com"
 
-  // Static placeholders (can also be dynamic later)
   const testsAttempted = 5;
   const modulesCompleted = 8;
 
@@ -412,22 +411,29 @@ const StudentPage = () => {
   const [announcements, setAnnouncements] = useState([]);
 
   useEffect(() => {
-    // Fetch problems solved dynamically
     async function fetchProblemsSolved() {
+      if (!studentEmail) {
+        console.warn("⚠️ No email found in localStorage");
+        return;
+      }
+
       try {
-        const res = await fetch(`http://localhost:5000/api/problems/problems-solved/${studentId}`);
+        console.log("📡 Fetching problems solved for:", studentEmail);
+        const res = await fetch(
+          `http://localhost:5000/api/submissions/problems-solved/${studentEmail}`
+        );
         const data = await res.json();
+        console.log("📦 Response:", data);
         if (data.success) {
           setProblemsSolved(data.solvedCount);
         } else {
-          console.error("Failed to fetch problems solved count");
+          console.error("❌ Failed to fetch problems solved count");
         }
       } catch (err) {
-        console.error("Error fetching problems solved:", err);
+        console.error("🔥 Error fetching problems solved:", err);
       }
     }
 
-    // Fetch recent tests and challenges
     async function fetchStudentStats() {
       try {
         const res = await fetch("http://localhost:5000/api/student/stats?limit=3");
@@ -435,23 +441,18 @@ const StudentPage = () => {
         if (data.success) {
           setRecentTests(data.recentTests || []);
           setRecentChallenges(data.recentChallenges || []);
-        } else {
-          console.error("Failed to fetch student stats");
         }
       } catch (err) {
         console.error("Error fetching student stats:", err);
       }
     }
 
-    // Fetch announcements
     async function fetchAnnouncements() {
       try {
         const res = await fetch("http://localhost:5000/api/announcement?limit=3");
         const data = await res.json();
         if (data.success) {
           setAnnouncements(data.announcements);
-        } else {
-          console.error("Failed to fetch announcements");
         }
       } catch (err) {
         console.error("Error fetching announcements:", err);
@@ -461,7 +462,7 @@ const StudentPage = () => {
     fetchProblemsSolved();
     fetchStudentStats();
     fetchAnnouncements();
-  }, []);
+  }, [studentEmail]);
 
   return (
     <div className="student-page-container">

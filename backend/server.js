@@ -59,7 +59,7 @@ const connectDB = require("./config/db");
 const testRoutes = require("./routes/testRoutes");
 const geminiRoutes = require("./routes/geminiRoutes");
 const compiler = require("./routes/compiler");
-
+const evaluationRoutes = require("./routes/evaluation");
 
 // 📦 Load Environment Variables
 dotenv.config();
@@ -94,6 +94,8 @@ app.use("/api/gemini", geminiRoutes);
 
 app.use("/api/submissions", require("./routes/submissionRoutes"));
 app.use("/api/compiler", compiler);
+
+app.use("/api/evaluation", evaluationRoutes);
 
 
 

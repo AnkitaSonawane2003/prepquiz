@@ -204,15 +204,33 @@ router.post("/", async (req, res) => {
   }
 });
 
-// ✅ Get the latest submission for a specific user & problem
+// ✅ Move this route ABOVE others
+router.get("/problems-solved/:email", async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    // Fetch all submissions for this user
+    const submissions = await Submission.find({ user: email });
+
+    if (!submissions.length) {
+      return res.json({ success: true, solvedCount: 0 });
+    }
+
+    // Extract unique problem IDs (so multiple submissions for same problem count once)
+    const uniqueProblems = new Set(submissions.map((s) => s.problemId.toString()));
+
+    res.json({ success: true, solvedCount: uniqueProblems.size });
+  } catch (err) {
+    console.error("Error fetching problems solved count:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+// ✅ Get latest submission for specific user & problem
 router.get("/:user/:problemId", async (req, res) => {
   try {
     const { user, problemId } = req.params;
-
-    const submission = await Submission.findOne({ user, problemId }).sort({
-      createdAt: -1,
-    });
-
+    const submission = await Submission.findOne({ user, problemId }).sort({ createdAt: -1 });
     res.json({ success: true, submission });
   } catch (error) {
     console.error("Error fetching submission:", error);
@@ -224,33 +242,12 @@ router.get("/:user/:problemId", async (req, res) => {
 router.get("/user/:userEmail", async (req, res) => {
   try {
     const { userEmail } = req.params;
-
     const submissions = await Submission.find({ user: userEmail }).sort({ createdAt: -1 });
-
     res.json({ success: true, submissions });
   } catch (error) {
     console.error("Error fetching submissions for user:", error);
     res.status(500).json({ success: false, message: "Server error" });
   }
 });
-
-// ✅ Get count of unique problems solved by a specific user
-// routes/submissionRoutes.js
-router.get("/problems-solved/:email", async (req, res) => {
-  try {
-    const studentEmail = req.params.email;
-    const student = await User.findOne({ email: studentEmail });
-    if (!student) {
-      return res.status(404).json({ success: false, message: "Student not found" });
-    }
-
-    const solvedCount = await Submission.countDocuments({ student: student._id });
-    res.json({ success: true, solvedCount });
-  } catch (err) {
-    console.error("Error fetching submission:", err);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-});
-
 
 module.exports = router;
