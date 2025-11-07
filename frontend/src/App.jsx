@@ -1,3 +1,4 @@
+// src/App.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -38,6 +39,9 @@ import StudentProfile from "./components/studentprofile";
 import TeacherProfile from "./components/teacherprofile";
 import Dashboard from "./components/Dashboard";
 
+// NEW: import TestTake component for student test-taking route
+import TestTake from "./components/TestTake";
+
 function App() {
   return (
     <>
@@ -77,7 +81,18 @@ function App() {
         {/* 🎓 Student Dashboard */}
         <Route path="/studentpage" element={<Studentpage />} />
         <Route path="/studentprofile" element={<StudentProfile />} />
+
+        {/* Keep legacy route for student tests (existing) */}
         <Route path="/studenttests" element={<StudentTests />} />
+
+        {/* New canonical student tests routes:
+            - list page
+            - test taking page (testId param)
+            This lets StudentTests navigate to /student/tests/:testId (recommended),
+            while preserving /studenttests for older links. */}
+        <Route path="/student/tests" element={<StudentTests />} />
+        <Route path="/student/tests/:testId" element={<TestTake />} />
+
         <Route path="/studentmodules" element={<StudentPractice />} />
       </Routes>
 

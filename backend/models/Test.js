@@ -1,38 +1,25 @@
-// const mongoose = require("mongoose");
-
-// const questionSchema = new mongoose.Schema({
-//   text: String,
-//   options: [String],
-//   correctAnswer: String,
-//   marks: Number,
-// });
-
-// const testSchema = new mongoose.Schema({
-//   title: { type: String, required: true },
-//   subject: String,
-//   type: String,
-//   totalMarks: Number,
-//   duration: Number,
-//   date: Date,
-//   instructions: String,
-//   questions: [questionSchema],
-// });
-
-// module.exports = mongoose.model("Test", testSchema);
 // models/Test.js
 const mongoose = require("mongoose");
 
-const optionSchema = new mongoose.Schema({
-  text: { type: String, required: true }
-}, { _id: false });
-
 const questionSchema = new mongoose.Schema({
   text: { type: String, required: true },
-  options: { type: [String], validate: v => Array.isArray(v) && v.length === 4 },
-  correctAnswer: { type: String, required: true }, // e.g. "A", "B", "C", "D"
-  marks: { type: Number, default: 1 }
-}, { _id: false });
+  options: {
+    type: [String],
+    validate: {
+      validator: function (v) {
+        return Array.isArray(v) && v.length === 4;
+      },
+      message: "options must be an array of 4 strings",
+    },
+    required: true,
+  },
+  correctAnswer: { type: String, required: true }, // "A"/"B"/"C"/"D"
+  marks: { type: Number, default: 1 },
+  type: { type: String, default: "MCQ" }, // MCQ / Coding / Subjective
+  difficulty: { type: String, default: "medium" },
+}, { timestamps: false /* per-question timestamps not needed */ });
 
+// keep question sub-documents with their own _id (default)
 const testSchema = new mongoose.Schema({
   title: { type: String, required: true },
   subject: { type: String },
@@ -42,7 +29,8 @@ const testSchema = new mongoose.Schema({
   date: { type: Date },
   instructions: { type: String },
   questions: { type: [questionSchema], default: [] },
-  createdAt: { type: Date, default: Date.now }
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false },
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Test", testSchema);

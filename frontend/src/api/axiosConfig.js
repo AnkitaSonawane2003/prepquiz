@@ -1,0 +1,54 @@
+import axios from "axios";
+
+function isTokenExpired(token) {
+  if (!token) return true;
+  try {
+    const payload = token.split(".")[1];
+    if (!payload) return true;
+    const json = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
+    const decoded = JSON.parse(json);
+    if (!decoded.exp) return true;
+    const now = Math.floor(Date.now() / 1000);
+    return decoded.exp <= now;
+  } catch {
+    return true;
+  }
+}
+
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5000",
+  timeout: 20000,
+});
+
+API.interceptors.request.use(
+  (config) => {
+    // ✅ Try all possible keys
+    const token =
+      localStorage.getItem("token") ||
+      localStorage.getItem("studentToken") ||
+      localStorage.getItem("teacherToken") ||
+      localStorage.getItem("jwt") ||
+      null;
+
+    if (!token) return config; // no token (public route maybe)
+
+    if (isTokenExpired(token)) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("studentToken");
+      localStorage.removeItem("teacherToken");
+      return Promise.reject({ code: "TOKEN_EXPIRED", message: "TOKEN_EXPIRED" });
+    }
+
+    config.headers = config.headers || {};
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+API.interceptors.response.use(
+  (res) => res,
+  (err) => Promise.reject(err)
+);
+
+export default API;
