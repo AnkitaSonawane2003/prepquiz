@@ -888,7 +888,7 @@
 
 // export default AddTest;
 // src/components/AddTest.jsx
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../styles/addTest.css";
 
 const AddTest = () => {
@@ -934,6 +934,18 @@ const AddTest = () => {
     setNewQuestion({ ...newQuestion, options: updated });
   };
 
+
+
+  // --- Auto-update total marks when questions change ---
+useEffect(() => {
+  if (questions.length > 0) {
+    const total = questions.reduce((sum, q) => sum + Number(q.marks || 0), 0);
+    setTestDetails((prev) => ({ ...prev, totalMarks: total }));
+  } else {
+    setTestDetails((prev) => ({ ...prev, totalMarks: 0 }));
+  }
+}, [questions]);
+
   // --- ADD QUESTION ---
   const handleAddQuestion = () => {
     if (!newQuestion.text || !newQuestion.correctAnswer || !newQuestion.marks) {
@@ -961,77 +973,82 @@ const AddTest = () => {
   };
 
   // --- AI (Gemini) Question Generation ---
-  const handleGenerateWithGemini = async () => {
-    const topic = (genTopic || "").trim();
-    const count = Number(genCount);
+const handleGenerateWithGemini = async () => {
+  const topic = (genTopic || "").trim();
+  const count = Number(genCount);
 
-    if (!topic) {
-      alert("Please enter a topic for the AI to generate questions.");
-      return;
-    }
-    if (!count || count <= 0) {
-      alert("Please enter a valid number of questions.");
-      return;
-    }
-    if (count > MAX_GEN && !window.confirm(`You requested ${count} questions. Continue?`)) return;
+  if (!topic) {
+    alert("Please enter a topic for the AI to generate questions.");
+    return;
+  }
+  if (!count || count <= 0) {
+    alert("Please enter a valid number of questions.");
+    return;
+  }
+  if (count > MAX_GEN && !window.confirm(`You requested ${count} questions. Continue?`)) return;
 
-    setGenerating(true);
+  setGenerating(true);
+  try {
+    const resp = await fetch("http://localhost:5000/api/generate-questions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      // ✅ send topics as an array (backend expects this)
+      body: JSON.stringify({
+        topics: [topic],        // wrap single topic in array
+        countPerTopic: count,   // backend expects this key name
+      }),
+    });
+
+    const text = await resp.text();
+    let parsed;
     try {
-      const resp = await fetch("http://localhost:5000/api/generate-questions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic, count }),
-      });
-
-      const text = await resp.text();
-      let parsed;
-      try {
-        parsed = text ? JSON.parse(text) : {};
-      } catch {
-        console.error("AI returned invalid JSON:", text);
-        alert("❌ AI returned invalid response. Check server logs.");
-        return;
-      }
-
-      if (!resp.ok || !parsed.success || !Array.isArray(parsed.questions)) {
-        console.error("Generate error:", parsed);
-        alert("❌ Failed to generate questions. See console for details.");
-        return;
-      }
-
-      const mapped = parsed.questions.map((q, i) => {
-        const opts = Array.isArray(q.options) && q.options.length >= 4
-          ? q.options.slice(0, 4)
-          : ["", "", "", ""];
-        let correct = (q.correctAnswer || "").trim();
-
-        if (/^\d+$/.test(correct)) correct = String.fromCharCode(65 + Number(correct));
-        else if (/^[a-d]$/i.test(correct)) correct = correct.toUpperCase();
-        else {
-          const idx = opts.findIndex(opt => opt && opt.toLowerCase() === correct.toLowerCase());
-          if (idx >= 0) correct = String.fromCharCode(65 + idx);
-        }
-
-        const marks = Number(q.marks) || (q.difficulty === "hard" ? 4 : q.difficulty === "medium" ? 2 : 1);
-
-        return {
-          text: q.text || `Question ${i + 1}`,
-          options: opts,
-          correctAnswer: ["A", "B", "C", "D"].includes(correct) ? correct : "A",
-          marks,
-          difficulty: q.difficulty || "medium",
-        };
-      });
-
-      setQuestions((prev) => [...prev, ...mapped]);
-      alert(`✅ ${mapped.length} AI questions added successfully.`);
-    } catch (err) {
-      console.error("Error generating AI questions:", err);
-      alert("❌ Error generating questions. Check console and backend logs.");
-    } finally {
-      setGenerating(false);
+      parsed = text ? JSON.parse(text) : {};
+    } catch {
+      console.error("AI returned invalid JSON:", text);
+      alert("❌ AI returned invalid response. Check server logs.");
+      return;
     }
-  };
+
+    if (!resp.ok || !parsed.success || !Array.isArray(parsed.questions)) {
+      console.error("Generate error:", parsed);
+      alert("❌ Failed to generate questions. See console for details.");
+      return;
+    }
+
+    const mapped = parsed.questions.map((q, i) => {
+      const opts = Array.isArray(q.options) && q.options.length >= 4
+        ? q.options.slice(0, 4)
+        : ["", "", "", ""];
+      let correct = (q.correctAnswer || "").trim();
+
+      if (/^\d+$/.test(correct)) correct = String.fromCharCode(65 + Number(correct));
+      else if (/^[a-d]$/i.test(correct)) correct = correct.toUpperCase();
+      else {
+        const idx = opts.findIndex(opt => opt && opt.toLowerCase() === correct.toLowerCase());
+        if (idx >= 0) correct = String.fromCharCode(65 + idx);
+      }
+
+      const marks = Number(q.marks) || (q.difficulty === "hard" ? 4 : q.difficulty === "medium" ? 2 : 1);
+
+      return {
+        text: q.text || `Question ${i + 1}`,
+        options: opts,
+        correctAnswer: ["A", "B", "C", "D"].includes(correct) ? correct : "A",
+        marks,
+        difficulty: q.difficulty || "medium",
+      };
+    });
+
+    setQuestions((prev) => [...prev, ...mapped]);
+    alert(`✅ ${mapped.length} AI questions added successfully.`);
+  } catch (err) {
+    console.error("Error generating AI questions:", err);
+    alert("❌ Error generating questions. Check console and backend logs.");
+  } finally {
+    setGenerating(false);
+  }
+};
+
 
   // --- SUBMIT TEST ---
   const handleSubmit = async () => {

@@ -1,3 +1,144 @@
+// import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import "../styles/teacherprofile.css";
+
+// const TeacherProfile = () => {
+//   const navigate = useNavigate();
+//   const [profile, setProfile] = useState(null);
+//   const [editedProfile, setEditedProfile] = useState({});
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     const token = localStorage.getItem("teacherToken");
+
+//     if (!token) {
+//       navigate("/teacherlogin");
+//       return;
+//     }
+
+//     axios
+//       .get("http://localhost:5000/api/teacher/profile", {
+//         headers: { Authorization: `Bearer ${token}` },
+//       })
+//       .then((res) => {
+//         if (res.data) {
+//           setProfile(res.data);
+//           setEditedProfile(res.data);
+//           setError(null);
+//         } else {
+//           setError("Profile not found.");
+//         }
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         console.error("Error fetching profile:", err);
+//         setError("Failed to load profile. Please login again.");
+//         localStorage.removeItem("teacherToken");
+//         window.dispatchEvent(new Event("logout"));
+//         navigate("/teacherlogin");
+//       });
+//   }, [navigate]);
+
+//   const handleEditChange = (e) => {
+//     setEditedProfile({ ...editedProfile, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSave = () => {
+//     const token = localStorage.getItem("teacherToken");
+
+//     if (!token) {
+//       alert("You must be logged in to update your profile.");
+//       navigate("/teacherlogin");
+//       return;
+//     }
+
+//     axios
+//       .put("http://localhost:5000/api/teacher/profile", editedProfile, {
+//         headers: { Authorization: `Bearer ${token}` },
+//       })
+//       .then((res) => {
+//         setProfile(res.data);
+//         setEditedProfile(res.data);
+//         setIsEditing(false);
+//         alert("Profile updated successfully!");
+//       })
+//       .catch((err) => {
+//         console.error("Error updating profile:", err);
+//         alert("Failed to update profile.");
+//       });
+//   };
+
+//   const handleCancel = () => {
+//     setEditedProfile(profile);
+//     setIsEditing(false);
+//   };
+
+//   if (loading) return <p>Loading profile...</p>;
+//   if (error) return <p style={{ color: "red" }}>{error}</p>;
+//   if (!profile) return <p>Profile not found.</p>;
+
+//   return (
+//     <div className="profile-container">
+//       <div className="profile-card">
+//         <h2>Teacher Profile</h2>
+
+//         <div className="profile-image">
+//           <img
+//             src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+//             alt="Profile"
+//           />
+//         </div>
+
+//         <div className="profile-details">
+//           <label>Full Name:</label>
+//           {isEditing ? (
+//             <input
+//               type="text"
+//               name="fullName"
+//               value={editedProfile.fullName || ""}
+//               onChange={handleEditChange}
+//             />
+//           ) : (
+//             <p>{profile.fullName}</p>
+//           )}
+
+//           <label>Email:</label>
+//           <p>{profile.email}</p>
+
+//           <label>Department:</label>
+//           {isEditing ? (
+//             <input
+//               type="text"
+//               name="department"
+//               value={editedProfile.department || ""}
+//               onChange={handleEditChange}
+//             />
+//           ) : (
+//             <p>{profile.department}</p>
+//           )}
+//         </div>
+
+//         <div className="profile-buttons">
+//           {isEditing ? (
+//             <>
+//               <button className="save-btn" onClick={handleSave}>Save</button>
+//               <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+//             </>
+//           ) : (
+//             <button className="edit-btn" onClick={() => setIsEditing(true)}>
+//               Edit Profile
+//             </button>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default TeacherProfile;
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,14 +151,18 @@ const TeacherProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [tokenChecked, setTokenChecked] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("teacherToken");
+    console.log("Teacher token:", token); // debug
 
     if (!token) {
       navigate("/teacherlogin");
       return;
     }
+
+    setTokenChecked(true);
 
     axios
       .get("http://localhost:5000/api/teacher/profile", {
@@ -31,7 +176,6 @@ const TeacherProfile = () => {
         } else {
           setError("Profile not found.");
         }
-        setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching profile:", err);
@@ -39,7 +183,8 @@ const TeacherProfile = () => {
         localStorage.removeItem("teacherToken");
         window.dispatchEvent(new Event("logout"));
         navigate("/teacherlogin");
-      });
+      })
+      .finally(() => setLoading(false));
   }, [navigate]);
 
   const handleEditChange = (e) => {
@@ -48,7 +193,6 @@ const TeacherProfile = () => {
 
   const handleSave = () => {
     const token = localStorage.getItem("teacherToken");
-
     if (!token) {
       alert("You must be logged in to update your profile.");
       navigate("/teacherlogin");
@@ -76,7 +220,7 @@ const TeacherProfile = () => {
     setIsEditing(false);
   };
 
-  if (loading) return <p>Loading profile...</p>;
+  if (!tokenChecked || loading) return <p>Loading profile...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!profile) return <p>Profile not found.</p>;
 
@@ -124,8 +268,12 @@ const TeacherProfile = () => {
         <div className="profile-buttons">
           {isEditing ? (
             <>
-              <button className="save-btn" onClick={handleSave}>Save</button>
-              <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+              <button className="save-btn" onClick={handleSave}>
+                Save
+              </button>
+              <button className="cancel-btn" onClick={handleCancel}>
+                Cancel
+              </button>
             </>
           ) : (
             <button className="edit-btn" onClick={() => setIsEditing(true)}>
