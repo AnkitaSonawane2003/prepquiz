@@ -167,7 +167,7 @@ const Adminpage = () => {
           <li><NavLink to="/studdata">Student Data</NavLink></li>
           <li><NavLink to="/teacherdata">Teacher Data</NavLink></li>
           <li><NavLink to="/doubt">Doubts Section</NavLink></li>
-          <li><NavLink to="/testcount">Tests Evaluation</NavLink></li>
+          <li><NavLink to="/allevaluation">Student Evaluation</NavLink></li>
           <li><NavLink to="/announce">Add Alert</NavLink></li>
         </ul>
       </nav>

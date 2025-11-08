@@ -38,6 +38,9 @@ import Studentpage from "./components/Studentpage"; // ✅ correct import
 import StudentProfile from "./components/studentprofile";
 import TeacherProfile from "./components/teacherprofile";
 import Dashboard from "./components/Dashboard";
+import Compiler from "./components/Compiler";
+import Evaluation from "./components/Evaluation"
+import AllEvaluation from "./components/AllEvaluation"
 
 // NEW: import TestTake component for student test-taking route
 import TestTake from "./components/TestTake";
@@ -94,6 +97,12 @@ function App() {
         <Route path="/student/tests/:testId" element={<TestTake />} />
 
         <Route path="/studentmodules" element={<StudentPractice />} />
+        <Route path="/studentevaluation" element={<Evaluation/>}/>
+        <Route path="allevaluation" element={<AllEvaluation/>}/>
+
+         
+          <Route path="/compiler" element={<Compiler />} />
+
       </Routes>
 
       <Footer />

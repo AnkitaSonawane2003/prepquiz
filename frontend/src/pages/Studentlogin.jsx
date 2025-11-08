@@ -11,11 +11,11 @@ export default function StudentLogin() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
-  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,11 +28,12 @@ export default function StudentLogin() {
     setLoading(true);
 
     try {
+      // ✅ Student route (not teacher)
       const url = "http://localhost:5000/api/student/login";
 
       const payload = {
-        email: formData.email.trim().toLowerCase(),
-        password: formData.password.trim(),
+        email: formData.email.toLowerCase(),
+        password: formData.password,
       };
 
       const response = await fetch(url, {
@@ -43,21 +44,17 @@ export default function StudentLogin() {
 
       const data = await response.json();
 
-      if (response.ok && data.token) {
-        // ✅ Save token & user role in localStorage
+      if (response.ok) {
         localStorage.setItem("studentToken", data.token);
-        localStorage.setItem("userRole", "student");
-
-        // ✅ Dispatch login event (helps Navbar update)
-        window.dispatchEvent(new Event("login"));
-
-        navigate("/studentpage"); // Redirect to student dashboard
+        localStorage.setItem("userEmail", payload.email); // ✅ store email
+        setError(null);
+        navigate("/studentpage"); // redirect to student dashboard
       } else {
-        setError(data.message || "Invalid credentials. Please try again.");
+        setError(data.message || "Login failed. Please try again.");
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("Unable to connect. Please try again later.");
+      setError("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -85,7 +82,10 @@ export default function StudentLogin() {
 
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <div className="password-wrapper">
+            <div
+              className="password-wrapper"
+              style={{ display: "flex", alignItems: "center" }}
+            >
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
@@ -94,14 +94,16 @@ export default function StudentLogin() {
                 onChange={handleChange}
                 required
                 placeholder="Enter your password"
+                style={{ flex: 1 }}
                 autoComplete="current-password"
               />
               <span
                 onClick={togglePasswordVisibility}
                 className="eye-icon"
-                tabIndex={0}
-                role="button"
+                style={{ cursor: "pointer", marginLeft: "8px" }}
                 aria-label={showPassword ? "Hide password" : "Show password"}
+                role="button"
+                tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ")
                     togglePasswordVisibility();
@@ -112,16 +114,20 @@ export default function StudentLogin() {
             </div>
           </div>
 
-          {error && <p className="error-message">{error}</p>}
+          {error && (
+            <p className="error-message" style={{ color: "red" }}>
+              {error}
+            </p>
+          )}
 
           <button type="submit" className="login-btn" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <p className="register-link">
+        <p>
           Don’t have an account?{" "}
-          <Link to="/regstud" className="register-link-text">
+          <Link to="/regstud" style={{ color: "blue", cursor: "pointer" }}>
             Register
           </Link>
         </p>

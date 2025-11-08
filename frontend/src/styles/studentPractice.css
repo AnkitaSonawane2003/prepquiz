@@ -30,6 +30,11 @@
   transform: translateY(-4px);
   box-shadow: 0 25px 60px rgba(2, 6, 23, 0.15);
 }
+.sp-card, .sp-footer, .btn {
+  pointer-events: all !important;
+  position: relative;
+  z-index: 2;
+}
 
 /* 🏷️ Header */
 .sp-header h1 {
