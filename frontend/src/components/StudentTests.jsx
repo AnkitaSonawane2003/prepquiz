@@ -125,17 +125,18 @@ const StudentTests = () => {
                   </div>
 
                   {isSubmitted ? (
-                    <button className="start-btn disabled" disabled>
-                      ✅ Submitted
-                    </button>
-                  ) : (
-                    <button
-                      className="start-btn"
-                      onClick={() => handleStart(test)}
-                    >
-                      Take Test 🚀
-                    </button>
-                  )}
+  <button
+    className="start-btn"
+    onClick={() => navigate(`/student/tests/${test._id}/view`)}
+  >
+    👀 View Submission
+  </button>
+) : (
+  <button className="start-btn" onClick={() => handleStart(test)}>
+    Take Test 🚀
+  </button>
+)}
+
                 </div>
               );
             })}

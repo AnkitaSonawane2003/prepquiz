@@ -49,6 +49,12 @@ export default function StudentLogin() {
         localStorage.setItem("userEmail", payload.email); // ✅ store email
         setError(null);
         navigate("/studentpage"); // redirect to student dashboard
+        localStorage.setItem("userRole", "student");
+
+        // ✅ Dispatch login event (helps Navbar update)
+        window.dispatchEvent(new Event("login"));
+
+        navigate("/studentpage"); // Redirect to student dashboard
       } else {
         setError(data.message || "Login failed. Please try again.");
       }
