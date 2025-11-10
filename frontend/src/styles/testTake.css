@@ -33,6 +33,49 @@
   flex-wrap: wrap;
   gap: 12px;
 }
+/* --- View Mode: correct / incorrect highlights --- */
+.option-label.view-mode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  transition: all 0.2s ease;
+  cursor: default; /* prevent pointer */
+}
+
+.option-label.view-mode.correct {
+  background-color: #d4edda; /* light green */
+  border-color: #28a745;
+  color: #155724;
+}
+
+.option-label.view-mode.incorrect {
+  background-color: #f8d7da; /* light red */
+  border-color: #dc3545;
+  color: #721c24;
+}
+
+.option-label.view-mode span:last-child {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-left: 0.5rem;
+}
+.option-label.view-mode.correct {
+  background-color: #d4edda;
+  border-color: #28a745;
+  color: #155724;
+}
+
+.option-label.view-mode.incorrect {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #721c24;
+}
+
 
 .tt-header h1 {
   font-size: 1.6rem;

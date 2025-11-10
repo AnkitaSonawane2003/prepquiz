@@ -1,102 +1,114 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function Dashboard() {
-  const codingChallengesCreated = 5;
-  const testsCreated = 3;
-  const testsSubmittedByStudents = 10;
+  const [codingStats, setCodingStats] = useState({
+    challenges: 0,
+    students: 0,
+    submissions: 0,
+  });
 
-  const recentTests = [
-    { id: 1, title: "Test 1", graded: true },
-    { id: 2, title: "Test 2", graded: false },
-  ];
-
-  const recentCodingChallenges = [
-    { id: 1, event: "Array Challenge", date: "2025-10-10" },
-  ];
-
-  const motivationalQuotes = [
-    "Teaching is the one profession that creates all other professions",
-    "A good teacher is like a candle — it consumes itself to light the way for others.",
-  ];
+  const [testStats, setTestStats] = useState({
+    testsCreated: 0,
+    submissions: 0,
+  });
 
   const [announcements, setAnnouncements] = useState([]);
 
+  // ✅ Fetch Coding Evaluation Data
+  useEffect(() => {
+    const fetchCodingData = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/evaluation/all-evaluations"
+        );
+        const data = res.data || [];
+        setCodingStats({
+          challenges: data.length,
+          students: data.length,
+          submissions: data.reduce(
+            (acc, e) => acc + (e.totalSubmissions || 0),
+            0
+          ),
+        });
+      } catch (err) {
+        console.error("Error fetching coding data:", err);
+      }
+    };
+
+    fetchCodingData();
+  }, []);
+
+  // ✅ Fetch Test Evaluation Data
+  useEffect(() => {
+    const fetchTestData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get(
+          "http://localhost:5000/api/testAttempts/all",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const data = res.data.attempts || [];
+        setTestStats({
+          testsCreated: new Set(data.map((t) => t.testId)).size,
+          submissions: data.reduce(
+            (acc, e) => acc + (e.totalSubmissions || 0),
+            0
+          ),
+        });
+      } catch (err) {
+        console.error("Error fetching test data:", err);
+      }
+    };
+
+    fetchTestData();
+  }, []);
+
+  // ✅ Fetch Announcements
   useEffect(() => {
     async function fetchAnnouncements() {
       try {
         const res = await fetch("http://localhost:5000/api/announcement?limit=3");
         const data = await res.json();
-        if (data.success) {
-          setAnnouncements(data.announcements);
-        }
+        if (data.success) setAnnouncements(data.announcements);
       } catch (err) {
         console.error(err);
       }
     }
-
     fetchAnnouncements();
   }, []);
 
   return (
     <>
-      {/* Performance Summary */}
+      {/* ✅ Performance Summary */}
       <div className="summary-card">
         <div className="summary-name">Overview</div>
         <div className="summary-stats">
           <div className="summary-item">
-            <div className="summary-number">{codingChallengesCreated}</div>
+            <div className="summary-number">{codingStats.challenges}</div>
             <div className="summary-label">Coding Challenges Created</div>
           </div>
           <div className="summary-item">
-            <div className="summary-number">{testsCreated}</div>
+            <div className="summary-number">{testStats.testsCreated}</div>
             <div className="summary-label">Tests Created</div>
           </div>
           <div className="summary-item">
-            <div className="summary-number">{testsSubmittedByStudents}</div>
+            <div className="summary-number">{testStats.submissions}</div>
             <div className="summary-label">Tests Submitted by Students</div>
           </div>
         </div>
       </div>
 
-      {/* Recent Tests */}
-      <section className="dashboard-section">
-        <h3>Recent Tests</h3>
-        <ul className="activity-list">
-          {recentTests.map((item) => (
-            <li key={item.id} className={item.graded ? "graded" : "pending"}>
-              {item.title} {item.graded ? "✓" : "⏳"}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Recent Coding Challenges */}
-      <section className="dashboard-section">
-        <h3>Recent Coding Challenges</h3>
-        <ul className="schedule-list">
-          {recentCodingChallenges.map((event) => (
-            <li key={event.id}>
-              {event.event} - <strong>{event.date}</strong>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Motivational Quotes */}
-      <div className="motivation-cards-container">
-        {motivationalQuotes.map((quote, index) => (
-          <div className="motivation-card" key={index} title={quote}>
-            <p>{quote}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Announcements */}
+      {/* ✅ Announcements */}
       <section className="dashboard-section">
         <h3>Announcements</h3>
         <ul className="announcement-list">
           {announcements.length > 0 ? (
-            announcements.map((item) => <li key={item._id || item.id}>{item.message}</li>)
+            announcements.map((item) => (
+              <li key={item._id || item.id}>{item.message}</li>
+            ))
           ) : (
             <li>No announcements available</li>
           )}

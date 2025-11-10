@@ -26,23 +26,6 @@
   display: inline-block;
 }
 
-.image-upload-wrapper::after {
-  content: "📷";
-  position: absolute;
-  bottom: 5px;
-  right: 8px;
-  font-size: 22px;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 5px;
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.image-upload-wrapper:hover::after {
-  opacity: 1;
-}
 
 .profile-image img {
   width: 120px;

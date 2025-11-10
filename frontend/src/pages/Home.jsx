@@ -26,24 +26,25 @@ const Home = () => {
     <main className="home-container">
       {/* Hero Section */}
       <section className="hero" aria-label="Introduction">
-        <h1 className="typing-text" aria-live="polite" aria-atomic="true">
-          <Typewriter
-            words={["Welcome to PrepQuiz"]}
-            loop={0} // Infinite loop
-            cursor
-            cursorStyle="|"
-            typeSpeed={80}
-            deleteSpeed={50}
-            delaySpeed={1500}
-          />
-        </h1>
+        <div className="hero-content">
+          <h1 className="typing-text" aria-live="polite" aria-atomic="true">
+            <Typewriter
+              words={["Welcome to PrepQuiz"]}
+              loop={0}
+              cursor
+              cursorStyle="|"
+              typeSpeed={80}
+              deleteSpeed={50}
+              delaySpeed={1500}
+            />
+          </h1>
 
-        <h2>"Practice. Analyze. Succeed."</h2>
+          <h2 className="hero-subtitle">Practice. Analyze. Succeed.</h2>
 
-        {/* Get Started button navigates to Login/Register */}
-        <Link to="/selection" aria-label="Navigate to selection page">
-          <button>Get Started</button>
-        </Link>
+          <Link to="/selection" aria-label="Navigate to selection page">
+            <button className="cta-button">Get Started</button>
+          </Link>
+        </div>
       </section>
 
       {/* About Section */}
@@ -60,18 +61,18 @@ const Home = () => {
 
       {/* Features Section */}
       <section className="features" aria-label="Platform Features">
+        <h2>✨ Platform Features</h2>
         <div className="feature-grid">
-          <div className="feature-item">
-            <h2>✨ Platform Features</h2>
-            {features.map((feat, index) => (
-              <div key={index}>
-                <h3>{feat.title}</h3>
-                <p>{feat.description}</p>
-              </div>
-            ))}
-          </div>
+          {features.map((feat, index) => (
+            <div className="feature-item" key={index}>
+              <h3>{feat.title}</h3>
+              <p>{feat.description}</p>
+            </div>
+          ))}
         </div>
       </section>
+
+      <footer className="footer-text">© 2025 PrepQuiz. All rights reserved.</footer>
     </main>
   );
 };

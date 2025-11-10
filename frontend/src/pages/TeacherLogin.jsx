@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import "../styles/Login.css";
 
@@ -28,7 +28,8 @@ export default function TeacherLogin() {
     setLoading(true);
 
     try {
-      const url = "http://localhost:5000/api/teacher/login"; // ensure correct route
+      // adjust endpoint if your backend route is different
+      const url = "http://localhost:5000/api/teacher/login";
 
       const payload = {
         email: formData.email.toLowerCase(),
@@ -44,10 +45,26 @@ export default function TeacherLogin() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("teacherToken", data.token);
-        console.log("Token saved:", localStorage.getItem("teacherToken"));
+        // canonical key: "token"
+        const token = data.token || data.accessToken || data.tokenString;
+        if (!token) {
+          console.error("Login succeeded but server response has no token:", data);
+          setError("Login succeeded but token missing from server response.");
+          setLoading(false);
+          return;
+        }
+
+        // Save under canonical key 'token' (what other pages expect)
+        localStorage.setItem("token", token);
+        // also keep teacher-specific key for backward compatibility
+        localStorage.setItem("teacherToken", token);
         localStorage.setItem("userRole", "teacher"); // optional
-        window.dispatchEvent(new Event("login"));    // notify Navbar
+
+        console.log("Token saved:", localStorage.getItem("token"));
+        // notify other parts of the app if they listen
+        window.dispatchEvent(new Event("login"));
+
+        // redirect to teacher dashboard (adjust route as needed)
         navigate("/teacherpage");
       } else {
         setError(data.message || "Login failed. Please try again.");

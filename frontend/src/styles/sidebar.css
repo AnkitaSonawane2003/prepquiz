@@ -1,45 +1,153 @@
-/* Shared Sidebar Styles for Both Student and Teacher */
+/* ====== Unified Sidebar (Professional Design) ====== */
 .unified-sidebar {
-  width: 220px;
-  background-color: #2c3e50;
-  color: white;
-  padding: 20px;
-  margin-top: 100px;
-  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 230px;
+  background: linear-gradient(180deg, #1f2937, #111827);
+  color: #ffffff;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.25);
+  transition: width 0.4s ease-in-out, background 0.4s ease-in-out;
+  overflow: hidden;
+  z-index: 10;
 }
 
+.unified-sidebar:hover {
+  width: 250px;
+  background: linear-gradient(180deg, #111827, #0f172a);
+}
+
+/* ====== Sidebar Title ====== */
 .unified-sidebar-title {
-  margin: 0 0 30px 0;
-  font-size: 2.5rem;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 40px;
   text-align: center;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #00c6ff;
+  animation: fadeDown 1s ease;
+  text-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
 }
 
+/* ====== Nav Links ====== */
 .unified-nav-links {
   list-style: none;
   padding: 0;
-  margin: 0;
-  flex-grow: 1;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .unified-nav-links li {
-  margin-bottom: 25px;
+  margin-bottom: 18px;
 }
 
+/* ====== Individual Link Styles ====== */
 .unified-nav-links a {
-  color: white;
   text-decoration: none;
-  font-size: 1.3rem;
-  padding: 10px 12px;
-  display: block;
+  color: #e5e7eb;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.unified-nav-links a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 0%;
+  background: #00c6ff;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: height 0.3s ease;
+}
+
+.unified-nav-links a:hover::before {
+  height: 100%;
 }
 
 .unified-nav-links a:hover {
-  background-color: #34495e;
+  background: rgba(255, 255, 255, 0.08);
+  color: #00c6ff;
+  transform: translateX(5px);
+  box-shadow: inset 0 0 12px rgba(0, 198, 255, 0.15);
 }
 
+/* ====== Add a Subtle Glow on Active Link ====== */
+.unified-nav-links a.active {
+  background: rgba(0, 198, 255, 0.15);
+  color: #00c6ff;
+  box-shadow: inset 0 0 10px rgba(0, 198, 255, 0.25);
+}
+
+/* ====== Sidebar Footer or Logo ====== */
+.sidebar-footer {
+  margin-top: auto;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeUp 1s ease;
+}
+
+/* ====== Keyframe Animations ====== */
+@keyframes fadeDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====== Responsive Design ====== */
+@media (max-width: 768px) {
+  .unified-sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 15px 0;
+  }
+
+  .unified-nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .unified-nav-links li {
+    margin-bottom: 0;
+  }
+
+  .unified-sidebar-title {
+    display: none;
+  }
+}

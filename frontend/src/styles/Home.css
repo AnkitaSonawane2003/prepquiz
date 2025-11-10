@@ -1,237 +1,251 @@
-/* GLOBAL STYLES */
+/* 🌐 GLOBAL STYLES */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: rgb(206, 203, 203);
-  color: #0D9488;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(145deg, #eef7f9 0%, #e4f1f0 100%);
+  color: #0d9488;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 * {
+  box-sizing: border-box;
   transition: all 0.3s ease;
 }
 
 .home-container {
-  padding: 40px 20px;
+  padding: 60px 20px;
   max-width: 1200px;
-  margin: auto;
-  margin-top: 80px;
+  margin: 80px auto;
   cursor: default;
 }
 
-
 /* ------------------- */
-/* 🎯 Hero Section     */
+/* 🎯 HERO SECTION     */
 /* ------------------- */
 .hero {
-  background-color: #f9fafb;
-  padding: 60px 20px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  border-radius: 50px;
+  padding: 100px 40px;
   text-align: center;
-  border-radius: 60px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  margin-bottom: 50px;
-  margin-top: 50px;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
-.hero h1 {
-  font-size: 2.5rem;
   overflow: hidden;
-  border-right: 3px solid #0D9488;
-  white-space: nowrap;
-  animation: typing 3s steps(30), blink 0.75s step-end infinite;
-  width: fit-content;
-  margin: 0 auto 15px auto;
+  box-shadow: 0 10px 40px rgba(13, 148, 136, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+/* Floating gradient glow */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 160%;
+  height: 200%;
+  background: conic-gradient(from 90deg at 50% 50%, #0d9488, #06b6d4, #14b8a6, #0d9488);
+  opacity: 0.1;
+  animation: rotateGlow 15s linear infinite;
+  z-index: 0;
 }
 
-@keyframes blink {
-  50% { border-color: transparent; }
+@keyframes rotateGlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-.hero:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+.hero-content {
+  position: relative;
+  z-index: 1;
 }
 
-/* ✨ Animated Heading */
-.hero h1 {
-  font-size: 3rem;
+/* Typewriter Heading */
+.typing-text {
+  font-size: 3.5rem;
   font-weight: 800;
-  background: linear-gradient(to right, #0D9488, #06b6d4);
+  letter-spacing: -1px;
+  background: linear-gradient(to right, #0d9488, #06b6d4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 15px;
-  animation: fadeInZoom 1.2s ease-out;
+  line-height: 1.2;
+  animation: fadeUp 1.2s ease-in-out;
 }
 
-@keyframes fadeInZoom {
+@keyframes fadeUp {
   from {
     opacity: 0;
-    transform: scale(0.8);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
-.hero h2 {
-  font-size: 1.4rem;
-  margin-bottom: 20px;
+/* Subtitle */
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: #334155;
+  margin-bottom: 40px;
   font-weight: 500;
-  color: #1f2937;
+  animation: fadeUp 1.6s ease-in-out;
 }
 
-.hero button {
-  background-color: #0D9488;
+/* Call-to-action Button */
+.cta-button {
+  background: linear-gradient(135deg, #0d9488, #06b6d4);
   color: #fff;
-  padding: 12px 28px;
-  font-size: 1rem;
-  font-weight: bold;
+  padding: 14px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: 40px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(13, 148, 136, 0.3);
+  transition: all 0.4s ease;
 }
 
-.hero button:hover {
-  background-color: #0f766e;
-  transform: translateY(-2px);
+.cta-button:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 14px 35px rgba(13, 148, 136, 0.4);
 }
 
 /* ------------------- */
-/* 🌟 Features Section */
+/* 📘 ABOUT SECTION    */
+/* ------------------- */
+.about {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  border-radius: 40px;
+  padding: 60px 50px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  margin: 80px 0;
+  text-align: center;
+  animation: fadeUp 1.5s ease;
+}
+
+.about h2 {
+  font-size: 2.2rem;
+  color: #0d9488;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.about p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #334155;
+  text-align: justify;
+}
+
+/* ------------------- */
+/* 🌟 FEATURES SECTION */
 /* ------------------- */
 .features {
-  margin-bottom: 50px;
-  border-radius: 60px;
+  text-align: center;
+  margin-bottom: 80px;
 }
 
 .features h2 {
-  font-size: 1.75rem;
-  text-align: center;
-  margin-bottom: 30px;
-  font-weight: bold;
-  color: #0D9488;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0d9488;
+  margin-bottom: 50px;
+  position: relative;
+  display: inline-block;
+}
+
+.features h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 70px;
+  height: 4px;
+  background: linear-gradient(to right, #0d9488, #06b6d4);
+  transform: translateX(-50%);
+  border-radius: 2px;
 }
 
 .feature-grid {
-  display: flex;
-  justify-content: center;
-
-}
-.hero {
-  background-color: #f9fafb;
-  padding: 40px 20px;
-  text-align: center;
-  border-radius: 60px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  margin-bottom: 50px;
-  margin-top: 50px;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow-wrap: break-word;  /* allow wrapping */
-  word-break: break-word;     /* break long words */
-}
-
-.typing-text {
-  font-size: 3rem;
-  font-weight: 700;
-  background: linear-gradient(to right, #0D9488, #06b6d4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0 auto 15px auto;
-  max-width: 90vw;
-  overflow: visible;          /* show full content */
-  white-space: normal;        /* allow wrapping */
-  /* REMOVE any nowrap or ellipsis */
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .typing-text {
-    font-size: 2rem;
-    max-width: 100%;
-    white-space: normal;      /* wrap text */
-    overflow: visible;
-  }
-
-  .hero {
-    padding: 30px 15px;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
 }
 
 .feature-item {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 40px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  max-width: 1000px;
-  width: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+  background: linear-gradient(145deg, #ffffff, #f3f4f6);
+  border-radius: 30px;
+  padding: 35px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .feature-item:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px) scale(1.03);
+  background: linear-gradient(145deg, #ecfeff, #f0fdfa);
+  box-shadow: 0 16px 40px rgba(13, 148, 136, 0.25);
 }
 
 .feature-item h3 {
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-  color: #0D9488;
+  font-size: 1.4rem;
+  color: #0d9488;
+  margin-bottom: 12px;
+  font-weight: 600;
 }
 
 .feature-item p {
   font-size: 1rem;
-  color: #374151;
-  margin-bottom: 16px;
+  color: #334155;
   line-height: 1.6;
 }
 
 /* ------------------- */
-/* 📘 About Section    */
+/* 🔻 FOOTER SECTION   */
 /* ------------------- */
-.about {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 60px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin-bottom: 40px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-.about:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
-}
-
-.about h2 {
+.footer-text {
   text-align: center;
-  font-size: 1.75rem;
-  margin-bottom: 20px;
-  color: #0D9488;
-}
-
-.about p {
-  font-size: 1rem;
-  line-height: 1.7;
-  text-align: justify;
-  color: #374151;
-}
-
-/* ------------------- */
-/* 🔻 Footer           */
-/* ------------------- */
-footer-text {
-  text-align: center;
-  margin-top: 40px;
   color: #6b7280;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  margin-top: 100px;
+  opacity: 0.9;
+}
+
+/* ------------------- */
+/* 📱 RESPONSIVE       */
+/* ------------------- */
+@media (max-width: 900px) {
+  .typing-text {
+    font-size: 2.6rem;
+  }
+  .hero {
+    padding: 80px 25px;
+  }
+  .about, .feature-item {
+    padding: 35px;
+  }
+}
+
+@media (max-width: 600px) {
+  .typing-text {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  .cta-button {
+    padding: 12px 28px;
+    font-size: 1rem;
+  }
+  .features h2 {
+    font-size: 1.7rem;
+  }
+  .about h2 {
+    font-size: 1.8rem;
+  }
 }

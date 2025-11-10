@@ -101,6 +101,7 @@ const path = require("path");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 
+
 dotenv.config();
 
 // Initialize App
@@ -139,6 +140,8 @@ app.use("/api/contact", require("./routes/contact"));
 app.use("/api/problems", require("./routes/problemRoutes"));
 app.use("/api/gemini", geminiRoutes); // ✅ For DSA
 app.use("/api/generate-questions", require("./routes/generateQuestions"));
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/submissions", require("./routes/submissionRoutes"));
 app.use("/api/compiler", compiler);

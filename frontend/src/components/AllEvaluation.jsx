@@ -1,57 +1,103 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../styles/allevaluate.css";
 
 const AllEvaluations = () => {
-  const [evaluations, setEvaluations] = useState([]);
+  const [codingEvaluations, setCodingEvaluations] = useState([]);
+  const [testEvaluations, setTestEvaluations] = useState([]);
+  const navigate = useNavigate();
 
+  // Fetch Coding Evaluations (public)
   useEffect(() => {
-    const fetchEvaluations = async () => {
+    const fetchCodingEvaluations = async () => {
       try {
         const res = await axios.get("http://localhost:5000/api/evaluation/all-evaluations");
-        setEvaluations(res.data);
+        setCodingEvaluations(res.data || []);
       } catch (err) {
-        console.error(err);
+        console.error("Coding Evaluation Fetch Error:", err.response?.data || err.message || err);
       }
     };
-    fetchEvaluations();
+    fetchCodingEvaluations();
   }, []);
+
+  // Fetch Test Evaluations (protected)
+  useEffect(() => {
+    const fetchTestEvaluations = async () => {
+      try {
+        // check multiple keys for compatibility
+        const token = localStorage.getItem("token") || localStorage.getItem("teacherToken") || null;
+        if (!token) {
+          console.warn("No token found in localStorage. Redirecting to login.");
+          localStorage.removeItem("token");
+          localStorage.removeItem("teacherToken");
+          navigate("/login"); // change to your login route if different
+          return;
+        }
+
+        const res = await axios.get("http://localhost:5000/api/testAttempts/per-student", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const attempts = res.data?.attempts ?? res.data ?? [];
+        setTestEvaluations(Array.isArray(attempts) ? attempts : []);
+      } catch (err) {
+        console.error("Test Evaluation Fetch Error:", err.response?.data || err.message || err);
+        if (err.response?.status === 401) {
+          // token invalid or expired
+          localStorage.removeItem("token");
+          localStorage.removeItem("teacherToken");
+          navigate("/login");
+        }
+      }
+    };
+    fetchTestEvaluations();
+  }, [navigate]);
+
+  const renderStats = (data) => ({
+    totalStudents: data.length,
+    totalSubmissions: data.reduce((acc, e) => acc + (e.totalSubmissions || 0), 0),
+    avgSubmissions: data.length ? (data.reduce((acc, e) => acc + (e.totalSubmissions || 0), 0) / data.length).toFixed(1) : 0,
+  });
+
+  const codingStats = renderStats(codingEvaluations);
+  const testStats = renderStats(testEvaluations);
 
   return (
     <div className="dashboard-page">
-      <h1 className="dashboard-title">📊 Overall Student Coding Evaluation</h1>
+      <h1 className="dashboard-title">📊 Overall Student Evaluations</h1>
 
-      {/* --- Overall Stats --- */}
+      {/* --- Coding Evaluation --- */}
+      <h2>Coding Evaluation</h2>
       <div className="overall-stats">
-        <div className="stat-card">
-          <h3>Total <br />Students</h3>
-          <p>{evaluations.length}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Total <br />Submissions<br /></h3>
-          <p>{evaluations.reduce((acc, e) => acc + e.totalSubmissions, 0)}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Average Submissions/<br />Student</h3>
-          <p>
-            {evaluations.length
-              ? (
-                  evaluations.reduce((acc, e) => acc + e.totalSubmissions, 0) /
-                  evaluations.length
-                ).toFixed(1)
-              : 0}
-          </p>
-        </div>
+        <div className="stat-card"><h3>Total Students</h3><p>{codingStats.totalStudents}</p></div>
+        <div className="stat-card"><h3>Total Submissions</h3><p>{codingStats.totalSubmissions}</p></div>
+        <div className="stat-card"><h3>Average Submissions / Student</h3><p>{codingStats.avgSubmissions}</p></div>
+      </div>
+      <div className="student-list">
+        {codingEvaluations.map((user) => (
+          <div key={user.email} className="student-card">
+            <p>📧 {user.email}</p>
+            <p>🧮 Submissions: <strong>{user.totalSubmissions}</strong></p>
+            <p>🕒 Last: {new Date(user.lastSubmission).toLocaleString()}</p>
+          </div>
+        ))}
       </div>
 
-      {/* --- Student List --- */}
+      {/* --- Test Evaluation --- */}
+      <h2>Test Evaluation</h2>
+      <div className="overall-stats">
+        <div className="stat-card"><h3>Total Students</h3><p>{testStats.totalStudents}</p></div>
+        <div className="stat-card"><h3>Total Submissions</h3><p>{testStats.totalSubmissions}</p></div>
+        <div className="stat-card"><h3>Average Submissions / Student</h3><p>{testStats.avgSubmissions}</p></div>
+      </div>
       <div className="student-list">
-        {evaluations.map((user) => (
-          <div key={user._id} className="student-card">
-            <h3>{user._id}</h3>
-            <p>
-              🧮 Submissions: <strong>{user.totalSubmissions}</strong>
-            </p>
+        {testEvaluations.map((user) => (
+          <div key={user.email} className="student-card">
+            <p>📧 {user.email}</p>
+            <p>🧮 Submissions: <strong>{user.totalSubmissions}</strong></p>
             <p>🕒 Last: {new Date(user.lastSubmission).toLocaleString()}</p>
           </div>
         ))}
@@ -61,108 +107,3 @@ const AllEvaluations = () => {
 };
 
 export default AllEvaluations;
-
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import "../styles/allevaluate.css";
-
-// const AllEvaluations = () => {
-//   const [evaluations, setEvaluations] = useState([]);
-//   const [studentNames, setStudentNames] = useState({});
-//   const [selectedEval, setSelectedEval] = useState(null);
-
-//   useEffect(() => {
-//     const fetchEvaluations = async () => {
-//       try {
-//         const res = await axios.get("http://localhost:5000/api/evaluation/all-evaluations");
-//         const allEvals = res.data || [];
-//         setEvaluations(allEvals);
-
-//         // Fetch student names using their email (_id)
-//         const names = {};
-//         await Promise.all(
-//           allEvals.map(async (e) => {
-//             try {
-//               const studentRes = await axios.get(
-//                 `http://localhost:5000/api/student/profile-by-email/${encodeURIComponent(e._id)}`
-//               );
-//               names[e._id] = studentRes.data.fullName || "Unnamed Student";
-//             } catch {
-//               names[e._id] = "Unnamed Student";
-//             }
-//           })
-//         );
-//         setStudentNames(names);
-//       } catch (err) {
-//         console.error("Error fetching evaluations:", err);
-//       }
-//     };
-
-//     fetchEvaluations();
-//   }, []);
-
-//   return (
-//     <div className="dashboard-page">
-//       <h1 className="dashboard-title">📊 Overall Student Evaluation Dashboard</h1>
-
-//       {/* --- Overall Stats --- */}
-//       <div className="overall-stats">
-//         <div className="stat-card">
-//           <h3>Total Students</h3>
-//           <p>{evaluations.length}</p>
-//         </div>
-//         <div className="stat-card">
-//           <h3>Total Submissions</h3>
-//           <p>{evaluations.reduce((acc, e) => acc + e.totalSubmissions, 0)}</p>
-//         </div>
-//         <div className="stat-card">
-//           <h3>Average Submissions/Student</h3>
-//           <p>
-//             {evaluations.length
-//               ? (
-//                   evaluations.reduce((acc, e) => acc + e.totalSubmissions, 0) /
-//                   evaluations.length
-//                 ).toFixed(1)
-//               : 0}
-//           </p>
-//         </div>
-//       </div>
-
-//       {/* --- Student Cards --- */}
-//       <div className="student-list">
-//         {evaluations.map((user) => (
-//           <div
-//             key={user._id}
-//             className="student-card"
-//             onClick={() => setSelectedEval(user)}
-//           >
-//             <h3>{studentNames[user._id] || "Loading..."}</h3>
-//             <p>📧 {user._id}</p>
-//             <p>🧮 Submissions: <strong>{user.totalSubmissions}</strong></p>
-//             <p>🕒 Last: {new Date(user.lastSubmission).toLocaleString()}</p>
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* --- Popup Modal --- */}
-//       {selectedEval && (
-//         <div className="modal-overlay" onClick={() => setSelectedEval(null)}>
-//           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-//             <button className="close-btn" onClick={() => setSelectedEval(null)}>
-//               ✖
-//             </button>
-
-//             <h2>{studentNames[selectedEval._id] || "Unnamed Student"}</h2>
-//             <p><b>Email:</b> {selectedEval._id}</p>
-//             <p><b>Problems Solved:</b> {selectedEval.uniqueProblemsSolved || 0}</p>
-//             <p><b>Total Submissions:</b> {selectedEval.totalSubmissions}</p>
-//             <p><b>Score:</b> {selectedEval.score || 0}</p>
-//             <p><b>Last Submission:</b> {new Date(selectedEval.lastSubmission).toLocaleString()}</p>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default AllEvaluations;
