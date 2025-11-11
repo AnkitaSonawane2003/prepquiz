@@ -4,6 +4,7 @@
   height: 100vh;
   font-family: Arial, sans-serif;
 
+
 }
 .admin-main-content{
   margin-top: 10px;
@@ -12,6 +13,7 @@
   padding: 30px;
   overflow-y: auto;
         margin-top: 100px;
+        margin-left: 250px;
 }
 /* Sidebar styles */
 .sidebar {

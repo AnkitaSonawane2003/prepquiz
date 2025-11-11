@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import "../styles/teacher.css";
-import "../styles/sidebar.css";
+import "../styles/teacherstyle.css";
 
 function TeacherPage() {
   // ✅ Teacher stats

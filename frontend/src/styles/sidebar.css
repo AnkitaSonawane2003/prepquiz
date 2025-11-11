@@ -1,10 +1,10 @@
-/* ====== Unified Sidebar (Professional Design) ====== */
+/* ====== Unified Sidebar (Fixed Professional Design) ====== */
 .unified-sidebar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 230px;
+  width: 200px;
   background: linear-gradient(180deg, #1f2937, #111827);
   color: #ffffff;
   display: flex;
@@ -15,7 +15,9 @@
   box-shadow: 4px 0 25px rgba(0, 0, 0, 0.25);
   transition: width 0.4s ease-in-out, background 0.4s ease-in-out;
   overflow: hidden;
-  z-index: 10;
+  margin-top: 100px;
+
+  z-index: 1000; /* stays above content but below header/footer if any */
 }
 
 .unified-sidebar:hover {
@@ -23,7 +25,7 @@
   background: linear-gradient(180deg, #111827, #0f172a);
 }
 
-/* ====== Sidebar Title ====== */
+/* Sidebar Title */
 .unified-sidebar-title {
   font-size: 1.8rem;
   font-weight: 700;
@@ -36,7 +38,7 @@
   text-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
 }
 
-/* ====== Nav Links ====== */
+/* Sidebar Nav Links */
 .unified-nav-links {
   list-style: none;
   padding: 0;
@@ -48,7 +50,6 @@
   margin-bottom: 18px;
 }
 
-/* ====== Individual Link Styles ====== */
 .unified-nav-links a {
   text-decoration: none;
   color: #e5e7eb;
@@ -85,25 +86,13 @@
   box-shadow: inset 0 0 12px rgba(0, 198, 255, 0.15);
 }
 
-/* ====== Add a Subtle Glow on Active Link ====== */
 .unified-nav-links a.active {
   background: rgba(0, 198, 255, 0.15);
   color: #00c6ff;
   box-shadow: inset 0 0 10px rgba(0, 198, 255, 0.25);
 }
 
-/* ====== Sidebar Footer or Logo ====== */
-.sidebar-footer {
-  margin-top: auto;
-  font-size: 0.9rem;
-  color: #9ca3af;
-  text-align: center;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  animation: fadeUp 1s ease;
-}
-
-/* ====== Keyframe Animations ====== */
+/* Animations */
 @keyframes fadeDown {
   0% {
     opacity: 0;
@@ -115,18 +104,7 @@
   }
 }
 
-@keyframes fadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ====== Responsive Design ====== */
+/* Responsive Sidebar */
 @media (max-width: 768px) {
   .unified-sidebar {
     position: relative;
@@ -137,6 +115,10 @@
     padding: 15px 0;
   }
 
+  .unified-sidebar-title {
+    display: none;
+  }
+
   .unified-nav-links {
     display: flex;
     justify-content: center;
@@ -145,9 +127,5 @@
 
   .unified-nav-links li {
     margin-bottom: 0;
-  }
-
-  .unified-sidebar-title {
-    display: none;
   }
 }

@@ -3,6 +3,7 @@
   color: #E5E7EB; /* gray-200 */
   padding: 2rem 1.5rem;
   font-family: Arial, sans-serif;
+
 }
 
 .footer-container {
@@ -11,6 +12,8 @@
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  margin-left: 200px;
+  
 }
 
 /* Brand Info */

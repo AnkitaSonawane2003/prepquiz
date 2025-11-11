@@ -72,7 +72,7 @@ const Home = () => {
         </div>
       </section>
 
-      <footer className="footer-text">© 2025 PrepQuiz. All rights reserved.</footer>
+ 
     </main>
   );
 };
