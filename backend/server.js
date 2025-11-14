@@ -100,6 +100,8 @@ const cors = require("cors");
 const path = require("path");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
+// server.js (or app.js)
+
 
 
 dotenv.config();

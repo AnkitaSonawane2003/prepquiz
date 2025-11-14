@@ -608,6 +608,8 @@ const StudentPage = () => {
   const [recentTests, setRecentTests] = useState([]);
   const [recentChallenges, setRecentChallenges] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
+  const [studentProfile, setStudentProfile] = useState(null);
+
 
   const motivationalThought1 =
     "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill";
@@ -630,7 +632,21 @@ const StudentPage = () => {
         console.error(err);
       }
     }
-
+const token = localStorage.getItem("studentToken");
+if (token) {
+  async function fetchProfile() {
+    try {
+      const res = await fetch("http://localhost:5000/api/student/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (res.ok) setStudentProfile(data);
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+    }
+  }
+  fetchProfile();
+}
     async function fetchProblemsSolved() {
       try {
         const res = await fetch(
@@ -711,7 +727,9 @@ const StudentPage = () => {
         <main className="main-content">
           {/* Performance Summary */}
           <div className="summary-card">
-            <div className="summary-name">Performance Summary</div>
+<div className="summary-name">
+  Performance Summary {studentProfile ? `for ${studentProfile.fullName}` : ""}
+</div>
             <div className="summary-stats">
               <div className="summary-item">
                 <div className="summary-number">{testsAttempted}</div>
@@ -719,7 +737,7 @@ const StudentPage = () => {
               </div>
               <div className="summary-item">
                 <div className="summary-number">{problemsSolved}</div>
-                <div className="summary-label">Problems Solved</div>
+                <div className="summary-label">Coding Problems Solved</div>
               </div>
             </div>
           </div>

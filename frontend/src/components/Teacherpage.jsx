@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import "../styles/teacher.css";
 import "../styles/teacherstyle.css";
 
+
 function TeacherPage() {
   // ✅ Teacher stats
   const [stats, setStats] = useState({
@@ -104,17 +105,20 @@ function TeacherPage() {
   return (
     <div className="teacher-page-container">
       {/* Sidebar */}
-      <nav className="sidebar">
-        <h2 className="sidebar-title">Teacher Portal</h2>
-        <ul className="nav-links">
-          <li><NavLink to="/teacherprofile" className={({ isActive }) => (isActive ? "active-link" : "")}>Profile</NavLink></li>
-          <li><NavLink to="/add-test" className={({ isActive }) => isActive ? "active-link" : ""}>Add Tests</NavLink></li>
-          <li><NavLink to="/add-aptitude" className={({ isActive }) => isActive ? "active-link" : ""}>Add Problems</NavLink></li>
-          <li><NavLink to="/studdata" className={({ isActive }) => isActive ? "active-link" : ""}>Student Data</NavLink></li>
-          <li><NavLink to="/allevaluation" className={({ isActive }) => isActive ? "active-link" : ""}>Student Evaluation</NavLink></li>
-          <li><NavLink to="/announce" className={({ isActive }) => isActive ? "active-link" : ""}>Add Alert</NavLink></li>
-        </ul>
-      </nav>
+     <nav className="unified-sidebar">
+  <h2 className="unified-sidebar-title">Teacher Portal</h2>
+
+  <ul className="unified-nav-links">
+    <li><NavLink to="/teacherprofile" className={({ isActive }) => isActive ? "active" : ""}>Profile</NavLink></li>
+    <li><NavLink to="/add-test" className={({ isActive }) => isActive ? "active" : ""}>Add Tests</NavLink></li>
+    <li><NavLink to="/add-aptitude" className={({ isActive }) => isActive ? "active" : ""}>Add Problems</NavLink></li>
+    <li><NavLink to="/studdata" className={({ isActive }) => isActive ? "active" : ""}>Student Data</NavLink></li>
+    <li><NavLink to="/doubt" className={({ isActive }) => isActive ? "active" : ""}>Doubts Raised</NavLink></li>
+    <li><NavLink to="/allevaluation" className={({ isActive }) => isActive ? "active" : ""}>Student Evaluation</NavLink></li>
+    <li><NavLink to="/announce" className={({ isActive }) => isActive ? "active" : ""}>Add Alert</NavLink></li>
+  </ul>
+</nav>
+
 
       {/* Main Content */}
       <main className="teacher-main-content">

@@ -42,6 +42,7 @@ import Compiler from "./components/Compiler";
 import Evaluation from "./components/Evaluation"
 import AllEvaluation from "./components/AllEvaluation"
 import ViewAttempt from "./components/ViewAttempt";
+import TestCard from "./components/TestCard";
 
 // NEW: import TestTake component for student test-taking route
 import TestTake from "./components/TestTake";
@@ -101,10 +102,11 @@ function App() {
         <Route path="/studentevaluation" element={<Evaluation/>}/>
         <Route path="allevaluation" element={<AllEvaluation/>}/>
         <Route path="/student/tests/:testId/view" element={<ViewAttempt />} />
+        <Route path="/testcard" element={<TestCard/>}/>
 
 
-         
-          <Route path="/compiler" element={<Compiler />} />
+         <Route path="/compiler/:problemId" element={<Compiler />} />
+
 
       </Routes>
 

@@ -587,29 +587,37 @@ const StudentPractice = () => {
   }, [problems, userEmail]);
 
   // Handle "Open" button click
-  const handleOpen = (problem) => {
-    if (!problem || !problem._id) return;
+ const handleOpen = (problem) => {
+  if (!problem || !problem._id) return;
 
-    const isSolved =
-      solvedProblems[problem._id] ||
-      (currentProblemLS?.status === "solved" &&
-        currentProblemLS._id === problem._id);
-    const submission = submissions[problem._id];
+  const isSolved =
+    solvedProblems[problem._id] ||
+    (currentProblemLS?.status === "solved" &&
+      currentProblemLS._id === problem._id);
 
-    if (isSolved && submission) {
-      Swal.fire({
-        title: `${problem.title} — Solved ✅`,
-        html: `<pre style="text-align:left;background:#f7f7f7;padding:10px;border-radius:6px;overflow:auto;">
+  const submission = submissions[problem._id];
+
+  if (isSolved && submission) {
+    Swal.fire({
+      title: `${problem.title} — Solved ✅`,
+      html: `<pre style="text-align:left;background:#f7f7f7;padding:10px;border-radius:6px;overflow:auto;">
 ${submission.code}
-        </pre>`,
-        width: "60%",
-        confirmButtonText: "Close",
-      });
-    } else {
-      localStorage.setItem("currentProblem", JSON.stringify({ ...problem, status: "open" }));
-      navigate("/compiler");
-    }
-  };
+      </pre>`,
+      width: "60%",
+      confirmButtonText: "Close",
+    });
+  } else {
+    // Save current problem to localStorage
+    localStorage.setItem(
+      "currentProblem",
+      JSON.stringify({ ...problem, status: "open" })
+    );
+
+    // Navigate with problemId
+    navigate(`/compiler/${problem._id}`);
+  }
+};
+
 
   return (
     <div className="student-practice-wrapper">

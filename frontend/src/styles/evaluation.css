@@ -22,21 +22,21 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 80px; /* ✅ more space between card and chart */
-  flex-wrap: wrap; /* allows wrapping on smaller screens */
+  gap: 80px;
+  flex-wrap: wrap;
   width: 100%;
 }
 
 /* === Evaluation Card === */
 .evaluation-card {
   flex: 0 0 380px;
-  background: #f9fbff; /* soft white-blue tone to make it pop */
+  background: #f9fbff;
   border-radius: 16px;
   padding: 35px 30px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 74, 173, 0.08);
   transition: all 0.3s ease;
-  margin-bottom: 30px; /* ✅ space between stacked cards if any */
+  margin-bottom: 30px;
 }
 
 .evaluation-card:hover {
@@ -66,7 +66,7 @@
 /* === Chart Container === */
 .chart-container {
   flex: 0 0 650px;
-  background: #f9fbff; /* ✅ same tone as card */
+  background: #f9fbff;
   border-radius: 16px;
   padding: 35px 30px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
@@ -87,23 +87,55 @@
   font-size: 1.3rem;
 }
 
-/* === Responsive Layout === */
-@media (max-width: 992px) {
-  .evaluation-content {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
+/* === Test Attempts Grid === */
+.test-attempts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
 
-  .chart-container,
-  .evaluation-card {
-    width: 90%;
-    max-width: 600px;
-  }
+/* === Topic-wise Performance === */
+.topic-performance {
+  margin-top: 15px;
+}
 
-  .evaluation-title {
-    font-size: 2rem;
-  }
+.topic-performance h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #004aad;
+  text-align: center;
+  font-weight: 600;
+}
+
+.topic-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.topic-table th,
+.topic-table td {
+  border: 1px solid #cce0ff;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.topic-table th {
+  background-color: #e6f0ff;
+  font-weight: 600;
+  color: #003a94;
+}
+
+.topic-table td {
+  background-color: #f5faff;
+  color: #004aad;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.topic-table tr:hover td {
+  background-color: #d0e4ff;
 }
 
 /* === Loading / No Data States === */
@@ -130,5 +162,30 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* === Responsive Layout === */
+@media (max-width: 992px) {
+  .evaluation-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .chart-container,
+  .evaluation-card {
+    width: 90%;
+    max-width: 600px;
+  }
+
+  .evaluation-title {
+    font-size: 2rem;
+  }
+
+  .test-attempts-grid {
+    grid-template-columns: 1fr;
+  }
 }

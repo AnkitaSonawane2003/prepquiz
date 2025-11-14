@@ -36,6 +36,7 @@
   color: #00c6ff;
   animation: fadeDown 1s ease;
   text-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+  margin-top: 2px;
 }
 
 /* Sidebar Nav Links */
@@ -43,7 +44,7 @@
   list-style: none;
   padding: 0;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 2px;
 }
 
 .unified-nav-links li {

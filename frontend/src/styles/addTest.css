@@ -1,371 +1,287 @@
-/* =========================================
-   ADD TEST PAGE — ANIMATED MODERN THEME
-   ========================================= */
+/* 🌟 Modern Add Test Page Styling – Aqua Teal Theme */
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
-
-* {
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-/* ===== Page Background ===== */
 .add-test-container {
   max-width: 1100px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: whitesmoke;
+  margin: 100px auto;
+  padding: 40px 50px;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(145deg, #f9fbfc, #f0f7f7);
+  border-radius: 25px;
+  box-shadow: 0 20px 50px rgba(13, 148, 136, 0.15);
+  color: #0d9488;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* 🧩 Page Heading */
+.add-test-container h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  text-align: center;
+  color: #0d9488;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px rgba(13, 148, 136, 0.25);
+}
+
+.add-test-container p {
+  text-align: center;
+  font-size: 1.05rem;
+  color: #555;
+  margin-bottom: 35px;
+}
+
+/* 🔹 Section Headings */
+.add-test-container section h2,
+.add-test-container section h3 {
+  font-size: 1.5rem;
+  color: #0d9488;
+  margin-bottom: 15px;
+  border-left: 5px solid #0d9488;
+  padding-left: 12px;
+  text-shadow: 0 0 5px rgba(13, 148, 136, 0.2);
+}
+
+/* 🧠 AI Generator Section */
+.ai-generator {
+  background: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.2);
-  animation: fadeSlideUp 0.8s ease-out;
-  position: relative;
-  overflow: hidden;
-  margin-top: 140px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 25px rgba(13, 148, 136, 0.1);
 }
 
-/* Animated gradient overlay */
-.add-test-container::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    from 180deg,
-    #0D9488,
-    #0D9488,
-    #0D9488,
-    #0D9488
-  );
-  animation: rotateGradient 10s linear infinite;
-  opacity: 0.08;
-  z-index: 0;
+.ai-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
-@keyframes rotateGradient {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ===== Titles ===== */
-.add-test-title {
-  text-align: center;
-  font-size: 2.3rem;
-  font-weight: 700;
-  color: #0D9488;
-  margin-bottom: 0.5rem;
-  position: relative;
-  z-index: 1;
-  animation: popIn 0.8s ease;
-}
-
-.add-test-subtitle {
-  text-align: center;
-  color: #4b5563;
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 1;
-}
-
-/* ===== Sections ===== */
-.test-details-card,
-.add-question-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 1.8rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.15);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  position: relative;
-  z-index: 1;
-  animation: fadeSlideUp 0.7s ease forwards;
-}
-
-.test-details-card:hover,
-.add-question-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(13, 148, 136, 0.25);
-}
-
-.test-details-card h2,
-.add-question-card h2 {
-  color: #0D9488;
-  margin-bottom: 1.2rem;
-  font-weight: 700;
-  border-left: 4px solid #0D9488;
-  padding-left: 10px;
-}
-
-/* ===== Form Grid ===== */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-}
-
-.form-grid input,
-.form-grid select,
-.instructions-box,
-textarea {
-  padding: 12px;
+.ai-row input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 15px;
+  border: 1px solid #cbd5e1;
   border-radius: 10px;
-  border: 1.5px solid #cbd5e1;
-  font-size: 0.95rem;
-  background: rgba(255, 255, 255, 0.85);
-  color: #111827;
-  transition: all 0.3s ease;
-}
-
-.form-grid input:focus,
-.form-grid select:focus,
-textarea:focus {
-  border-color: #0D9488;
-  box-shadow: 0 0 8px rgba(13, 148, 136, 0.4);
-  transform: scale(1.02);
+  background-color: #f8fafc;
+  color: #0d9488;
   outline: none;
+  transition: 0.3s;
 }
 
-/* ===== Instructions Box ===== */
-.instructions-box {
+.ai-row input:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 10px rgba(13, 148, 136, 0.3);
+}
+
+/* ✨ AI Generate Button */
+.ai-row button {
+  background: linear-gradient(90deg, #0d9488, #14b8a6);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.ai-row button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #14b8a6, #0d9488);
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.3);
+}
+
+/* 📋 Test Details Section */
+.test-details {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 25px rgba(13, 148, 136, 0.1);
+}
+
+.test-details input,
+.test-details select,
+.test-details textarea {
   width: 100%;
-  height: 90px;
-  margin-top: 1rem;
-  resize: none;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+  font-size: 1rem;
+  outline: none;
+  color: #0d9488;
+  transition: 0.3s;
 }
 
-/* ===== Add Question Section ===== */
-.add-question-card textarea {
+.test-details input:focus,
+.test-details select:focus,
+.test-details textarea:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 10px rgba(13, 148, 136, 0.25);
+}
+
+/* 🧾 Add Question Section */
+.add-question {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 25px rgba(13, 148, 136, 0.1);
+}
+
+.add-question input,
+.add-question textarea,
+.add-question select {
   width: 100%;
-  height: 80px;
-  resize: none;
-  margin-bottom: 1rem;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  background: #f9fafb;
+  color: #0d9488;
+  transition: 0.3s;
 }
 
+.add-question input:focus,
+.add-question textarea:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 8px rgba(13, 148, 136, 0.3);
+}
+
+/* 🧩 Options Grid */
 .options-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.options-grid input {
-  border: 1.5px solid #cbd5e1;
-  border-radius: 10px;
-  padding: 10px;
-  transition: all 0.3s ease;
-}
-
-.options-grid input:focus {
-  border-color: #0D9488;
-  box-shadow: 0 0 6px rgba(13, 148, 136, 0.4);
-}
-
-/* ===== Question Meta ===== */
+/* 🧠 Question Metadata (Correct Answer + Marks) */
 .question-meta {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 10px;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .question-meta select,
 .question-meta input {
   flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1.5px solid #cbd5e1;
 }
 
-/* ===== Added Questions List ===== */
-.question-list {
-  margin-top: 2rem;
-  background: linear-gradient(145deg, #f9fafb, #eef2ff);
-  border-radius: 12px;
-  padding: 1.5rem;
-  animation: fadeIn 0.8s ease;
-}
-
-.question-item {
-  background: white;
-  border-left: 4px solid #0D9488;
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.question-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 5px 14px rgba(13, 148, 136, 0.15);
-}
-
-/* ===== Buttons ===== */
-.btn {
-  cursor: pointer;
+/* ➕ Add Question Button */
+.add-question button {
+  background: linear-gradient(90deg, #0d9488, #14b8a6);
+  color: white;
+  font-weight: 600;
   border: none;
   border-radius: 10px;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.add-question-btn {
-  background: linear-gradient(90deg, #0D9488, #0fafa0);
-  color: white;
-  padding: 12px 25px;
-  margin-top: 1rem;
-}
-
-.add-question-btn:hover {
-  background: linear-gradient(90deg, #0a7c71, #0D9488);
+.add-question button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(13, 148, 136, 0.3);
 }
 
-.delete-btn {
-  background: linear-gradient(90deg, #ef4444, #f87171);
-  color: white;
-  padding: 8px 18px;
-  margin-top: 10px;
+/* 📜 Question List Display */
+.question-list {
+  margin-top: 25px;
+  border-top: 2px solid #e2e8f0;
+  padding-top: 15px;
 }
 
-.delete-btn:hover {
-  background: linear-gradient(90deg, #dc2626, #ef4444);
+.question-item {
+  background: #f9fafa;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(13, 148, 136, 0.08);
+}
+
+.question-item strong {
+  color: #0d9488;
+}
+
+.question-item ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.question-item button {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.question-item button:hover {
+  background: #dc2626;
+}
+
+/* 🚀 Submit and Reset Buttons */
+.submit-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.submit-section button {
+  margin: 0 10px;
+  padding: 14px 40px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.submit-section button:first-child {
+  background: linear-gradient(90deg, #0d9488, #14b8a6);
+  color: #fff;
+}
+
+.submit-section button:first-child:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(13, 148, 136, 0.4);
+}
+
+.submit-section button:last-child {
+  background: #e2e8f0;
+  color: #0d9488;
+}
+
+.submit-section button:last-child:hover {
+  background: #cbd5e1;
   transform: scale(1.05);
 }
 
-.submit-section {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-  flex-wrap: wrap;
-}
-
-.save-btn {
-  background: linear-gradient(90deg, #0D9488, #10b981);
-  color: white;
-  padding: 14px 35px;
-}
-
-.save-btn:hover {
-  background: linear-gradient(90deg, #0a7c71, #0D9488);
-  transform: translateY(-2px);
-}
-
-.reset-btn {
-  background: linear-gradient(90deg, #9ca3af, #d1d5db);
-  color: #111827;
-  padding: 14px 35px;
-}
-
-.reset-btn:hover {
-  background: linear-gradient(90deg, #6b7280, #9ca3af);
-  transform: translateY(-2px);
-}
-
-/* ===== Animations ===== */
-@keyframes fadeSlideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* 🎬 Animations */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* ===== Responsive ===== */
+/* 📱 Responsive Design */
 @media (max-width: 768px) {
   .add-test-container {
-    padding: 1.5rem;
+    padding: 25px;
   }
 
-  .add-test-title {
-    font-size: 1.8rem;
-  }
-
-  .form-grid,
-  .options-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .question-meta {
+  .ai-row {
     flex-direction: column;
   }
 
-  .submit-section {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .save-btn,
-  .reset-btn {
-    width: 90%;
-  }
-}
-/* Ensure AI inputs are clickable and not blocked by overlays */
-.ai-generate-panel { z-index: 20; position: relative; }
-.ai-generate-panel .ai-input {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #cfcfcf;
-  background: #fff;
-  outline: none;
-  font-size: 14px;
-}
-
-/* small input */
-.ai-input.small { padding: 7px 8px; }
-
-/* If something accidentally sets pointer-events none on parent, override */
-.add-test-container, .ai-generate-panel, .ai-input, .gen-btn {
-  pointer-events: auto !important;
-}
-
-/* show focus so you can see it's active */
-.ai-input:focus { box-shadow: 0 0 0 3px rgba(0,123,255,0.12); border-color: #007bff; }
-
-
-@media (max-width: 480px) {
-  .add-test-title {
-    font-size: 1.5rem;
-  }
-
-  .test-details-card,
-  .add-question-card {
-    padding: 1.2rem;
-  }
-
-  .add-question-card textarea,
-  .instructions-box {
-    height: 70px;
+  .submit-section button {
+    width: 100%;
+    margin-bottom: 10px;
   }
 }

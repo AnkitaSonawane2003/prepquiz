@@ -1,3 +1,221 @@
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import "../styles/allevaluate.css";
+
+// const AllEvaluations = () => {
+//   const [codingEvaluations, setCodingEvaluations] = useState([]);
+//   const [testEvaluations, setTestEvaluations] = useState([]);
+//   const navigate = useNavigate();
+
+//   // Fetch Coding Evaluations (public)
+//   useEffect(() => {
+//     const fetchCodingEvaluations = async () => {
+//       try {
+//         const res = await axios.get("http://localhost:5000/api/evaluation/all-evaluations");
+//         setCodingEvaluations(res.data || []);
+//       } catch (err) {
+//         console.error("Coding Evaluation Fetch Error:", err.response?.data || err.message || err);
+//       }
+//     };
+//     fetchCodingEvaluations();
+//   }, []);
+
+//   // Fetch Test Evaluations (protected)
+//   useEffect(() => {
+//     const fetchTestEvaluations = async () => {
+//       try {
+//         // check multiple keys for compatibility
+//         const token = localStorage.getItem("token") || localStorage.getItem("teacherToken") || null;
+//         if (!token) {
+//           console.warn("No token found in localStorage. Redirecting to login.");
+//           localStorage.removeItem("token");
+//           localStorage.removeItem("teacherToken");
+//           navigate("/login"); // change to your login route if different
+//           return;
+//         }
+
+//         const res = await axios.get("http://localhost:5000/api/testAttempts/per-student", {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//         });
+
+//         const attempts = res.data?.attempts ?? res.data ?? [];
+//         setTestEvaluations(Array.isArray(attempts) ? attempts : []);
+//       } catch (err) {
+//         console.error("Test Evaluation Fetch Error:", err.response?.data || err.message || err);
+//         if (err.response?.status === 401) {
+//           // token invalid or expired
+//           localStorage.removeItem("token");
+//           localStorage.removeItem("teacherToken");
+//           navigate("/login");
+//         }
+//       }
+//     };
+//     fetchTestEvaluations();
+//   }, [navigate]);
+
+//   const renderStats = (data) => ({
+//     totalStudents: data.length,
+//     totalSubmissions: data.reduce((acc, e) => acc + (e.totalSubmissions || 0), 0),
+//     avgSubmissions: data.length ? (data.reduce((acc, e) => acc + (e.totalSubmissions || 0), 0) / data.length).toFixed(1) : 0,
+//   });
+
+//   const codingStats = renderStats(codingEvaluations);
+//   const testStats = renderStats(testEvaluations);
+
+//   return (
+//     <div className="dashboard-page">
+//       <h1 className="dashboard-title">📊 Overall Student Evaluations</h1>
+
+//       {/* --- Coding Evaluation --- */}
+//       <h2>Coding Evaluation</h2>
+//       <div className="overall-stats">
+//         <div className="stat-card"><h3>Total Students</h3><p>{codingStats.totalStudents}</p></div>
+//         <div className="stat-card"><h3>Total Submissions</h3><p>{codingStats.totalSubmissions}</p></div>
+//         <div className="stat-card"><h3>Average Submissions / Student</h3><p>{codingStats.avgSubmissions}</p></div>
+//       </div>
+//       <div className="student-list">
+//         {codingEvaluations.map((user) => (
+//           <div key={user.email} className="student-card">
+//             <p>📧 {user.email}</p>
+//             <p>🧮 Submissions: <strong>{user.totalSubmissions}</strong></p>
+//             <p>🕒 Last: {new Date(user.lastSubmission).toLocaleString()}</p>
+//           </div>
+//         ))}
+//       </div>
+
+//       {/* --- Test Evaluation --- */}
+//       <h2>Test Evaluation</h2>
+//       <div className="overall-stats">
+//         <div className="stat-card"><h3>Total Students</h3><p>{testStats.totalStudents}</p></div>
+//         <div className="stat-card"><h3>Total Submissions</h3><p>{testStats.totalSubmissions}</p></div>
+//         <div className="stat-card"><h3>Average Submissions / Student</h3><p>{testStats.avgSubmissions}</p></div>
+//       </div>
+//       <div className="student-list">
+//         {testEvaluations.map((user) => (
+//           <div key={user.email} className="student-card">
+//             <p>📧 {user.email}</p>
+//             <p>🧮 Submissions: <strong>{user.totalSubmissions}</strong></p>
+//             <p>🕒 Last: {new Date(user.lastSubmission).toLocaleString()}</p>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AllEvaluations;
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import "../styles/allevaluate.css";
+
+// const AllEvaluations = () => {
+//   const [codingEvaluations, setCodingEvaluations] = useState([]);
+//   const [testEvaluations, setTestEvaluations] = useState([]);
+  
+//   const navigate = useNavigate();
+
+//   // Fetch coding evaluations
+//   useEffect(() => {
+//     const fetchCodingEvaluations = async () => {
+//       try {
+//         const res = await axios.get("http://localhost:5000/api/submissions/all-evaluations");
+//         setCodingEvaluations(res.data || []);
+//       } catch (err) {
+//         console.error("Coding Evaluation Fetch Error:", err.response?.data || err.message || err);
+//       }
+//     };
+//     fetchCodingEvaluations();
+//   }, []);
+
+//   // Fetch test evaluations
+//   useEffect(() => {
+//     const fetchTestEvaluations = async () => {
+//       try {
+//         const token = localStorage.getItem("token") || localStorage.getItem("teacherToken");
+//         if (!token) {
+//           localStorage.removeItem("token");
+//           localStorage.removeItem("teacherToken");
+//           navigate("/login");
+//           return;
+//         }
+
+//         const res = await axios.get("http://localhost:5000/api/testAttempts/per-student", {
+//           headers: { Authorization: `Bearer ${token}` },
+//         });
+
+//         const attempts = res.data?.attempts ?? [];
+//         setTestEvaluations(Array.isArray(attempts) ? attempts : []);
+//       } catch (err) {
+//         console.error("Test Evaluation Fetch Error:", err.response?.data || err.message || err);
+//         if (err.response?.status === 401) {
+//           localStorage.removeItem("token");
+//           localStorage.removeItem("teacherToken");
+//           navigate("/login");
+//         }
+//       }
+//     };
+//     fetchTestEvaluations();
+//   }, [navigate]);
+
+//   const renderStats = (data, type) => ({
+//     totalStudents: data.length,
+//     totalSubmissions: data.reduce((acc, e) => acc + (type === "coding" ? e.totalSubmissions : e.marksObtained || 0), 0),
+//     avgSubmissions: data.length
+//       ? (data.reduce((acc, e) => acc + (type === "coding" ? e.totalSubmissions : e.marksObtained || 0), 0) / data.length).toFixed(1)
+//       : 0,
+//   });
+
+//   const codingStats = renderStats(codingEvaluations, "coding");
+//   const testStats = renderStats(testEvaluations, "test");
+
+//   return (
+//     <div className="dashboard-page">
+//       <h1 className="dashboard-title">📊 Overall Student Evaluations</h1>
+
+//       {/* --- Coding Evaluation --- */}
+//       <h2>Coding Evaluation</h2>
+//       <div className="overall-stats">
+//         <div className="stat-card"><h3>Total Students</h3><p>{codingStats.totalStudents}</p></div>
+//         <div className="stat-card"><h3>Total Submissions</h3><p>{codingStats.totalSubmissions}</p></div>
+//         <div className="stat-card"><h3>Average Submissions / Student</h3><p>{codingStats.avgSubmissions}</p></div>
+//       </div>
+//       <div className="student-list">
+//         {codingEvaluations.map((evalItem, index) => (
+//           <div key={index} className="student-card">
+//             {evalItem.problemName && <p>📌 Problem: <strong>{evalItem.problemName}</strong></p>}
+//             <p>📧 Student: {evalItem.email}</p>
+//             <p>🧮 Submissions: <strong>{evalItem.totalSubmissions}</strong></p>
+//             {evalItem.lastSubmission && <p>🕒 Last Submission: {new Date(evalItem.lastSubmission).toLocaleString()}</p>}
+//           </div>
+//         ))}
+//       </div>
+
+//       {/* --- Test Evaluation --- */}
+//       <h2>Test Evaluation</h2>
+//       <div className="overall-stats">
+//         <div className="stat-card"><h3>Total Students</h3><p>{testStats.totalStudents}</p></div>
+//         <div className="stat-card"><h3>Total Marks</h3><p>{testStats.totalSubmissions}</p></div>
+//         <div className="stat-card"><h3>Average Marks / Student</h3><p>{testStats.avgSubmissions}</p></div>
+//       </div>
+//       <div className="student-list">
+//         {testEvaluations.map((attempt, index) => (
+//   <div key={index} className="student-card">
+//     {attempt.testName && <p>📌 Test: <strong>{attempt.testName}</strong></p>}
+//     <p>📧 Student: {attempt.email}</p>
+//     {attempt.marksObtained != null && <p>🏆 Marks Obtained: <strong>{attempt.marksObtained}</strong></p>}
+//     {attempt.attemptedOn && <p>🕒 Attempted On: {new Date(attempt.attemptedOn).toLocaleString()}</p>}
+//   </div>
+// ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AllEvaluations;
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +226,11 @@ const AllEvaluations = () => {
   const [testEvaluations, setTestEvaluations] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch Coding Evaluations (public)
+  // Fetch coding evaluations
   useEffect(() => {
     const fetchCodingEvaluations = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/evaluation/all-evaluations");
+        const res = await axios.get("http://localhost:5000/api/submissions/all-evaluations");
         setCodingEvaluations(res.data || []);
       } catch (err) {
         console.error("Coding Evaluation Fetch Error:", err.response?.data || err.message || err);
@@ -21,32 +239,27 @@ const AllEvaluations = () => {
     fetchCodingEvaluations();
   }, []);
 
-  // Fetch Test Evaluations (protected)
+  // Fetch test evaluations
   useEffect(() => {
     const fetchTestEvaluations = async () => {
       try {
-        // check multiple keys for compatibility
-        const token = localStorage.getItem("token") || localStorage.getItem("teacherToken") || null;
+        const token = localStorage.getItem("token") || localStorage.getItem("teacherToken");
         if (!token) {
-          console.warn("No token found in localStorage. Redirecting to login.");
           localStorage.removeItem("token");
           localStorage.removeItem("teacherToken");
-          navigate("/login"); // change to your login route if different
+          navigate("/login");
           return;
         }
 
         const res = await axios.get("http://localhost:5000/api/testAttempts/per-student", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        const attempts = res.data?.attempts ?? res.data ?? [];
+        const attempts = res.data?.attempts ?? [];
         setTestEvaluations(Array.isArray(attempts) ? attempts : []);
       } catch (err) {
         console.error("Test Evaluation Fetch Error:", err.response?.data || err.message || err);
         if (err.response?.status === 401) {
-          // token invalid or expired
           localStorage.removeItem("token");
           localStorage.removeItem("teacherToken");
           navigate("/login");
@@ -56,14 +269,17 @@ const AllEvaluations = () => {
     fetchTestEvaluations();
   }, [navigate]);
 
-  const renderStats = (data) => ({
-    totalStudents: data.length,
-    totalSubmissions: data.reduce((acc, e) => acc + (e.totalSubmissions || 0), 0),
-    avgSubmissions: data.length ? (data.reduce((acc, e) => acc + (e.totalSubmissions || 0), 0) / data.length).toFixed(1) : 0,
+  // Stats calculation
+  const renderStats = (data, type) => ({
+    totalStudents: new Set(data.map(d => d.email)).size,
+    totalSubmissions: data.reduce((acc, e) => acc + (type === "coding" ? e.totalSubmissions : e.totalSubmissions || 0), 0),
+    avgSubmissions: data.length
+      ? (data.reduce((acc, e) => acc + (type === "coding" ? e.totalSubmissions : e.totalSubmissions || 0), 0) / data.length).toFixed(1)
+      : 0,
   });
 
-  const codingStats = renderStats(codingEvaluations);
-  const testStats = renderStats(testEvaluations);
+  const codingStats = renderStats(codingEvaluations, "coding");
+  const testStats = renderStats(testEvaluations, "test");
 
   return (
     <div className="dashboard-page">
@@ -77,31 +293,34 @@ const AllEvaluations = () => {
         <div className="stat-card"><h3>Average Submissions / Student</h3><p>{codingStats.avgSubmissions}</p></div>
       </div>
       <div className="student-list">
-        {codingEvaluations.map((user) => (
-          <div key={user.email} className="student-card">
-            <p>📧 {user.email}</p>
-            <p>🧮 Submissions: <strong>{user.totalSubmissions}</strong></p>
-            <p>🕒 Last: {new Date(user.lastSubmission).toLocaleString()}</p>
+        {codingEvaluations.map((evalItem, index) => (
+          <div key={index} className="student-card">
+            {evalItem.problemName && <p>📌 Problem: <strong>{evalItem.problemName}</strong></p>}
+            <p>📧 Student: {evalItem.email}</p>
+            <p>🧮 Submissions: <strong>{evalItem.totalSubmissions}</strong></p>
+            {evalItem.lastSubmission && <p>🕒 Last Submission: {new Date(evalItem.lastSubmission).toLocaleString()}</p>}
           </div>
         ))}
       </div>
 
       {/* --- Test Evaluation --- */}
-      <h2>Test Evaluation</h2>
-      <div className="overall-stats">
-        <div className="stat-card"><h3>Total Students</h3><p>{testStats.totalStudents}</p></div>
-        <div className="stat-card"><h3>Total Submissions</h3><p>{testStats.totalSubmissions}</p></div>
-        <div className="stat-card"><h3>Average Submissions / Student</h3><p>{testStats.avgSubmissions}</p></div>
-      </div>
-      <div className="student-list">
-        {testEvaluations.map((user) => (
-          <div key={user.email} className="student-card">
-            <p>📧 {user.email}</p>
-            <p>🧮 Submissions: <strong>{user.totalSubmissions}</strong></p>
-            <p>🕒 Last: {new Date(user.lastSubmission).toLocaleString()}</p>
-          </div>
-        ))}
-      </div>
+    {/* --- Test Evaluation --- */}
+<h2>Test Evaluation</h2>
+<div className="overall-stats">
+  <div className="stat-card"><h3>Total Students</h3><p>{testStats.totalStudents}</p></div>
+  <div className="stat-card"><h3>Total Sibmissions</h3><p>{testStats.totalSubmissions}</p></div>
+  <div className="stat-card"><h3>Average Submissions / Student</h3><p>{testStats.avgSubmissions}</p></div>
+</div>
+<div className="student-list">
+  {testEvaluations.map((attempt) => (
+    <div key={attempt._id} className="student-card">  
+      <p>📧 Student: {attempt.email}</p>
+      <p>🧮 Submissions: <strong>{attempt.totalSubmissions}</strong></p>
+            <p>🕒 Last: {new Date(attempt.lastSubmission).toLocaleString()}</p>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };

@@ -400,7 +400,45 @@ exports.getMyTestAttemptForTest = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
-// 🧩 Get total test attempts per student (for evaluation page)
+// exports.getTestAttemptsPerStudent = async (req, res) => {
+//   try {
+//     const attempts = await TestAttempt.aggregate([
+//       { $sort: { createdAt: -1 } },
+//       {
+//         $group: {
+//           _id: "$student",
+//           attempts: { $push: "$$ROOT" },
+//           totalSubmissions: { $sum: 1 },
+//           lastSubmission: { $first: "$createdAt" },
+//         },
+//       },
+//       {
+//         $lookup: {
+//           from: "tests",
+//           localField: "attempts.test",
+//           foreignField: "_id",
+//           as: "testInfo",
+//         },
+//       },
+//       { $unwind: "$testInfo" },
+//       {
+//         $project: {
+//           email: "$_id",
+//           testName: "$testInfo.title",
+//           marksObtained: { $arrayElemAt: ["$attempts.totalObtained", 0] },
+//           attemptedOn: { $arrayElemAt: ["$attempts.createdAt", 0] },
+//           totalSubmissions: 1,
+//         },
+//       },
+//     ]);
+
+//     res.status(200).json({ success: true, attempts });
+//   } catch (err) {
+//     console.error("Error fetching test attempts per student:", err);
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
+
 exports.getTestAttemptsPerStudent = async (req, res) => {
   try {
     const attempts = await TestAttempt.aggregate([
@@ -437,7 +475,6 @@ exports.getTestAttemptsPerStudent = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
-
 
 
 // const TestAttempt = require("../models/TestAttempt");

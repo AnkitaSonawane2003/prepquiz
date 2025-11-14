@@ -179,6 +179,7 @@
 const express = require("express");
 const router = express.Router();
 const Submission = require("../models/Submission");
+const Problem = require("../models/Problem");
 
 // ✅ Save a new submission
 router.post("/", async (req, res) => {
@@ -250,4 +251,41 @@ router.get("/user/:userEmail", async (req, res) => {
   }
 });
 
+// ✅ Get all evaluations (Coding)
+router.get("/all-evaluations", async (req, res) => {
+  try {
+    const evaluations = await Submission.aggregate([
+      { $sort: { createdAt: -1 } }, // latest submissions first
+      {
+        $group: {
+          _id: { user: "$user", problemId: "$problemId" },
+          totalSubmissions: { $sum: 1 },
+          lastSubmission: { $first: "$createdAt" },
+        },
+      },
+      {
+        $lookup: {
+          from: "problems",
+          localField: "_id.problemId",
+          foreignField: "_id",
+          as: "problemInfo",
+        },
+      },
+      { $unwind: "$problemInfo" },
+      {
+        $project: {
+          email: "$_id.user",
+          problemName: "$problemInfo.title",
+          totalSubmissions: 1,
+          lastSubmission: 1,
+        },
+      },
+    ]);
+
+    res.status(200).json(evaluations);
+  } catch (err) {
+    console.error("Error fetching coding evaluations:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
 module.exports = router;

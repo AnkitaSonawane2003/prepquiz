@@ -888,16 +888,373 @@
 
 // export default AddTest;
 // src/components/AddTest.jsx
-import React, { useState,useEffect } from "react";
+// import React, { useState,useEffect } from "react";
+// import "../styles/addTest.css";
+
+// const AddTest = () => {
+//   // --- STATES ---
+//   const [testDetails, setTestDetails] = useState({
+//     title: "",
+//     subject: "",
+//     type: "",
+//     totalMarks: "",
+//     duration: "",
+//     date: "",
+//     instructions: "",
+//   });
+
+//   const [questions, setQuestions] = useState([]);
+//   const [newQuestion, setNewQuestion] = useState({
+//     text: "",
+//     options: ["", "", "", ""],
+//     correctAnswer: "",
+//     marks: "",
+//   });
+
+//   const [loading, setLoading] = useState(false);
+//   const [generating, setGenerating] = useState(false);
+//   const [genTopic, setGenTopic] = useState("");
+//   const [genCount, setGenCount] = useState(5);
+//   const MAX_GEN = 30;
+
+//   // --- HANDLERS ---
+//   const handleDetailChange = (e) => {
+//     const { name, value } = e.target;
+//     setTestDetails((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleQuestionChange = (e) => {
+//     const { name, value } = e.target;
+//     setNewQuestion((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleOptionChange = (index, value) => {
+//     const updated = [...newQuestion.options];
+//     updated[index] = value;
+//     setNewQuestion({ ...newQuestion, options: updated });
+//   };
+
+
+
+//   // --- Auto-update total marks when questions change ---
+// useEffect(() => {
+//   if (questions.length > 0) {
+//     const total = questions.reduce((sum, q) => sum + Number(q.marks || 0), 0);
+//     setTestDetails((prev) => ({ ...prev, totalMarks: total }));
+//   } else {
+//     setTestDetails((prev) => ({ ...prev, totalMarks: 0 }));
+//   }
+// }, [questions]);
+
+//   // --- ADD QUESTION ---
+//   const handleAddQuestion = () => {
+//     if (!newQuestion.text || !newQuestion.correctAnswer || !newQuestion.marks) {
+//       alert("⚠️ Please fill question text, correct answer, and marks.");
+//       return;
+//     }
+
+//     if (newQuestion.options.some((opt) => !opt)) {
+//       if (!window.confirm("Some options are empty. Do you still want to add?")) return;
+//     }
+
+//     setQuestions((prev) => [...prev, newQuestion]);
+//     setNewQuestion({
+//       text: "",
+//       options: ["", "", "", ""],
+//       correctAnswer: "",
+//       marks: "",
+//     });
+//   };
+
+//   const handleDeleteQuestion = (index) => {
+//     const updated = [...questions];
+//     updated.splice(index, 1);
+//     setQuestions(updated);
+//   };
+
+//   // --- AI (Gemini) Question Generation ---
+// const handleGenerateWithGemini = async () => {
+//   const topic = (genTopic || "").trim();
+//   const count = Number(genCount);
+
+//   if (!topic) {
+//     alert("Please enter a topic for the AI to generate questions.");
+//     return;
+//   }
+//   if (!count || count <= 0) {
+//     alert("Please enter a valid number of questions.");
+//     return;
+//   }
+//   if (count > MAX_GEN && !window.confirm(`You requested ${count} questions. Continue?`)) return;
+
+//   setGenerating(true);
+//   try {
+//     const resp = await fetch("http://localhost:5000/api/generate-questions", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       // ✅ send topics as an array (backend expects this)
+//       body: JSON.stringify({
+//         topics: [topic],        // wrap single topic in array
+//         countPerTopic: count,   // backend expects this key name
+//       }),
+//     });
+
+//     const text = await resp.text();
+//     let parsed;
+//     try {
+//       parsed = text ? JSON.parse(text) : {};
+//     } catch {
+//       console.error("AI returned invalid JSON:", text);
+//       alert("❌ AI returned invalid response. Check server logs.");
+//       return;
+//     }
+
+//     if (!resp.ok || !parsed.success || !Array.isArray(parsed.questions)) {
+//       console.error("Generate error:", parsed);
+//       alert("❌ Failed to generate questions. See console for details.");
+//       return;
+//     }
+
+//     const mapped = parsed.questions.map((q, i) => {
+//       const opts = Array.isArray(q.options) && q.options.length >= 4
+//         ? q.options.slice(0, 4)
+//         : ["", "", "", ""];
+//       let correct = (q.correctAnswer || "").trim();
+
+//       if (/^\d+$/.test(correct)) correct = String.fromCharCode(65 + Number(correct));
+//       else if (/^[a-d]$/i.test(correct)) correct = correct.toUpperCase();
+//       else {
+//         const idx = opts.findIndex(opt => opt && opt.toLowerCase() === correct.toLowerCase());
+//         if (idx >= 0) correct = String.fromCharCode(65 + idx);
+//       }
+
+//       const marks = Number(q.marks) || (q.difficulty === "hard" ? 4 : q.difficulty === "medium" ? 2 : 1);
+
+//       return {
+//         text: q.text || `Question ${i + 1}`,
+//         options: opts,
+//         correctAnswer: ["A", "B", "C", "D"].includes(correct) ? correct : "A",
+//         marks,
+//         difficulty: q.difficulty || "medium",
+//       };
+//     });
+
+//     setQuestions((prev) => [...prev, ...mapped]);
+//     alert(`✅ ${mapped.length} AI questions added successfully.`);
+//   } catch (err) {
+//     console.error("Error generating AI questions:", err);
+//     alert("❌ Error generating questions. Check console and backend logs.");
+//   } finally {
+//     setGenerating(false);
+//   }
+// };
+
+
+//   // --- SUBMIT TEST ---
+//   const handleSubmit = async () => {
+//     const trimmedTitle = (testDetails.title || "").trim();
+//     if (!trimmedTitle || !Array.isArray(questions) || questions.length === 0) {
+//       alert("⚠️ Please fill test title and add at least one question.");
+//       return;
+//     }
+
+//     setLoading(true);
+//     try {
+//       const payload = {
+//         ...testDetails,
+//         title: trimmedTitle,
+//         date: testDetails.date ? new Date(testDetails.date).toISOString() : undefined,
+//         questions,
+//       };
+
+//       const res = await fetch("http://localhost:5000/api/tests/add", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(payload),
+//       });
+
+//       const raw = await res.text();
+//       let data;
+//       try {
+//         data = raw ? JSON.parse(raw) : {};
+//       } catch {
+//         alert("❌ Server returned non-JSON response. Check console.");
+//         console.log("Server raw response:", raw);
+//         return;
+//       }
+
+//       if (res.ok && data.success) {
+//         alert("✅ Test Published Successfully!");
+//         handleReset(false);
+//       } else {
+//         alert(`❌ Failed to publish test. Server says: ${data.message || "Unknown error"}`);
+//       }
+//     } catch (err) {
+//       console.error("Error publishing test:", err);
+//       alert("⚠️ Error publishing test. Check console and server logs.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // --- RESET ---
+//   const handleReset = (showAlert = true) => {
+//     setTestDetails({
+//       title: "",
+//       subject: "",
+//       type: "",
+//       totalMarks: "",
+//       duration: "",
+//       date: "",
+//       instructions: "",
+//     });
+//     setQuestions([]);
+//     setNewQuestion({
+//       text: "",
+//       options: ["", "", "", ""],
+//       correctAnswer: "",
+//       marks: "",
+//     });
+//     if (showAlert) alert("🔄 Form reset successfully.");
+//   };
+
+//   // --- JSX ---
+//   return (
+//     <div className="add-test-container">
+//       <h1 className="add-test-title">🧩 Create New Test</h1>
+//       <p className="add-test-subtitle">Fill details and add questions for students.</p>
+
+//       {/* ===== AI Question Generator ===== */}
+//       <section className="ai-generate-panel" style={{ position: "relative", zIndex: 20 }}>
+//         <h3>🤖 Generate Questions (Gemini)</h3>
+//         <div className="ai-row" style={{ display: "flex", gap: 8, alignItems: "center" }}>
+//           <input
+//             type="text"
+//             placeholder="Enter topic (e.g. Arrays in JavaScript)"
+//             value={genTopic}
+//             onChange={(e) => setGenTopic(e.target.value)}
+//             className="ai-input"
+//             style={{ flex: 1 }}
+//           />
+//           <input
+//             type="number"
+//             min="1"
+//             max={MAX_GEN}
+//             placeholder="Count"
+//             value={genCount}
+//             onChange={(e) => setGenCount(e.target.value)}
+//             className="ai-input small"
+//             style={{ width: 90 }}
+//           />
+//           <button
+//             type="button"
+//             onClick={handleGenerateWithGemini}
+//             disabled={generating}
+//             className="btn gen-btn"
+//           >
+//             {generating ? "Generating..." : "✨ Generate"}
+//           </button>
+//         </div>
+//       </section>
+
+//       {/* ===== Test Details ===== */}
+//       <section className="test-details-card">
+//         <h2>📋 Test Details</h2>
+//         <div className="form-grid">
+//           <input type="text" name="title" value={testDetails.title} onChange={handleDetailChange} placeholder="Test Title" />
+//           <input type="text" name="subject" value={testDetails.subject} onChange={handleDetailChange} placeholder="Subject" />
+//           <select name="type" value={testDetails.type} onChange={handleDetailChange}>
+//             <option value="">Select Type</option>
+//             <option value="MCQ">MCQ</option>
+//             <option value="Aptitude">Aptitude</option>
+//             <option value="Coding">Coding</option>
+//           </select>
+//           <input type="number" name="totalMarks" value={testDetails.totalMarks} onChange={handleDetailChange} placeholder="Total Marks" />
+//           <input type="number" name="duration" value={testDetails.duration} onChange={handleDetailChange} placeholder="Duration (minutes)" />
+//           <input type="datetime-local" name="date" value={testDetails.date} onChange={handleDetailChange} />
+//         </div>
+//         <textarea
+//           name="instructions"
+//           value={testDetails.instructions}
+//           onChange={handleDetailChange}
+//           placeholder="Write test instructions..."
+//           className="instructions-box"
+//         />
+//       </section>
+
+//       {/* ===== Manual Question Add ===== */}
+//       <section className="add-question-card">
+//         <h2>➕ Add Question</h2>
+//         <textarea
+//           name="text"
+//           value={newQuestion.text}
+//           onChange={handleQuestionChange}
+//           placeholder="Enter question text..."
+//         />
+//         <div className="options-grid">
+//           {newQuestion.options.map((opt, i) => (
+//             <input
+//               key={i}
+//               type="text"
+//               value={opt}
+//               onChange={(e) => handleOptionChange(i, e.target.value)}
+//               placeholder={`Option ${String.fromCharCode(65 + i)}`}
+//             />
+//           ))}
+//         </div>
+//         <div className="question-meta">
+//           <select name="correctAnswer" value={newQuestion.correctAnswer} onChange={handleQuestionChange}>
+//             <option value="">Select Correct Answer</option>
+//             <option value="A">Option A</option>
+//             <option value="B">Option B</option>
+//             <option value="C">Option C</option>
+//             <option value="D">Option D</option>
+//           </select>
+//           <input type="number" name="marks" value={newQuestion.marks} onChange={handleQuestionChange} placeholder="Marks" />
+//         </div>
+//         <button className="btn add-question-btn" onClick={handleAddQuestion}>➕ Add Question</button>
+
+//         {questions.length > 0 && (
+//           <div className="question-list">
+//             <h3>🧾 Added Questions ({questions.length})</h3>
+//             {questions.map((q, index) => (
+//               <div className="question-item" key={index}>
+//                 <p><strong>Q{index + 1}:</strong> {q.text}</p>
+//                 <ul>
+//                   {q.options.map((opt, i) => (
+//                     <li key={i}>{String.fromCharCode(65 + i)}. {opt}</li>
+//                   ))}
+//                 </ul>
+//                 <p>✅ <strong>Correct:</strong> {q.correctAnswer} | 💯 <strong>Marks:</strong> {q.marks}</p>
+//                 <button className="btn delete-btn" onClick={() => handleDeleteQuestion(index)}>❌ Delete</button>
+//               </div>
+//             ))}
+//           </div>
+//         )}
+//       </section>
+
+//       {/* ===== Submit Section ===== */}
+//       <div className="submit-section">
+//         <button type="button" className="btn save-btn" onClick={handleSubmit} disabled={loading}>
+//           {loading ? "Publishing..." : "🚀 Publish Test"}
+//         </button>
+//         <button className="btn reset-btn" onClick={() => handleReset(true)}>🔄 Reset</button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AddTest;
+import React, { useState, useEffect } from "react";
 import "../styles/addTest.css";
 
 const AddTest = () => {
-  // --- STATES ---
+  // ===== STATES =====
   const [testDetails, setTestDetails] = useState({
     title: "",
     subject: "",
     type: "",
-    totalMarks: "",
+    totalMarks: 0,
     duration: "",
     date: "",
     instructions: "",
@@ -909,15 +1266,18 @@ const AddTest = () => {
     options: ["", "", "", ""],
     correctAnswer: "",
     marks: "",
+    topic: "",
+    difficulty: "medium",
+    type: "MCQ",
   });
 
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
-  const [genTopic, setGenTopic] = useState("");
+  const [genTopic, setGenTopic] = useState(""); // comma separated topics
   const [genCount, setGenCount] = useState(5);
   const MAX_GEN = 30;
 
-  // --- HANDLERS ---
+  // ===== HANDLERS =====
   const handleDetailChange = (e) => {
     const { name, value } = e.target;
     setTestDetails((prev) => ({ ...prev, [name]: value }));
@@ -931,39 +1291,29 @@ const AddTest = () => {
   const handleOptionChange = (index, value) => {
     const updated = [...newQuestion.options];
     updated[index] = value;
-    setNewQuestion({ ...newQuestion, options: updated });
+    setNewQuestion((prev) => ({ ...prev, options: updated }));
   };
 
-
-
-  // --- Auto-update total marks when questions change ---
-useEffect(() => {
-  if (questions.length > 0) {
+  // ===== Auto-update total marks =====
+  useEffect(() => {
     const total = questions.reduce((sum, q) => sum + Number(q.marks || 0), 0);
     setTestDetails((prev) => ({ ...prev, totalMarks: total }));
-  } else {
-    setTestDetails((prev) => ({ ...prev, totalMarks: 0 }));
-  }
-}, [questions]);
+  }, [questions]);
 
-  // --- ADD QUESTION ---
+  // ===== ADD QUESTION =====
   const handleAddQuestion = () => {
-    if (!newQuestion.text || !newQuestion.correctAnswer || !newQuestion.marks) {
-      alert("⚠️ Please fill question text, correct answer, and marks.");
+    const { text, correctAnswer, marks, topic } = newQuestion;
+    if (!text || !correctAnswer || !marks || !topic) {
+      alert("⚠️ Please fill all question fields (text, correct answer, marks, topic).");
       return;
     }
 
     if (newQuestion.options.some((opt) => !opt)) {
-      if (!window.confirm("Some options are empty. Do you still want to add?")) return;
+      if (!window.confirm("Some options are empty. Continue adding?")) return;
     }
 
     setQuestions((prev) => [...prev, newQuestion]);
-    setNewQuestion({
-      text: "",
-      options: ["", "", "", ""],
-      correctAnswer: "",
-      marks: "",
-    });
+    setNewQuestion({ text: "", options: ["", "", "", ""], correctAnswer: "", marks: "", topic: "", difficulty: "medium", type: "MCQ" });
   };
 
   const handleDeleteQuestion = (index) => {
@@ -972,100 +1322,62 @@ useEffect(() => {
     setQuestions(updated);
   };
 
-  // --- AI (Gemini) Question Generation ---
-const handleGenerateWithGemini = async () => {
-  const topic = (genTopic || "").trim();
-  const count = Number(genCount);
+  // ===== AI QUESTION GENERATION =====
+  const handleGenerateWithGemini = async () => {
+    if (!genTopic.trim()) return alert("⚠️ Please enter at least one topic.");
+    const count = Number(genCount);
+    if (!count || count <= 0) return alert("⚠️ Enter a valid number of questions.");
+    if (count > MAX_GEN && !window.confirm(`You requested ${count} questions. Continue?`)) return;
 
-  if (!topic) {
-    alert("Please enter a topic for the AI to generate questions.");
-    return;
-  }
-  if (!count || count <= 0) {
-    alert("Please enter a valid number of questions.");
-    return;
-  }
-  if (count > MAX_GEN && !window.confirm(`You requested ${count} questions. Continue?`)) return;
+    const topicsArray = genTopic.split(",").map((t) => t.trim()).filter((t) => t);
 
-  setGenerating(true);
-  try {
-    const resp = await fetch("http://localhost:5000/api/generate-questions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      // ✅ send topics as an array (backend expects this)
-      body: JSON.stringify({
-        topics: [topic],        // wrap single topic in array
-        countPerTopic: count,   // backend expects this key name
-      }),
-    });
-
-    const text = await resp.text();
-    let parsed;
+    setGenerating(true);
     try {
-      parsed = text ? JSON.parse(text) : {};
-    } catch {
-      console.error("AI returned invalid JSON:", text);
-      alert("❌ AI returned invalid response. Check server logs.");
-      return;
-    }
+      const resp = await fetch("http://localhost:5000/api/generate-questions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topics: topicsArray, countPerTopic: count }),
+      });
 
-    if (!resp.ok || !parsed.success || !Array.isArray(parsed.questions)) {
-      console.error("Generate error:", parsed);
-      alert("❌ Failed to generate questions. See console for details.");
-      return;
-    }
+      const raw = await resp.text();
+      let data;
+      try { data = JSON.parse(raw); } catch { alert("❌ Invalid AI response."); return; }
 
-    const mapped = parsed.questions.map((q, i) => {
-      const opts = Array.isArray(q.options) && q.options.length >= 4
-        ? q.options.slice(0, 4)
-        : ["", "", "", ""];
-      let correct = (q.correctAnswer || "").trim();
-
-      if (/^\d+$/.test(correct)) correct = String.fromCharCode(65 + Number(correct));
-      else if (/^[a-d]$/i.test(correct)) correct = correct.toUpperCase();
-      else {
-        const idx = opts.findIndex(opt => opt && opt.toLowerCase() === correct.toLowerCase());
-        if (idx >= 0) correct = String.fromCharCode(65 + idx);
+      if (!resp.ok || !data.success || !Array.isArray(data.questions)) {
+        console.error("Generate error:", data);
+        return alert("❌ Failed to generate questions. See console.");
       }
 
-      const marks = Number(q.marks) || (q.difficulty === "hard" ? 4 : q.difficulty === "medium" ? 2 : 1);
+      const mapped = data.questions.map((q, i) => {
+        const opts = Array.isArray(q.options) && q.options.length >= 4 ? q.options.slice(0, 4) : ["", "", "", ""];
+        let correct = (q.correctAnswer || "A").toUpperCase();
+        if (!["A","B","C","D"].includes(correct)) correct = "A";
 
-      return {
-        text: q.text || `Question ${i + 1}`,
-        options: opts,
-        correctAnswer: ["A", "B", "C", "D"].includes(correct) ? correct : "A",
-        marks,
-        difficulty: q.difficulty || "medium",
-      };
-    });
+        const marks = Number(q.marks) || (q.difficulty === "hard" ? 4 : q.difficulty === "medium" ? 2 : 1);
+        const topic = topicsArray[i % topicsArray.length];
 
-    setQuestions((prev) => [...prev, ...mapped]);
-    alert(`✅ ${mapped.length} AI questions added successfully.`);
-  } catch (err) {
-    console.error("Error generating AI questions:", err);
-    alert("❌ Error generating questions. Check console and backend logs.");
-  } finally {
-    setGenerating(false);
-  }
-};
+        return { text: q.text || `Question ${i+1}`, options: opts, correctAnswer: correct, marks, difficulty: q.difficulty || "medium", topic, type: q.type || "MCQ" };
+      });
 
+      setQuestions((prev) => [...prev, ...mapped]);
+      alert(`✅ ${mapped.length} AI questions added successfully.`);
+    } catch (err) {
+      console.error("Error generating AI questions:", err);
+      alert("❌ Error generating AI questions.");
+    } finally {
+      setGenerating(false);
+    }
+  };
 
-  // --- SUBMIT TEST ---
+  // ===== SUBMIT TEST =====
   const handleSubmit = async () => {
-    const trimmedTitle = (testDetails.title || "").trim();
-    if (!trimmedTitle || !Array.isArray(questions) || questions.length === 0) {
-      alert("⚠️ Please fill test title and add at least one question.");
-      return;
+    if (!testDetails.title.trim() || questions.length === 0) {
+      return alert("⚠️ Test title and at least one question required.");
     }
 
     setLoading(true);
     try {
-      const payload = {
-        ...testDetails,
-        title: trimmedTitle,
-        date: testDetails.date ? new Date(testDetails.date).toISOString() : undefined,
-        questions,
-      };
+      const payload = { ...testDetails, questions, date: testDetails.date ? new Date(testDetails.date).toISOString() : undefined };
 
       const res = await fetch("http://localhost:5000/api/tests/add", {
         method: "POST",
@@ -1073,173 +1385,111 @@ const handleGenerateWithGemini = async () => {
         body: JSON.stringify(payload),
       });
 
-      const raw = await res.text();
-      let data;
-      try {
-        data = raw ? JSON.parse(raw) : {};
-      } catch {
-        alert("❌ Server returned non-JSON response. Check console.");
-        console.log("Server raw response:", raw);
-        return;
-      }
-
+      const data = await res.json();
       if (res.ok && data.success) {
-        alert("✅ Test Published Successfully!");
+        alert("✅ Test published successfully!");
         handleReset(false);
-      } else {
-        alert(`❌ Failed to publish test. Server says: ${data.message || "Unknown error"}`);
-      }
+      } else alert(`❌ Failed to publish test: ${data.message || "Unknown error"}`);
     } catch (err) {
       console.error("Error publishing test:", err);
-      alert("⚠️ Error publishing test. Check console and server logs.");
+      alert("⚠️ Error publishing test. Check console.");
     } finally {
       setLoading(false);
     }
   };
 
-  // --- RESET ---
+  // ===== RESET FORM =====
   const handleReset = (showAlert = true) => {
-    setTestDetails({
-      title: "",
-      subject: "",
-      type: "",
-      totalMarks: "",
-      duration: "",
-      date: "",
-      instructions: "",
-    });
+    setTestDetails({ title: "", subject: "", type: "", totalMarks: 0, duration: "", date: "", instructions: "" });
     setQuestions([]);
-    setNewQuestion({
-      text: "",
-      options: ["", "", "", ""],
-      correctAnswer: "",
-      marks: "",
-    });
+    setNewQuestion({ text: "", options: ["", "", "", ""], correctAnswer: "", marks: "", topic: "", difficulty: "medium", type: "MCQ" });
     if (showAlert) alert("🔄 Form reset successfully.");
   };
 
-  // --- JSX ---
+  // ===== JSX =====
   return (
     <div className="add-test-container">
-      <h1 className="add-test-title">🧩 Create New Test</h1>
-      <p className="add-test-subtitle">Fill details and add questions for students.</p>
+      <h1>🧩 Create New Test</h1>
+      <p>Fill details and add questions for students.</p>
 
-      {/* ===== AI Question Generator ===== */}
-      <section className="ai-generate-panel" style={{ position: "relative", zIndex: 20 }}>
-        <h3>🤖 Generate Questions (Gemini)</h3>
-        <div className="ai-row" style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <input
-            type="text"
-            placeholder="Enter topic (e.g. Arrays in JavaScript)"
-            value={genTopic}
-            onChange={(e) => setGenTopic(e.target.value)}
-            className="ai-input"
-            style={{ flex: 1 }}
-          />
-          <input
-            type="number"
-            min="1"
-            max={MAX_GEN}
-            placeholder="Count"
-            value={genCount}
-            onChange={(e) => setGenCount(e.target.value)}
-            className="ai-input small"
-            style={{ width: 90 }}
-          />
-          <button
-            type="button"
-            onClick={handleGenerateWithGemini}
-            disabled={generating}
-            className="btn gen-btn"
-          >
-            {generating ? "Generating..." : "✨ Generate"}
-          </button>
+      {/* --- AI Generator --- */}
+      <section className="ai-generator">
+        <h3>🤖 Generate Questions </h3>
+        <div className="ai-row">
+          <input type="text" placeholder="Topics (comma-separated)" value={genTopic} onChange={(e) => setGenTopic(e.target.value)} />
+          <input type="number" min="1" max={MAX_GEN} value={genCount} onChange={(e) => setGenCount(e.target.value)} />
+          <button onClick={handleGenerateWithGemini} disabled={generating}>{generating ? "Generating..." : "✨ Generate"}</button>
+        
         </div>
+         <br></br>
+          <h4>NOTE: Count applies to each topic. </h4>
       </section>
 
-      {/* ===== Test Details ===== */}
-      <section className="test-details-card">
+      {/* --- Test Details --- */}
+      <section className="test-details">
         <h2>📋 Test Details</h2>
-        <div className="form-grid">
-          <input type="text" name="title" value={testDetails.title} onChange={handleDetailChange} placeholder="Test Title" />
-          <input type="text" name="subject" value={testDetails.subject} onChange={handleDetailChange} placeholder="Subject" />
-          <select name="type" value={testDetails.type} onChange={handleDetailChange}>
-            <option value="">Select Type</option>
-            <option value="MCQ">MCQ</option>
-            <option value="Aptitude">Aptitude</option>
-            <option value="Coding">Coding</option>
-          </select>
-          <input type="number" name="totalMarks" value={testDetails.totalMarks} onChange={handleDetailChange} placeholder="Total Marks" />
-          <input type="number" name="duration" value={testDetails.duration} onChange={handleDetailChange} placeholder="Duration (minutes)" />
-          <input type="datetime-local" name="date" value={testDetails.date} onChange={handleDetailChange} />
-        </div>
-        <textarea
-          name="instructions"
-          value={testDetails.instructions}
-          onChange={handleDetailChange}
-          placeholder="Write test instructions..."
-          className="instructions-box"
-        />
+        <input type="text" name="title" placeholder="Title" value={testDetails.title} onChange={handleDetailChange} />
+        <input type="text" name="subject" placeholder="Subject" value={testDetails.subject} onChange={handleDetailChange} />
+        <select name="type" value={testDetails.type} onChange={handleDetailChange}>
+          <option value="">Select Type</option>
+          <option value="MCQ">MCQ</option>
+          <option value="Aptitude">Aptitude</option>
+          <option value="Coding">Coding</option>
+        </select>
+        <input type="number" name="duration" placeholder="Duration (minutes)" value={testDetails.duration} onChange={handleDetailChange} />
+        <input type="datetime-local" name="date" value={testDetails.date} onChange={handleDetailChange} />
+        <textarea name="instructions" placeholder="Instructions..." value={testDetails.instructions} onChange={handleDetailChange} />
+        <p>💯 <strong>Total Marks:</strong> {testDetails.totalMarks}</p>
       </section>
 
-      {/* ===== Manual Question Add ===== */}
-      <section className="add-question-card">
+      {/* --- Manual Question Add --- */}
+      <section className="add-question">
         <h2>➕ Add Question</h2>
-        <textarea
-          name="text"
-          value={newQuestion.text}
-          onChange={handleQuestionChange}
-          placeholder="Enter question text..."
-        />
+        <input type="text" placeholder="Topic" name="topic" value={newQuestion.topic} onChange={handleQuestionChange} />
+        <textarea placeholder="Question text" name="text" value={newQuestion.text} onChange={handleQuestionChange} />
         <div className="options-grid">
           {newQuestion.options.map((opt, i) => (
-            <input
-              key={i}
-              type="text"
-              value={opt}
-              onChange={(e) => handleOptionChange(i, e.target.value)}
-              placeholder={`Option ${String.fromCharCode(65 + i)}`}
-            />
+            <input key={i} value={opt} onChange={(e) => handleOptionChange(i, e.target.value)} placeholder={`Option ${String.fromCharCode(65+i)}`} />
           ))}
         </div>
         <div className="question-meta">
           <select name="correctAnswer" value={newQuestion.correctAnswer} onChange={handleQuestionChange}>
-            <option value="">Select Correct Answer</option>
-            <option value="A">Option A</option>
-            <option value="B">Option B</option>
-            <option value="C">Option C</option>
-            <option value="D">Option D</option>
+            <option value="">Correct Answer</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
           </select>
-          <input type="number" name="marks" value={newQuestion.marks} onChange={handleQuestionChange} placeholder="Marks" />
+          <input type="number" name="marks" placeholder="Marks" value={newQuestion.marks} onChange={handleQuestionChange} />
+          <select name="difficulty" value={newQuestion.difficulty} onChange={handleQuestionChange}>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
         </div>
-        <button className="btn add-question-btn" onClick={handleAddQuestion}>➕ Add Question</button>
+        <button onClick={handleAddQuestion}>➕ Add Question</button>
 
         {questions.length > 0 && (
           <div className="question-list">
             <h3>🧾 Added Questions ({questions.length})</h3>
-            {questions.map((q, index) => (
-              <div className="question-item" key={index}>
-                <p><strong>Q{index + 1}:</strong> {q.text}</p>
-                <ul>
-                  {q.options.map((opt, i) => (
-                    <li key={i}>{String.fromCharCode(65 + i)}. {opt}</li>
-                  ))}
-                </ul>
-                <p>✅ <strong>Correct:</strong> {q.correctAnswer} | 💯 <strong>Marks:</strong> {q.marks}</p>
-                <button className="btn delete-btn" onClick={() => handleDeleteQuestion(index)}>❌ Delete</button>
+            {questions.map((q, idx) => (
+              <div key={idx} className="question-item">
+                <p><strong>Q{idx+1}:</strong> {q.text}</p>
+                <p><strong>Topic:</strong> {q.topic}</p>
+                <ul>{q.options.map((opt,i) => <li key={i}>{String.fromCharCode(65+i)}. {opt}</li>)}</ul>
+                <p>✅ Correct: {q.correctAnswer} | 💯 Marks: {q.marks} | 🔹 Difficulty: {q.difficulty}</p>
+                <button onClick={() => handleDeleteQuestion(idx)}>❌ Delete</button>
               </div>
             ))}
           </div>
         )}
       </section>
 
-      {/* ===== Submit Section ===== */}
-      <div className="submit-section">
-        <button type="button" className="btn save-btn" onClick={handleSubmit} disabled={loading}>
-          {loading ? "Publishing..." : "🚀 Publish Test"}
-        </button>
-        <button className="btn reset-btn" onClick={() => handleReset(true)}>🔄 Reset</button>
-      </div>
+      {/* --- Submit --- */}
+      <section className="submit-section">
+        <button onClick={handleSubmit} disabled={loading}>{loading ? "Publishing..." : "🚀 Publish Test"}</button>
+        <button onClick={() => handleReset(true)}>🔄 Reset</button>
+      </section>
     </div>
   );
 };
