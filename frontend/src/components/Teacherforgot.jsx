@@ -12,7 +12,7 @@ export default function Teacherforgot() {
 
     try {
       const res = await axios.post("http://localhost:5000/api/teacher/forgot-password", { email });
-      setMsg("Password reset link generated. Check console (backend).");
+      setMsg("Password reset link generated ,check your email.");
       console.log(res.data);
     } catch (err) {
       setMsg(err.response?.data?.message || "Server error");

@@ -82,7 +82,7 @@ export default function Forgot() {
     const data = await response.json();
 
     if (response.ok) {
-      setMessage("Reset link generated. Check backend console.");
+      setMessage("Reset link generated ,check your email.");
     } else {
       setError(data.message);
     }
