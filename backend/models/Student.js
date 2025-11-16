@@ -39,6 +39,9 @@ const studentSchema = new mongoose.Schema({
   rollNumber: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   department: { type: String, required: true },
+   profileImage: { type: String, default: "" }, 
+    resetPasswordToken: { type: String, default: null },
+  resetPasswordExpires: { type: Date, default: null },
 });
 
 // ✅ Hash password before saving

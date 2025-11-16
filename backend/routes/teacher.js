@@ -327,32 +327,130 @@ const jwt = require('jsonwebtoken');
 const Teacher = require('../models/Teacher');
 const Test = require('../models/Test');
 const Problem = require('../models/Problem');
+const auth = require("../middleware/auth");
+
 
 const router = express.Router();
+const multer = require("multer");
+const path = require("path");
+const crypto = require("crypto");
+
+// -----------------------------
+// Teacher Forgot Password
+// -----------------------------
+// -----------------------------
+// Teacher Forgot Password
+// -----------------------------
+router.post("/forgot-password", async (req, res) => {
+  try {
+    const teacher = await Teacher.findOne({ email: req.body.email.toLowerCase() });
+    if (!teacher) {
+      return res.status(404).json({ message: "Teacher not found" });
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+
+    teacher.resetPasswordToken = token;
+    teacher.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+    await teacher.save();
+
+    const resetUrl = `${process.env.FRONTEND_URL}/teacher/reset-password/${token}`;
+
+    // ✅ Send email using NodeMailer
+    const nodemailer = require("nodemailer");
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: teacher.email,
+      subject: "Password Reset Link",
+      html: `<p>Click <a href="${resetUrl}">here</a> to reset your password. This link is valid for 10 minutes.</p>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.json({ message: "Password reset link sent to your email." });
+  } catch (err) {
+    console.error("Forgot password error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// -----------------------------
+// Teacher Reset Password
+// -----------------------------
+router.post("/reset-password/:token", async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!password) return res.status(400).json({ message: "Password is required" });
+
+    // Find teacher with valid token and not expired
+    const teacher = await Teacher.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!teacher) return res.status(400).json({ message: "Invalid or expired token" });
+
+    // Hash new password and save
+    const hashedPassword = await bcrypt.hash(password, 10);
+    teacher.password = hashedPassword;
+    teacher.resetPasswordToken = null;
+    teacher.resetPasswordExpires = null;
+
+    await teacher.save();
+
+    res.json({ message: "Password reset successful" });
+  } catch (err) {
+    console.error("Reset password error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+// Configure storage for profile images
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // make sure this folder exists
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage });
+
 
 // ✅ Middleware to verify Teacher token
-const verifyTeacherToken = async (req, res, next) => {
-  try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) return res.status(401).json({ message: "Authorization header missing" });
+// const verifyTeacherToken = async (req, res, next) => {
+//   try {
+//     const authHeader = req.headers.authorization;
+//     if (!authHeader) return res.status(401).json({ message: "Authorization header missing" });
 
-    if (!authHeader.startsWith("Bearer ")) return res.status(401).json({ message: "Invalid authorization format" });
+//     if (!authHeader.startsWith("Bearer ")) return res.status(401).json({ message: "Invalid authorization format" });
 
-    const token = authHeader.split(" ")[1];
-    if (!token) return res.status(401).json({ message: "Token not provided" });
+//     const token = authHeader.split(" ")[1];
+//     if (!token) return res.status(401).json({ message: "Token not provided" });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "secretKey");
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET || "secretKey");
 
-    const teacher = await Teacher.findById(decoded.id).select("-password");
-    if (!teacher) return res.status(404).json({ message: "Teacher not found" });
+//     const teacher = await Teacher.findById(decoded.id).select("-password");
+//     if (!teacher) return res.status(404).json({ message: "Teacher not found" });
 
-    req.user = teacher; // attach teacher object
-    next();
-  } catch (err) {
-    console.error("JWT verification failed:", err);
-    return res.status(401).json({ message: "Invalid or expired token" });
-  }
-};
+//     req.user = teacher; // attach teacher object
+//     next();
+//   } catch (err) {
+//     console.error("JWT verification failed:", err);
+//     return res.status(401).json({ message: "Invalid or expired token" });
+//   }
+// };
 
 // -----------------------------
 // Register Teacher
@@ -438,7 +536,7 @@ router.get('/count', async (req, res) => {
 // -----------------------------
 // Get teacher profile
 // -----------------------------
-router.get('/profile', verifyTeacherToken, async (req, res) => {
+router.get('/profile', auth, async (req, res) => {
   try {
     res.json(req.user); // already fetched by middleware
   } catch (err) {
@@ -450,27 +548,33 @@ router.get('/profile', verifyTeacherToken, async (req, res) => {
 // -----------------------------
 // Update teacher profile
 // -----------------------------
-router.put('/profile', verifyTeacherToken, async (req, res) => {
-  try {
-    const { fullName, department, phone } = req.body;
+// Update teacher profile with image
+router.put(
+  "/profile",
+  auth,
+  upload.single("profileImage"), // handle file
+  async (req, res) => {
+    try {
+      const { fullName, department, phone } = req.body;
+      const updatedData = {};
+      if (fullName) updatedData.fullName = fullName;
+      if (department) updatedData.department = department;
+      if (phone) updatedData.phone = phone;
+      if (req.file) updatedData.profileImage = `/uploads/${req.file.filename}`;
 
-    const updatedData = {};
-    if (fullName) updatedData.fullName = fullName;
-    if (department) updatedData.department = department;
-    if (phone) updatedData.phone = phone;
+      const teacher = await Teacher.findByIdAndUpdate(
+        req.user._id,
+        updatedData,
+        { new: true }
+      ).select("-password");
 
-    const teacher = await Teacher.findByIdAndUpdate(
-      req.user._id,
-      updatedData,
-      { new: true }
-    ).select('-password');
-
-    res.json(teacher);
-  } catch (err) {
-    console.error('Update profile error:', err);
-    res.status(500).json({ message: 'Server error' });
+      res.json(teacher);
+    } catch (err) {
+      console.error("Update profile error:", err);
+      res.status(500).json({ message: "Server error" });
+    }
   }
-});
+);
 
 // -----------------------------
 // Teacher Stats (counts + recent tests + challenges)

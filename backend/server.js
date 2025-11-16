@@ -143,7 +143,7 @@ app.use("/api/problems", require("./routes/problemRoutes"));
 app.use("/api/gemini", geminiRoutes); // ✅ For DSA
 app.use("/api/generate-questions", require("./routes/generateQuestions"));
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("uploads"));
 
 app.use("/api/submissions", require("./routes/submissionRoutes"));
 app.use("/api/compiler", compiler);

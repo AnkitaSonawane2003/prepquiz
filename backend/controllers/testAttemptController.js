@@ -439,34 +439,91 @@ exports.getMyTestAttemptForTest = async (req, res) => {
 //   }
 // };
 
+// exports.getTestAttemptsPerStudent = async (req, res) => {
+//   try {
+//     const attempts = await TestAttempt.aggregate([
+//       {
+//         $group: {
+//           _id: "$student",
+//           totalSubmissions: { $sum: 1 },
+//           lastSubmission: { $max: "$createdAt" },
+//         },
+//       },
+//       {
+//         $lookup: {
+//           from: "students",
+//           localField: "_id",
+//           foreignField: "_id",
+//           as: "studentInfo",
+//         },
+//       },
+//       { $unwind: "$studentInfo" },
+//       {
+//         $project: {
+//           fullName: "$studentInfo.fullName",
+//           email: "$studentInfo.email",
+//           totalSubmissions: 1,
+//           lastSubmission: 1,
+//         },
+//       },
+//     ]);
+
+//     res.status(200).json({ success: true, attempts });
+//   } catch (err) {
+//     console.error("❌ Error fetching test attempts per student:", err);
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
+
 exports.getTestAttemptsPerStudent = async (req, res) => {
   try {
     const attempts = await TestAttempt.aggregate([
       {
-        $group: {
-          _id: "$student",
-          totalSubmissions: { $sum: 1 },
-          lastSubmission: { $max: "$createdAt" },
-        },
+        $lookup: {
+          from: "students",      // join student info
+          localField: "student",
+          foreignField: "_id",
+          as: "studentInfo"
+        }
       },
+      { $unwind: "$studentInfo" },
       {
         $lookup: {
-          from: "students", // must match your actual collection name
-          localField: "_id",
+          from: "tests",         // join test info
+          localField: "test",
           foreignField: "_id",
-          as: "studentInfo",
-        },
+          as: "testInfo"
+        }
       },
+      { $unwind: "$testInfo" },
       {
-        $unwind: "$studentInfo",
+        $group: {
+          _id: "$student",       // group by student
+          fullName: { $first: "$studentInfo.fullName" },
+          email: { $first: "$studentInfo.email" },
+          totalSubmissions: { $sum: 1 },
+          lastSubmission: { $max: "$createdAt" },
+          attempts: {
+            $push: {
+              testName: "$testInfo.title",
+              totalObtained: "$totalObtained",
+              totalMarks: "$totalMarks",
+              date: "$testInfo.date",
+              type: "$testInfo.type"
+            }
+          }
+        }
       },
       {
         $project: {
-          email: "$studentInfo.email",
+          _id: 0,
+          fullName: 1,
+          email: 1,
           totalSubmissions: 1,
           lastSubmission: 1,
-        },
-      },
+          attempts: 1
+        }
+      }
     ]);
 
     res.status(200).json({ success: true, attempts });
@@ -475,7 +532,6 @@ exports.getTestAttemptsPerStudent = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
-
 
 // const TestAttempt = require("../models/TestAttempt");
 // const Test = require("../models/Test");

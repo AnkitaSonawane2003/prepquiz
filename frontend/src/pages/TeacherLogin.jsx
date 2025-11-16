@@ -141,6 +141,11 @@ export default function TeacherLogin() {
           <button type="submit" className="login-btn" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
+          <p>
+            <Link to="/teacherforgot" style={{ color: "blue", cursor: "pointer" }}>
+              Forgot Password?
+            </Link>
+          </p>
         </form>
 
         <p>

@@ -43,6 +43,12 @@ import Evaluation from "./components/Evaluation"
 import AllEvaluation from "./components/AllEvaluation"
 import ViewAttempt from "./components/ViewAttempt";
 import TestCard from "./components/TestCard";
+import Forgot from "./components/Forgot";
+import ResetPassword from "./components/ResetPassword";
+
+import Teacherforgot from "./components/Teacherforgot";
+import Teacherrest from "./components/Teacherreset";
+
 
 // NEW: import TestTake component for student test-taking route
 import TestTake from "./components/TestTake";
@@ -103,10 +109,17 @@ function App() {
         <Route path="allevaluation" element={<AllEvaluation/>}/>
         <Route path="/student/tests/:testId/view" element={<ViewAttempt />} />
         <Route path="/testcard" element={<TestCard/>}/>
+<Route path="/forgot" element={<Forgot />} />
+<Route path="/teacher/forgot" element={<Forgot />} />
 
-
+<Route path="/reset-password/:token" element={<ResetPassword />} />
+<Route path="/teacher/reset-password/:token" element={<ResetPassword />} />
          <Route path="/compiler/:problemId" element={<Compiler />} />
 
+
+
+<Route path="/teacherforgot" element={<Teacherforgot/>}/>
+<Route pat="/teacherreset" element={<Teacherrest/>}/>
 
       </Routes>
 
@@ -116,3 +129,4 @@ function App() {
 }
 
 export default App;
+

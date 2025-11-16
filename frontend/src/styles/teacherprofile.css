@@ -1,54 +1,69 @@
+/* teacherprofile.css */
+
+/* Container centers the card */
 .profile-container {
   display: flex;
   justify-content: center;
-  margin-top: 80px; /* slightly below navbar */
-  padding: 10px;
-  animation: fadeIn 0.8s ease-in-out;
-  margin-top: 130px;
-  margin-bottom: 30px;
-
+  margin-top: 80px; /* Adjust based on navbar */
+  padding: 15px;
+  margin-top: 100px;
 }
 
+.image-upload-wrapper {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.clickable-image {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.clickable-image:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.profile-image img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4a90e2;
+}
+
+/* Card styling */
 .profile-card {
   width: 420px;
-  max-width: 90%;
+  max-width: 95%;
   background: #fff;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .profile-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
 }
 
+/* Card heading */
 .profile-card h2 {
   margin-bottom: 15px;
   color: #333;
-  font-size: 1.8rem;
-  letter-spacing: 0.5px;
 }
 
-.profile-image {
-  position: relative;
-  margin-bottom: 15px;
-}
-
+/* Profile image */
 .profile-image img {
   width: 110px;
+  height: 110px;
   border-radius: 50%;
-  border: 3px solid #007bff;
-  padding: 5px;
-  transition: transform 0.3s ease;
+  margin-bottom: 15px;
+  object-fit: cover;
 }
 
-.profile-image img:hover {
-  transform: scale(1.1) rotate(3deg);
-}
-
+/* Details section */
 .profile-details {
   text-align: left;
   margin-top: 15px;
@@ -58,71 +73,94 @@
   font-weight: 600;
   color: #444;
   display: block;
-  margin-bottom: 3px;
-  transition: color 0.3s ease;
+}
+
+.profile-details p,
+.profile-details input {
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .profile-details input {
-  padding: 10px;
-  border-radius: 8px;
+  padding: 8px;
+  border-radius: 6px;
   border: 1px solid #bbb;
-  width: 100%;
-  margin-bottom: 12px;
-  transition: border 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  transition: border-color 0.2s ease;
 }
 
 .profile-details input:focus {
   border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0,123,255,0.3);
-  outline: none;
 }
 
+/* Buttons */
 .profile-buttons {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
 }
 
 .edit-btn,
 .save-btn,
 .cancel-btn {
-  padding: 10px 25px;
+  padding: 10px 20px;
+  margin: 5px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 500;
+  transition: background 0.2s ease;
 }
 
-.edit-btn { background: #007bff; color: #fff; }
-.save-btn { background: #28a745; color: #fff; }
-.cancel-btn { background: #dc3545; color: #fff; }
+.edit-btn {
+  background: #007bff;
+  color: #fff;
+}
 
-.edit-btn:hover,
-.save-btn:hover,
+.edit-btn:hover {
+  background: #0056b3;
+}
+
+.save-btn {
+  background: #28a745;
+  color: #fff;
+}
+
+.save-btn:hover {
+  background: #1e7e34;
+}
+
+.cancel-btn {
+  background: #dc3545;
+  color: #fff;
+}
+
 .cancel-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  background: #a71d2a;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media screen and (max-width: 500px) {
+/* Responsive adjustments */
+@media (max-width: 480px) {
   .profile-card {
     width: 100%;
     padding: 20px;
   }
+
   .profile-image img {
     width: 90px;
+    height: 90px;
   }
-  .edit-btn, .save-btn, .cancel-btn {
+
+  .profile-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .edit-btn,
+  .save-btn,
+  .cancel-btn {
     width: 100%;
     margin: 5px 0;
   }

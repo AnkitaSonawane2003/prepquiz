@@ -252,6 +252,7 @@ router.get("/user/:userEmail", async (req, res) => {
 });
 
 // ✅ Get all evaluations (Coding)
+// ✅ Get all evaluations (Coding) with student name
 router.get("/all-evaluations", async (req, res) => {
   try {
     const evaluations = await Submission.aggregate([
@@ -263,6 +264,7 @@ router.get("/all-evaluations", async (req, res) => {
           lastSubmission: { $first: "$createdAt" },
         },
       },
+      // Lookup problem info
       {
         $lookup: {
           from: "problems",
@@ -272,14 +274,26 @@ router.get("/all-evaluations", async (req, res) => {
         },
       },
       { $unwind: "$problemInfo" },
-      {
-        $project: {
-          email: "$_id.user",
-          problemName: "$problemInfo.title",
-          totalSubmissions: 1,
-          lastSubmission: 1,
-        },
-      },
+      // Lookup student info
+   {
+  $lookup: {
+    from: "students",       // collection name
+    localField: "_id.user", // submission's user email
+    foreignField: "email",  // students collection field
+    as: "studentInfo",
+  }
+},
+{ $unwind: "$studentInfo" },
+{
+  $project: {
+    email: "$_id.user",
+    fullName: "$studentInfo.fullName",
+    problemName: "$problemInfo.title",
+    totalSubmissions: 1,
+    lastSubmission: 1,
+  },
+},
+
     ]);
 
     res.status(200).json(evaluations);
@@ -288,4 +302,41 @@ router.get("/all-evaluations", async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 });
+
+// router.get("/all-evaluations", async (req, res) => {
+//   try {
+//     const evaluations = await Submission.aggregate([
+//       { $sort: { createdAt: -1 } }, // latest submissions first
+//       {
+//         $group: {
+//           _id: { user: "$user", problemId: "$problemId" },
+//           totalSubmissions: { $sum: 1 },
+//           lastSubmission: { $first: "$createdAt" },
+//         },
+//       },
+//       {
+//         $lookup: {
+//           from: "problems",
+//           localField: "_id.problemId",
+//           foreignField: "_id",
+//           as: "problemInfo",
+//         },
+//       },
+//       { $unwind: "$problemInfo" },
+//       {
+//         $project: {
+//           email: "$_id.user",
+//           problemName: "$problemInfo.title",
+//           totalSubmissions: 1,
+//           lastSubmission: 1,
+//         },
+//       },
+//     ]);
+
+//     res.status(200).json(evaluations);
+//   } catch (err) {
+//     console.error("Error fetching coding evaluations:", err);
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// });
 module.exports = router;

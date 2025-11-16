@@ -1,0 +1,88 @@
+/* Container */
+.teacher-auth-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 40px;
+  background: #f5f7fa;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  margin-top: 120px;
+}
+
+/* Title */
+.teacher-auth-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #0d9488; /* teal */
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Input Fields */
+.teacher-auth-container input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.teacher-auth-container input:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 5px rgba(13, 148, 136, 0.4);
+}
+
+/* Buttons */
+.teacher-auth-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: #0d9488;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.teacher-auth-container button:hover {
+  background: #0f766e;
+}
+
+/* Message Paragraph */
+.teacher-auth-container p {
+  text-align: center;
+  margin-top: 15px;
+  color: #dc2626; /* red for error */
+  font-weight: 500;
+}
+
+/* Success message */
+.teacher-auth-container p.success {
+  color: #16a34a; /* green */
+}
+
+/* Link inside message */
+.teacher-auth-container a {
+  color: #0d9488;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.teacher-auth-container a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .teacher-auth-container {
+    margin: 40px 20px;
+    padding: 30px 20px;
+  }
+}
