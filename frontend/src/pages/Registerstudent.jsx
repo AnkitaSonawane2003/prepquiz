@@ -445,7 +445,7 @@ export default function RegisterStudent() {
           </div>
 
           <div className="form-group">
-            <label>Email/Username</label>
+            <label>Email</label>
             <input
               type="email"
               name="email"

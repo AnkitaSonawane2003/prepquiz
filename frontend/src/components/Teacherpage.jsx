@@ -114,7 +114,7 @@ function TeacherPage() {
     <li><NavLink to="/add-aptitude" className={({ isActive }) => isActive ? "active" : ""}>Add Problems</NavLink></li>
     <li><NavLink to="/studdata" className={({ isActive }) => isActive ? "active" : ""}>Student Data</NavLink></li>
     <li><NavLink to="/doubt" className={({ isActive }) => isActive ? "active" : ""}>Doubts Raised</NavLink></li>
-    <li><NavLink to="/allevaluation" className={({ isActive }) => isActive ? "active" : ""}>Student Evaluation</NavLink></li>
+    <li><NavLink to="/allevaluation" className={({ isActive }) => isActive ? "active" : ""}>Evaluation</NavLink></li>
     <li><NavLink to="/announce" className={({ isActive }) => isActive ? "active" : ""}>Add Alert</NavLink></li>
   </ul>
 </nav>

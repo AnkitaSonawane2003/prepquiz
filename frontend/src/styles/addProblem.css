@@ -21,6 +21,22 @@
   margin: 20px 0 30px;
   flex-wrap: wrap;
 }
+button.cancel-btn {
+  background: #ef4444 !important;
+  color: #fff !important;
+  padding: 14px 40px;
+  border-radius: 28px;
+  border: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button.cancel-btn:hover {
+  background: #dc2626 !important;
+  transform: scale(1.07);
+}
 
 .ai-input {
   flex: 1;

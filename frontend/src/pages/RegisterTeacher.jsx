@@ -83,14 +83,14 @@ export default function RegisterTeacher() {
           </div>
 
           <div className="form-group">
-            <label>Email/Username</label>
+            <label>Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="Enter your email/username"
+              placeholder="Enter your email"
             />
           </div>
 
