@@ -14,7 +14,7 @@ function Faq() {
 
         <div className="faq-item">
           <h3>Q: Is PrepQuiz free to use?</h3>
-          <p>A: Yes, most quizzes and practice tests are free. Some premium content may require a subscription.</p>
+          <p>A: Yes, most quizzes and practice tests are free.</p>
         </div>
 
         <div className="faq-item">

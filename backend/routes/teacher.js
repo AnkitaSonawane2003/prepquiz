@@ -12,12 +12,8 @@ const multer = require("multer");
 const path = require("path");
 const crypto = require("crypto");
 
-// -----------------------------
 // Teacher Forgot Password
-// -----------------------------
-// -----------------------------
-// Teacher Forgot Password
-// -----------------------------
+
 router.post("/forgot-password", async (req, res) => {
   try {
     const teacher = await Teacher.findOne({ email: req.body.email.toLowerCase() });
@@ -94,7 +90,7 @@ router.post("/reset-password/:token", async (req, res) => {
 // Configure storage for profile images
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/"); // make sure this folder exists
+    cb(null, "uploads/"); 
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -105,33 +101,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 
-// ✅ Middleware to verify Teacher token
-// const verifyTeacherToken = async (req, res, next) => {
-//   try {
-//     const authHeader = req.headers.authorization;
-//     if (!authHeader) return res.status(401).json({ message: "Authorization header missing" });
-
-//     if (!authHeader.startsWith("Bearer ")) return res.status(401).json({ message: "Invalid authorization format" });
-
-//     const token = authHeader.split(" ")[1];
-//     if (!token) return res.status(401).json({ message: "Token not provided" });
-
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET || "secretKey");
-
-//     const teacher = await Teacher.findById(decoded.id).select("-password");
-//     if (!teacher) return res.status(404).json({ message: "Teacher not found" });
-
-//     req.user = teacher; // attach teacher object
-//     next();
-//   } catch (err) {
-//     console.error("JWT verification failed:", err);
-//     return res.status(401).json({ message: "Invalid or expired token" });
-//   }
-// };
-
-// -----------------------------
 // Register Teacher
-// -----------------------------
+
 router.post('/register', async (req, res) => {
   try {
     const { fullName, email, password, department, phone } = req.body;
@@ -157,9 +128,8 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// -----------------------------
 // Login Teacher
-// -----------------------------
+
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -184,9 +154,8 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// -----------------------------
 // Get all teachers
-// -----------------------------
+
 router.get('/all', async (req, res) => {
   try {
     const teachers = await Teacher.find({}, '-password');
@@ -197,9 +166,9 @@ router.get('/all', async (req, res) => {
   }
 });
 
-// -----------------------------
+
 // Get teacher count
-// -----------------------------
+
 router.get('/count', async (req, res) => {
   try {
     const count = await Teacher.countDocuments();
@@ -210,35 +179,56 @@ router.get('/count', async (req, res) => {
   }
 });
 
-// -----------------------------
 // Get teacher profile
-// -----------------------------
+
 router.get('/profile', auth, async (req, res) => {
   try {
-    res.json(req.user); // already fetched by middleware
+    res.json(req.user); 
   } catch (err) {
     console.error('Get profile error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });
 
-// -----------------------------
-// Update teacher profile
-// -----------------------------
+
 // Update teacher profile with image
 router.put(
   "/profile",
   auth,
-  upload.single("profileImage"), // handle file
+  upload.single("profileImage"),
   async (req, res) => {
     try {
-      const { fullName, department, phone } = req.body;
+      const { fullName, department, phone, email } = req.body;
       const updatedData = {};
+
+      // Basic fields
       if (fullName) updatedData.fullName = fullName;
       if (department) updatedData.department = department;
       if (phone) updatedData.phone = phone;
-      if (req.file) updatedData.profileImage = `/uploads/${req.file.filename}`;
 
+      // --- EMAIL UPDATE LOGIC ---
+      if (email) {
+        const lowerEmail = email.toLowerCase();
+
+        // Check if another teacher already uses this email
+        const existing = await Teacher.findOne({
+          email: lowerEmail,
+          _id: { $ne: req.user._id }, // exclude the logged-in teacher
+        });
+
+        if (existing) {
+          return res.status(400).json({ message: "Email already in use" });
+        }
+
+        updatedData.email = lowerEmail;
+      }
+
+      // --- PROFILE IMAGE ---
+      if (req.file) {
+        updatedData.profileImage = `/uploads/${req.file.filename}`;
+      }
+
+      // Update teacher
       const teacher = await Teacher.findByIdAndUpdate(
         req.user._id,
         updatedData,
@@ -252,6 +242,7 @@ router.put(
     }
   }
 );
+
 
 // -----------------------------
 // Teacher Stats (counts + recent tests + challenges)

@@ -8,6 +8,7 @@
   box-shadow: 0 20px 50px rgba(13, 148, 136, 0.15);
   color: #0d9488;
   animation: fadeIn 0.8s ease-out;
+  margin-top: 140px;
 }
 
 .add-test-container h1 {

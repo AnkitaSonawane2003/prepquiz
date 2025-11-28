@@ -201,27 +201,71 @@ router.get("/profile", auth, async (req, res) => {
 // --------------------
 router.put("/profile", auth, upload.single("profileImage"), async (req, res) => {
   try {
+    const { fullName, department, rollNumber, email } = req.body;
+
+    // -----------------------------
+    // Check if email is already used
+    // -----------------------------
+    if (email) {
+      const existingEmailUser = await Student.findOne({
+        email,
+        _id: { $ne: req.user.id }   // Exclude current user
+      });
+
+      if (existingEmailUser) {
+        return res.status(400).json({ message: "Email already in use" });
+      }
+    }
+
+    // -----------------------------
+    // Check if roll number is used
+    // -----------------------------
+    if (rollNumber) {
+      const existingRollUser = await Student.findOne({
+        rollNumber,
+        _id: { $ne: req.user.id }   // Exclude current user
+      });
+
+      if (existingRollUser) {
+        return res.status(400).json({ message: "Roll number already in use" });
+      }
+    }
+
+    // -----------------------------
+    // Prepare update data
+    // -----------------------------
     const updateData = {
-      fullName: req.body.fullName,
-      department: req.body.department,
-      rollNumber: req.body.rollNumber,
+      fullName,
+      department,
+      rollNumber,
+      email,
     };
 
-    if (req.file) updateData.profileImage = `/uploads/${req.file.filename}`;
+    if (req.file) {
+      updateData.profileImage = `/uploads/${req.file.filename}`;
+    }
 
+    // -----------------------------
+    // Update document
+    // -----------------------------
     const updatedStudent = await Student.findByIdAndUpdate(
       req.user.id,
       updateData,
       { new: true }
     ).select("-password");
 
-    if (!updatedStudent) return res.status(404).json({ message: "Student not found" });
+    if (!updatedStudent) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
     res.json(updatedStudent);
+
   } catch (err) {
     console.error("Profile update error:", err);
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 // --------------------
 // STUDENT COUNT

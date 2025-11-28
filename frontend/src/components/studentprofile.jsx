@@ -66,6 +66,8 @@ const StudentProfile = () => {
       formData.append("fullName", editedProfile.fullName);
       formData.append("department", editedProfile.department);
       formData.append("rollNumber", editedProfile.rollNumber);
+      formData.append("email", editedProfile.email);
+
 
       if (editedProfile.profileImage instanceof File) {
         formData.append("profileImage", editedProfile.profileImage);
@@ -175,7 +177,17 @@ const StudentProfile = () => {
           )}
 
           <label>Email:</label>
-          <p>{profile.email}</p>
+{isEditing ? (
+  <input
+    type="email"
+    name="email"
+    value={editedProfile.email || ""}
+    onChange={handleEditChange}
+  />
+) : (
+  <p>{profile.email}</p>
+)}
+
 
           <label>Department:</label>
           {isEditing ? (

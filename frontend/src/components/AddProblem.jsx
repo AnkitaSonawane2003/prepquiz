@@ -182,31 +182,37 @@ const AddProblem = () => {
       });
 
       const data = await res.json();
-      if (data.success && data.problem) {
-       
-        const aiProblem = { ...data.problem };
-        const hiddenFromAI =
-          aiProblem.hiddenTestCases ||
-          aiProblem.hiddenTests ||
-          aiProblem.hidden || 
+    if (data.success && data.problem) {
+  const aiProblem = data.problem;
 
-        setFormData((prev) => ({
-          ...prev,
-          ...aiProblem,
-          difficulty: aiDifficulty,
-          hiddenTests: Array.isArray(hiddenFromAI) ? hiddenFromAI : [],
-hiddenTestCases: undefined, 
+  const hiddenFromAI =
+    aiProblem.hiddenTestCases ||
+    aiProblem.hiddenTests ||
+    aiProblem.hidden ||
+    [];
 
-        }));
+  setFormData({
+    title: aiProblem.title || "",
+    difficulty: aiProblem.difficulty || aiDifficulty,
+    type: "DSA",
+    description: aiProblem.description || "",
+    inputFormat: aiProblem.inputFormat || "",
+    outputFormat: aiProblem.outputFormat || "",
+    sampleInput: aiProblem.sampleInput || "",
+    sampleOutput: aiProblem.sampleOutput || "",
+    tags: aiProblem.tags || "",
+    hiddenTests: hiddenFromAI,
+  });
 
-        Swal.fire({
-          icon: "success",
-          title: "AI Problem Generated!",
-          text: `A ${aiDifficulty} problem on "${aiTopic}" was created successfully.`,
-          timer: 2500,
-          showConfirmButton: false,
-        });
-      } else {
+  Swal.fire({
+    icon: "success",
+    title: "AI Problem Generated!",
+    text: `A ${aiDifficulty} problem on "${aiTopic}" was created successfully.`,
+    timer: 2500,
+    showConfirmButton: false,
+  });
+}
+ else {
         Swal.fire({
           icon: "error",
           title: "Generation Failed!",

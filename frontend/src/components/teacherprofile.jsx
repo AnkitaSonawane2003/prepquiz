@@ -10,6 +10,7 @@ const TeacherProfile = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  
   const fileInputRef = useRef(null);
 
   const API_BASE = "http://localhost:5000";
@@ -53,6 +54,8 @@ const TeacherProfile = () => {
     formData.append("fullName", editedProfile.fullName);
     formData.append("department", editedProfile.department);
     formData.append("phone", editedProfile.phone || "");
+    formData.append("email", editedProfile.email);
+
     if (editedProfile.profileImage instanceof File)
       formData.append("profileImage", editedProfile.profileImage);
 
@@ -156,8 +159,18 @@ const TeacherProfile = () => {
             <p>{profile.fullName}</p>
           )}
 
-          <label>Email:</label>
-          <p>{profile.email}</p>
+        <label>Email:</label>
+{isEditing ? (
+  <input
+    type="email"
+    name="email"
+    value={editedProfile.email || ""}
+    onChange={handleEditChange}
+  />
+) : (
+  <p>{profile.email}</p>
+)}
+
 
           <label>Department:</label>
           {isEditing ? (
