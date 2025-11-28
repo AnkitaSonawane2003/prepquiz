@@ -296,7 +296,7 @@ const AddProblem = () => {
           <h2>📚 Type</h2>
           <select name="type" value={formData.type} onChange={handleChange}>
             <option value="DSA">DSA 💻</option>
-            <option value="Aptitude">Aptitude 🧠</option>
+           
           </select>
         </div>
 

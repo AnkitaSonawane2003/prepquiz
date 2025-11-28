@@ -12,6 +12,38 @@ const StudentPractice = () => {
 
   const userEmail = localStorage.getItem("userEmail");
   const currentProblemLS = JSON.parse(localStorage.getItem("currentProblem"));
+useEffect(() => {
+  const handleSubmissionUpdate = async () => {
+    if (!userEmail || problems.length === 0) return;
+
+    try {
+      const responses = await Promise.all(
+        problems.map((p) =>
+          fetch(`http://localhost:5000/api/submissions/${userEmail}/${p._id}`)
+        )
+      );
+
+      const data = await Promise.all(responses.map((r) => r.json()));
+      const solved = {};
+      const subs = {};
+
+      data.forEach((d, i) => {
+        if (d.success && d.submission) {
+          solved[problems[i]._id] = true;
+          subs[problems[i]._id] = d.submission;
+        }
+      });
+
+      setSolvedProblems(solved);
+      setSubmissions(subs);
+    } catch (err) {
+      console.error("Error updating solved problems:", err);
+    }
+  };
+
+  window.addEventListener("submissionUpdated", handleSubmissionUpdate);
+  return () => window.removeEventListener("submissionUpdated", handleSubmissionUpdate);
+}, [problems, userEmail]);
 
   useEffect(() => {
     const fetchProblems = async () => {

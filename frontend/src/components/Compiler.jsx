@@ -173,8 +173,19 @@ const handleSubmit = async () => {
     const data = await res.json();
 
     if (data.success) {
-      Swal.fire("Success", "Code submitted successfully!", "success");
-    } else {
+  Swal.fire("Success", "Code submitted successfully!", "success");
+
+  // Update localStorage (optional, used by StudentPractice)
+  const currentProblem = JSON.parse(localStorage.getItem("currentProblem")) || {};
+  localStorage.setItem(
+    "currentProblem",
+    JSON.stringify({ ...currentProblem, status: "solved" })
+  );
+
+  // Trigger a custom event so StudentPractice updates its state
+  window.dispatchEvent(new Event("submissionUpdated"));
+}
+else {
       Swal.fire("Error", data.message || "Submission failed", "error");
     }
   } catch (err) {
