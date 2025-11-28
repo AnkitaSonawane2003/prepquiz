@@ -1,11 +1,10 @@
-/* 🌟 Shared Auth Page Styling */
 .auth-container {
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f1f5f9; /* light gray */
+  background: #f1f5f9; 
   padding: 20px;
   font-family: "Poppins", sans-serif;
 }
@@ -26,7 +25,6 @@
   color: #0f172a;
 }
 
-/* 🌟 Input Fields */
 .auth-card input {
   width: 100%;
   padding: 12px 14px;
@@ -42,8 +40,6 @@
   box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25);
   outline: none;
 }
-
-/* 🌟 Button */
 .auth-card button {
   width: 100%;
   padding: 12px;
@@ -60,7 +56,6 @@
   background: #0284c7;
 }
 
-/* 🌟 Messages */
 .auth-card p {
   margin-top: 10px;
   font-size: 15px;

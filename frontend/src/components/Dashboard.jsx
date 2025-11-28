@@ -15,7 +15,6 @@ function Dashboard() {
 
   const [announcements, setAnnouncements] = useState([]);
 
-  // ✅ Fetch Coding Evaluation Data
   useEffect(() => {
     const fetchCodingData = async () => {
       try {
@@ -39,7 +38,6 @@ function Dashboard() {
     fetchCodingData();
   }, []);
 
-  // ✅ Fetch Test Evaluation Data
   useEffect(() => {
     const fetchTestData = async () => {
       try {
@@ -66,7 +64,6 @@ function Dashboard() {
     fetchTestData();
   }, []);
 
-  // ✅ Fetch Announcements
   useEffect(() => {
     async function fetchAnnouncements() {
       try {
@@ -82,7 +79,7 @@ function Dashboard() {
 
   return (
     <>
-      {/* ✅ Performance Summary */}
+  
       <div className="summary-card">
         <div className="summary-name">Overview</div>
         <div className="summary-stats">
@@ -100,8 +97,6 @@ function Dashboard() {
           </div>
         </div>
       </div>
-
-      {/* ✅ Announcements */}
       <section className="dashboard-section">
         <h3>Announcements</h3>
         <ul className="announcement-list">

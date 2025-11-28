@@ -1,4 +1,4 @@
-/* 🌟 studentPractice.css — Modern Animated Version */
+
 
 .student-practice-wrapper {
   padding: 100px 24px;
@@ -12,8 +12,6 @@
   margin-top: 80px;
    
 }
-
-/* 🌐 Main container */
 .student-practice-container {
   width: 100%;
   max-width: 1150px;
@@ -36,7 +34,6 @@
   z-index: 2;
 }
 
-/* 🏷️ Header */
 .sp-header h1 {
   font-size: 2rem;
   color: #0f172a;
@@ -53,8 +50,6 @@
   font-size: 1rem;
   animation: fadeIn 1.2s ease;
 }
-
-/* 🌀 Loading & Empty State */
 .sp-loader,
 .sp-empty {
   text-align: center;
@@ -63,16 +58,12 @@
   font-size: 1.1rem;
   animation: pulse 2s infinite;
 }
-
-/* 📚 Grid Layout */
 .sp-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 20px;
   animation: fadeIn 0.8s ease;
 }
-
-/* ✨ Card Styling */
 .sp-card {
   padding: 20px;
   border-radius: 16px;
@@ -108,8 +99,6 @@
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 16px 36px rgba(37, 99, 235, 0.15);
 }
-
-/* 🧩 Card Header */
 .sp-card-header {
   display: flex;
   align-items: center;
@@ -128,8 +117,6 @@
 .sp-card:hover h2 {
   color: #0D9488;
 }
-
-/* 🏷️ Difficulty Tags */
 .tag.difficulty {
   padding: 6px 12px;
   border-radius: 999px;
@@ -155,7 +142,6 @@
   transform: scale(1.1);
 }
 
-/* 🧾 Meta info & Description */
 .sp-meta {
   font-size: 0.88rem;
   color: #64748b;
@@ -171,8 +157,6 @@
   margin-bottom: 12px;
   animation: fadeIn 1s ease;
 }
-
-/* ⚙️ Footer Section */
 .sp-footer {
   display: flex;
   align-items: center;
@@ -203,8 +187,6 @@
   color: #64748b;
   font-style: italic;
 }
-
-/* 🪄 Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -225,7 +207,6 @@
   50% { opacity: 1; }
 }
 
-/* 📱 Responsive Design */
 @media (max-width: 980px) {
   .sp-grid {
     grid-template-columns: 1fr;

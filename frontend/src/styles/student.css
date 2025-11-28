@@ -1,27 +1,22 @@
-/* Wrapper for sidebar + content */
+
 .student-page-wrapper {
   display: flex;
   min-height: 100vh;
    margin-top: 100px;
 }
 
-/* Content wrapper to stack main + footer */
 .content-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 200px; /* match sidebar width */
+  margin-left: 200px; 
 }
-
-/* Main content grows above footer */
 .main-content {
   flex: 1;
   padding: 40px;
   background: #f9fafb;
   box-sizing: border-box;
 }
-
-/* Footer */
 .footer {
   width: 100%;
   background-color: #111827;
@@ -30,8 +25,6 @@
   font-family: Arial, sans-serif;
   box-sizing: border-box;
 }
-
-/* Sidebar */
 .unified-sidebar {
   position: fixed;
   top: 0;
@@ -60,8 +53,6 @@
   text-align: center;
   color: #00c6ff;
 }
-
-/* Nav links */
 .unified-nav-links {
   list-style: none;
   padding: 0;
@@ -89,8 +80,6 @@
   background: rgba(0, 198, 255, 0.15);
   color: #00c6ff;
 }
-
-/* Responsive */
 @media (max-width: 768px) {
   .content-wrapper {
     margin-left: 0;

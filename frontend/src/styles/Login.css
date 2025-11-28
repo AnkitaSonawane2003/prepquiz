@@ -1,4 +1,4 @@
-/* Container */
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -21,7 +21,7 @@
 
 .password-wrapper input {
   flex: 1;
-  padding-right: 40px; /* give space for icon */
+  padding-right: 40px; 
 }
 
 .eye-icon {
@@ -30,8 +30,6 @@
   color: #555;
 }
 
-
-/* Card */
 .login-card {
   background: #fff;
   padding: 32px;
@@ -42,7 +40,6 @@
   text-align: center;
 }
 
-/* Title */
 .login-title {
   font-size: 1.8rem;
   font-weight: bold;
@@ -50,7 +47,6 @@
   color: #1f2937;
 }
 
-/* Form */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -85,7 +81,6 @@
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
-/* Buttons */
 .login-btn {
   width: 100%;
   padding: 12px;
@@ -103,7 +98,6 @@
   background: #4338ca;
 }
 
-/* Google Button */
 .google-btn {
   width: 100%;
   padding: 12px;
@@ -129,7 +123,6 @@
   background: #f9fafb;
 }
 
-/* Footer */
 .login-footer {
   font-size: 1.15rem;
   color: #6b7280;
@@ -146,7 +139,6 @@
   text-decoration: underline;
 }
 
-/* Responsive */
 @media (max-width: 480px) {
   .login-card {
     padding: 24px 20px;

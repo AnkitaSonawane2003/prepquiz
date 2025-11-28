@@ -1,78 +1,3 @@
-// import React, { useState } from "react";
-// import { useParams, useNavigate } from "react-router-dom";
-// import "../styles/forgot.css";
-
-// export default function ResetPassword() {
-//   const { token } = useParams();
-//   const navigate = useNavigate();
-//   const [password, setPassword] = useState("");
-//   const [confirm, setConfirm] = useState("");
-//   const [message, setMessage] = useState("");
-//   const [error, setError] = useState("");
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (password !== confirm) {
-//       setError("Passwords do not match");
-//       return;
-//     }
-
-//     try {
-//       const response = await fetch(
-//         `http://localhost:5000/api/student/reset-password/${token}`,
-//         {
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify({ password }),
-//         }
-//       );
-
-//       const data = await response.json();
-
-//       if (response.ok) {
-//         setMessage(data.message);
-//         setTimeout(() => navigate("/studentlogin"), 2000);
-//       } else {
-//         setError(data.message || "Something went wrong");
-//       }
-//     } catch (err) {
-//       console.error(err);
-//       setError("Server error");
-//     }
-//   };
-
-//   return (
-//     <div className="auth-container">
-//       <div className="auth-card">
-//         <h2>Reset Password</h2>
-
-//         <form onSubmit={handleSubmit}>
-//           <input
-//             type="password"
-//             placeholder="New Password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-
-//           <input
-//             type="password"
-//             placeholder="Confirm Password"
-//             value={confirm}
-//             onChange={(e) => setConfirm(e.target.value)}
-//             required
-//           />
-
-//           {message && <p style={{ color: "green" }}>{message}</p>}
-//           {error && <p style={{ color: "red" }}>{error}</p>}
-
-//           <button type="submit">Reset Password</button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
 import React, { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import "../styles/forgot.css";
@@ -113,8 +38,6 @@ export default function ResetPassword() {
 
       if (response.ok) {
         setMessage(data.message);
-
-        // redirect based on role
         setTimeout(() => {
           navigate(role === "teacher" ? "/teacherlogin" : "/studentlogin");
         }, 2000);

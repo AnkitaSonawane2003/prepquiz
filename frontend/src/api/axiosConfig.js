@@ -22,7 +22,7 @@ const API = axios.create({
 
 API.interceptors.request.use(
   (config) => {
-    // ✅ Try all possible keys
+   
     const token =
       localStorage.getItem("token") ||
       localStorage.getItem("studentToken") ||
@@ -30,7 +30,7 @@ API.interceptors.request.use(
       localStorage.getItem("jwt") ||
       null;
 
-    if (!token) return config; // no token (public route maybe)
+    if (!token) return config; 
 
     if (isTokenExpired(token)) {
       localStorage.removeItem("token");

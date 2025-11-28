@@ -38,7 +38,7 @@ export default function Adminlogin() {
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        navigate("/adminpage"); // redirect to teacher/admin page
+        navigate("/adminpage"); 
       } else {
         setError(data.message || "Invalid credentials");
       }

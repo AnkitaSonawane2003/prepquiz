@@ -28,7 +28,6 @@ export default function TeacherLogin() {
     setLoading(true);
 
     try {
-      // adjust endpoint if your backend route is different
       const url = "http://localhost:5000/api/teacher/login";
 
       const payload = {
@@ -45,7 +44,7 @@ export default function TeacherLogin() {
       const data = await response.json();
 
       if (response.ok) {
-        // canonical key: "token"
+     
         const token = data.token || data.accessToken || data.tokenString;
         if (!token) {
           console.error("Login succeeded but server response has no token:", data);
@@ -54,17 +53,15 @@ export default function TeacherLogin() {
           return;
         }
 
-        // Save under canonical key 'token' (what other pages expect)
         localStorage.setItem("token", token);
-        // also keep teacher-specific key for backward compatibility
+     
         localStorage.setItem("teacherToken", token);
-        localStorage.setItem("userRole", "teacher"); // optional
+        localStorage.setItem("userRole", "teacher"); 
 
         console.log("Token saved:", localStorage.getItem("token"));
-        // notify other parts of the app if they listen
+    
         window.dispatchEvent(new Event("login"));
 
-        // redirect to teacher dashboard (adjust route as needed)
         navigate("/teacherpage");
       } else {
         setError(data.message || "Login failed. Please try again.");

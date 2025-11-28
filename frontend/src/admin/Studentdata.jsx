@@ -6,9 +6,7 @@ function Studentdata() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Fetch the student data when component mounts
-    
+  useEffect(() => {    
     const fetchStudents = async () => {
   try {
     const response = await fetch("http://localhost:5000/api/student/students")
@@ -44,7 +42,7 @@ function Studentdata() {
 
 return (
   <div className="student-data-container">
-    <div>  {/* This div gets the white background and shadow */}
+    <div> 
       <h2>All Students</h2>
       {students.length === 0 ? (
         <div  className="table-wrapper">No students found.</div>

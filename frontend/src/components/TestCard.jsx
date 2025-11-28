@@ -6,7 +6,7 @@ const TestCard = ({ attempt, token }) => {
   const [showAnalysis, setShowAnalysis] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const testId = attempt.test?._id || attempt.test; // ✅ handle both populated and plain ID
+  const testId = attempt.test?._id || attempt.test; 
 
   const fetchTopicAnalysis = async () => {
     try {

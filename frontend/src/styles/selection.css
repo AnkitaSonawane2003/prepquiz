@@ -1,4 +1,4 @@
-/* Make sure html and body take full height */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -6,7 +6,6 @@ html, body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Container styles */
 .selection-container {
   display: flex;
   flex-direction: column;
@@ -17,7 +16,6 @@ html, body {
   overflow: hidden;
 }
 
-/* Title */
 .selection-title {
   font-size: 3rem;
   margin-bottom: 40px;
@@ -28,7 +26,6 @@ html, body {
   position: relative;
 }
 
-/* Cards container */
 .cards-wrapper {
   display: flex;
   gap: 30px;
@@ -39,7 +36,6 @@ html, body {
   position: relative;
 }
 
-/* Individual card */
 .selection-card {
   cursor: pointer;
   border: 4px solid;
@@ -67,7 +63,6 @@ html, body {
   box-shadow: 0 15px 25px rgba(0,0,0,0.4);
 }
 
-/* Card content (colored background) */
 .card-content {
   font-size: 1.8rem;
   color: white;
@@ -84,7 +79,6 @@ html, body {
   user-select: none;
 }
 
-/* Hover effect on card content */
 .selection-card:hover .card-content {
   background-color: #444 !important;
   color: #fff;

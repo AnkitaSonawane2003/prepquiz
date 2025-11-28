@@ -28,7 +28,7 @@ export default function StudentLogin() {
     setLoading(true);
 
     try {
-      // ✅ Student route (not teacher)
+    
       const url = "http://localhost:5000/api/student/login";
 
       const payload = {
@@ -46,15 +46,14 @@ export default function StudentLogin() {
 
       if (response.ok) {
         localStorage.setItem("studentToken", data.token);
-        localStorage.setItem("userEmail", payload.email); // ✅ store email
+        localStorage.setItem("userEmail", payload.email); 
         setError(null);
-        navigate("/studentpage"); // redirect to student dashboard
+        navigate("/studentpage");
         localStorage.setItem("userRole", "student");
 
-        // ✅ Dispatch login event (helps Navbar update)
         window.dispatchEvent(new Event("login"));
 
-        navigate("/studentpage"); // Redirect to student dashboard
+        navigate("/studentpage"); 
       } else {
         setError(data.message || "Login failed. Please try again.");
       }

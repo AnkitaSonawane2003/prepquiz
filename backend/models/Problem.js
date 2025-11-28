@@ -1,5 +1,9 @@
-// backend/models/Problem.js
 const mongoose = require("mongoose");
+
+const testCaseSchema = new mongoose.Schema({
+  input: { type: String, required: true },
+  output: { type: String, required: true }
+});
 
 const problemSchema = new mongoose.Schema(
   {
@@ -11,18 +15,21 @@ const problemSchema = new mongoose.Schema(
     outputFormat: { type: String, default: "" },
     sampleInput: { type: String, default: "" },
     sampleOutput: { type: String, default: "" },
-    tags: { type: [String], default: [] }, // stored as array
+    tags: { type: [String], default: [] },
 
-    // ✅ Add these new fields
+    // Hidden test cases
+    hiddenTestCases: [testCaseSchema],
+
     status: {
       type: String,
       enum: ["open", "solved"],
       default: "open",
     },
+
     solvedBy: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Student", // or "User", depending on your auth model
+        ref: "Student",
       },
     ],
   },

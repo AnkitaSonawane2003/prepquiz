@@ -1,6 +1,4 @@
-/* ------------------------------ */
-/* Teacher Page Container & Layout */
-/* ------------------------------ */
+
 .teacher-page-container {
   display: flex;
   min-height: 100vh;
@@ -8,9 +6,6 @@
   background: #f9fafb;
 }
 
-/* ------------------------------ */
-/* Sidebar */
-/* ------------------------------ */
 .sidebar {
   position: fixed;
   top: 0;
@@ -72,19 +67,12 @@
   background: linear-gradient(180deg, #111827, #0f172a);
 }
 
-/* ------------------------------ */
-/* Main Content */
-/* ------------------------------ */
 .teacher-main-content {
   flex: 1;
-  margin-left: 200px; /* same as sidebar width */
-  padding: 40px;
+  margin-left: 200px; 
   box-sizing: border-box;
 }
 
-/* ------------------------------ */
-/* Summary Card / Overview */
-/* ------------------------------ */
 .summary-card {
   background: #fff;
   padding: 20px;
@@ -123,9 +111,6 @@
   margin-top: 5px;
 }
 
-/* ------------------------------ */
-/* Dashboard Sections */
-/* ------------------------------ */
 .dashboard-section {
   margin-bottom: 30px;
 }
@@ -157,10 +142,6 @@
 .view-btn:hover {
   background-color: #009ecc;
 }
-
-/* ------------------------------ */
-/* Motivational Cards */
-/* ------------------------------ */
 .motivation-cards-container {
   display: flex;
   gap: 20px;
@@ -179,9 +160,6 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* ------------------------------ */
-/* Responsive Adjustments */
-/* ------------------------------ */
 @media (max-width: 1024px) {
   .teacher-main-content {
     margin-left: 200px;

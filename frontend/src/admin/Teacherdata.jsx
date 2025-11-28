@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../styles/teacherdata.css"; // Make sure this CSS file contains the styles scoped to .teacher-data-container
+import "../styles/teacherdata.css";
 
 function Teacherdata() {
   const [teachers, setTeachers] = useState([]);

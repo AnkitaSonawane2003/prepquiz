@@ -1,4 +1,4 @@
-/* Container */
+
 .test-take-container {
   max-width: 900px;
   margin: 30px auto;
@@ -9,7 +9,6 @@
   font-family: "Poppins", sans-serif;
   margin-top: 120px;
 }
-/* Resume Modal Extra Styling */
 .resume-modal {
   animation: popIn 0.25s ease-out;
 }
@@ -38,7 +37,6 @@
   margin-bottom: 20px;
 }
 
-/* Buttons inside modal */
 .resume-modal .modal-actions {
   display: flex;
   justify-content: space-between;
@@ -55,7 +53,6 @@
   color: white;
 }
 
-/* Title */
 .test-take-container h1 {
   text-align: center;
   font-size: 28px;
@@ -63,7 +60,6 @@
   color: #1e293b;
 }
 
-/* System Messages */
 .system-message {
   padding: 12px;
   background: #dbeafe;
@@ -83,7 +79,6 @@
   color: #b91c1c;
 }
 
-/* Timer */
 .quiz-timer {
   text-align: center;
   margin: 10px 0 20px;
@@ -96,7 +91,6 @@
   color: #dc2626;
 }
 
-/* Question Text */
 .question-text {
   font-size: 18px;
   font-weight: 500;
@@ -110,7 +104,6 @@
   opacity: 0.7;
 }
 
-/* Options */
 .options-list {
   display: flex;
   flex-direction: column;
@@ -138,7 +131,6 @@
   border-color: #38bdf8;
 }
 
-/* Buttons */
 .btn-start,
 .btn-submit,
 .btn-save {
@@ -167,7 +159,7 @@
   background: #0d9488;
 }
 
-/* Result Box */
+
 .result-box {
   text-align: center;
   font-size: 25px;
@@ -178,12 +170,9 @@
   margin-bottom: 20px;
 }
 
-/* Actions */
 .actions {
   margin-top: 20px;
 }
-
-/* Modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -225,7 +214,6 @@
   color: white;
 }
 
-/* Toasts */
 .success-popup,
 .saved-popup {
   position: fixed;

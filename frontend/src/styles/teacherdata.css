@@ -1,4 +1,4 @@
-/* Outer container with cream background filling viewport */
+
 .teacher-data-container {
   min-height: 100vh;
   width: 100%;
@@ -9,18 +9,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 110px; /* space at top */
+  margin-top: 110px; 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   
   color: #333;
 }
 
-/* Inner white card fills almost whole viewport */
 .teacher-data-container > div {
-  max-width: none;           /* allow full width */
-  width: 100%;               /* full width inside padding */
-  min-height: calc(100vh - 110px - 80px); /* height minus margins */
-  margin: 0 auto;            /* centered */
+  max-width: none;          
+  width: 100%;               
+  min-height: calc(100vh - 110px - 80px); 
+  margin: 0 auto;            
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -30,12 +29,10 @@
   flex-direction: column;
 }
 
-/* Card hover shadow */
 .teacher-data-container > div:hover {
   box-shadow: 0 12px 40px rgba(26, 188, 156, 0.3);
 }
 
-/* Header */
 .teacher-data-container h2 {
   font-size: 2.4rem;
   font-weight: 700;
@@ -46,13 +43,11 @@
   text-transform: uppercase;
 }
 
-/* Table wrapper to enable horizontal scroll if needed */
 .table-wrapper {
   width: 100%;
-  overflow-x: auto;  /* scroll if table too wide */
+  overflow-x: auto;  
 }
 
-/* Table styles */
 .teacher-data-container table {
   width: 100%;
   border-collapse: separate;
@@ -60,11 +55,10 @@
   border-radius: 12px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
   background: transparent;
-  table-layout: auto; /* auto columns width */
-  overflow-x: visible; /* no scroll on table */
+  table-layout: auto; 
+  overflow-x: visible;
 }
 
-/* Table head */
 .teacher-data-container thead tr {
   background-color: #1abc9c;
   color: white;
@@ -73,16 +67,14 @@
   letter-spacing: 0.1em;
 }
 
-/* Table header and data cells */
 .teacher-data-container th,
 .teacher-data-container td {
   padding: 14px 20px;
   text-align: left;
   border: none;
-  white-space: nowrap; /* prevent wrapping */
+  white-space: nowrap; 
 }
 
-/* Table body rows */
 .teacher-data-container tbody tr {
   background: #f9f9f9;
   border-radius: 10px;
@@ -90,28 +82,23 @@
   cursor: default;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
-
-/* Hover effect on rows */
 .teacher-data-container tbody tr:hover {
   background-color: #e0f7f4;
   transform: translateY(-4px);
   box-shadow: 0 6px 18px rgba(26, 188, 156, 0.3);
 }
 
-/* First column styling */
 .teacher-data-container tbody tr td:first-child {
   font-weight: 600;
   color: #16a085;
 }
 
-/* Italic style for 3rd and 4th columns */
 .teacher-data-container tbody tr td:nth-child(3),
 .teacher-data-container tbody tr td:nth-child(4) {
   font-style: italic;
   color: #555;
 }
 
-/* Responsive for smaller screens */
 @media (max-width: 900px) {
   .teacher-data-container h2 {
     font-size: 2rem;

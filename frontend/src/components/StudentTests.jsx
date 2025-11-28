@@ -5,7 +5,7 @@ import "../styles/studentTests.css";
 
 const StudentTests = () => {
   const [tests, setTests] = useState([]);
-  const [submittedTests, setSubmittedTests] = useState([]); // ✅ submitted test IDs
+  const [submittedTests, setSubmittedTests] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -15,7 +15,6 @@ const StudentTests = () => {
       try {
         setLoading(true);
 
-        // 🧩 1. Fetch all available tests (main)
         const { data: testData } = await API.get("/api/tests");
         let list = [];
 
@@ -32,7 +31,6 @@ const StudentTests = () => {
 
         setTests(list);
 
-        // 🧩 2. Try to fetch test attempts (optional — if route exists)
         try {
           const { data: attemptData } = await API.get("/api/testAttempts/my");
           const attempts = attemptData.attempts || attemptData || [];
@@ -40,7 +38,6 @@ const StudentTests = () => {
           setSubmittedTests(submittedIds);
         } catch (attemptErr) {
           console.warn("⚠️ Could not fetch attempts (non-blocking):", attemptErr);
-          // Ignore error — do not block test rendering
           setSubmittedTests([]);
         }
       } catch (err) {

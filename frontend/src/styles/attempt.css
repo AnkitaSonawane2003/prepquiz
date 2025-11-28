@@ -1,9 +1,8 @@
-/* Navbar offset */
+
 :root {
   --nav-offset: 76px;
 }
 
-/* Container */
 .test-take-container {
   max-width: 820px;
   width: 100%;
@@ -19,7 +18,6 @@
   z-index: 1;
 }
 
-/* Header */
 .test-take-container header h1 {
   font-size: 1.6rem;
   font-weight: 700;
@@ -33,8 +31,6 @@
   margin-bottom: 20px;
   color: #1f6feb;
 }
-
-/* Buttons inside test container only */
 .test-take-container button {
   padding: 10px 18px;
   border-radius: 8px;
@@ -50,7 +46,6 @@
   background-color: #155ecc;
 }
 
-/* Questions List */
 .test-take-container ol {
   list-style: none;
   padding: 0;
@@ -71,21 +66,19 @@
   box-shadow: 0 3px 12px rgba(31, 111, 235, 0.08);
 }
 
-/* Question text */
+
 .test-take-container li div:first-child {
   font-size: 1.05rem;
   font-weight: 500;
   margin-bottom: 6px;
 }
 
-/* Topic */
 .test-take-container li div:nth-child(2) {
   font-style: italic;
   color: #007bff;
   margin-bottom: 12px;
 }
 
-/* Options with correct/incorrect highlights */
 .test-take-container li .option {
   padding: 8px 12px;
   margin-bottom: 6px;
@@ -109,14 +102,12 @@
   font-weight: 500;
 }
 
-/* Marks obtained / your answer */
 .test-take-container li p {
   margin-top: 8px;
   font-size: 0.95rem;
   color: #374151;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .test-take-container {
     margin: calc(18px + var(--nav-offset)) 18px 18px;
@@ -150,7 +141,6 @@
   }
 }
 
-/* Print */
 @media print {
   .test-take-container button {
     display: none !important;

@@ -5,7 +5,7 @@ import "../styles/teacherstyle.css";
 
 
 function TeacherPage() {
-  // ✅ Teacher stats
+
   const [stats, setStats] = useState({
     testsCreated: 0,
     codingChallengesCreated: 0,
@@ -13,25 +13,20 @@ function TeacherPage() {
     recentChallenges: [],
   });
 
-  // ✅ Overview states
   const [totalCodeSubmissions, setTotalCodeSubmissions] = useState(0);
   const [totalTestsSubmitted, setTotalTestsSubmitted] = useState(0);
 
-  // ✅ UI toggles
   const [showAllTests, setShowAllTests] = useState(false);
   const [showAllChallenges, setShowAllChallenges] = useState(false);
   const [showAllAnnouncements, setShowAllAnnouncements] = useState(false);
 
-  // ✅ Announcements
   const [announcements, setAnnouncements] = useState([]);
 
-  // ✅ Motivational quotes
   const motivationalQuotes = [
     "Teaching is the one profession that creates all other professions.",
     "A good teacher is like a candle — it consumes itself to light the way for others."
   ];
 
-  // Fetch teacher stats
   useEffect(() => {
     async function fetchStats() {
       try {
@@ -47,7 +42,6 @@ function TeacherPage() {
     fetchStats();
   }, [showAllTests, showAllChallenges]);
 
-  // Fetch total code submissions
   useEffect(() => {
     async function fetchCodeSubmissions() {
       try {
@@ -64,7 +58,6 @@ function TeacherPage() {
     fetchCodeSubmissions();
   }, []);
 
-  // Fetch total tests submitted by students
   useEffect(() => {
     async function fetchTotalTestsSubmitted() {
       try {
@@ -83,8 +76,6 @@ function TeacherPage() {
     }
     fetchTotalTestsSubmitted();
   }, []);
-
-  // Fetch announcements
   useEffect(() => {
     async function fetchAnnouncements() {
       try {
@@ -104,7 +95,7 @@ function TeacherPage() {
 
   return (
     <div className="teacher-page-container">
-      {/* Sidebar */}
+ 
      <nav className="unified-sidebar">
   <h2 className="unified-sidebar-title">Teacher Portal</h2>
 
@@ -118,11 +109,7 @@ function TeacherPage() {
     <li><NavLink to="/announce" className={({ isActive }) => isActive ? "active" : ""}>Add Alert</NavLink></li>
   </ul>
 </nav>
-
-
-      {/* Main Content */}
       <main className="teacher-main-content">
-        {/* Overview */}
         <div className="summary-card">
           <div className="summary-name">Overview</div>
           <div className="summary-stats">
@@ -144,8 +131,6 @@ function TeacherPage() {
             </div>
           </div>
         </div>
-
-        {/* Recent Tests */}
         <section className="dashboard-section">
           <h3>Recent Tests</h3>
           <ul className="schedule-list">
@@ -160,7 +145,6 @@ function TeacherPage() {
           </button>
         </section>
 
-        {/* Recent Coding Challenges */}
         <section className="dashboard-section">
           <h3>Recent Coding Challenges</h3>
           <ul className="schedule-list">
@@ -175,7 +159,6 @@ function TeacherPage() {
           </button>
         </section>
 
-        {/* Motivational Quotes */}
         <div className="motivation-cards-container">
           {motivationalQuotes.map((quote, index) => (
             <div className="motivation-card" key={index} title={quote}>
@@ -184,7 +167,6 @@ function TeacherPage() {
           ))}
         </div>
 
-        {/* Announcements */}
         <section className="dashboard-section">
           <h3>Announcements</h3>
           <ul className="announcement-list">

@@ -1,4 +1,4 @@
-// models/Attempt.js
+
 const mongoose = require("mongoose");
 
 const attemptAnswerSchema = new mongoose.Schema({

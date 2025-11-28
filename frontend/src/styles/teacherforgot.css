@@ -1,4 +1,4 @@
-/* Container */
+
 .teacher-auth-container {
   max-width: 400px;
   margin: 80px auto;
@@ -10,16 +10,14 @@
   margin-top: 120px;
 }
 
-/* Title */
 .teacher-auth-container h2 {
   text-align: center;
   margin-bottom: 25px;
-  color: #0d9488; /* teal */
+  color: #0d9488; 
   font-size: 24px;
   font-weight: 600;
 }
 
-/* Input Fields */
 .teacher-auth-container input {
   width: 100%;
   padding: 12px 15px;
@@ -36,7 +34,6 @@
   box-shadow: 0 0 5px rgba(13, 148, 136, 0.4);
 }
 
-/* Buttons */
 .teacher-auth-container button {
   width: 100%;
   padding: 12px;
@@ -55,20 +52,17 @@
   background: #0f766e;
 }
 
-/* Message Paragraph */
 .teacher-auth-container p {
   text-align: center;
   margin-top: 15px;
-  color: #dc2626; /* red for error */
+  color: #dc2626; 
   font-weight: 500;
 }
 
-/* Success message */
 .teacher-auth-container p.success {
-  color: #16a34a; /* green */
+  color: #16a34a; 
 }
 
-/* Link inside message */
 .teacher-auth-container a {
   color: #0d9488;
   text-decoration: none;
@@ -79,7 +73,6 @@
   text-decoration: underline;
 }
 
-/* Responsive */
 @media (max-width: 500px) {
   .teacher-auth-container {
     margin: 40px 20px;

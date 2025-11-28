@@ -1,9 +1,9 @@
-// src/App.jsx
+
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
-// Pages & Components
+
 import Home from "./pages/Home";
 import About from "./components/About";
 import Features from "./components/Features";
@@ -50,7 +50,6 @@ import Teacherforgot from "./components/Teacherforgot";
 import Teacherrest from "./components/Teacherreset";
 
 
-// NEW: import TestTake component for student test-taking route
 import TestTake from "./components/TestTake";
 
 function App() {
@@ -59,7 +58,7 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* 🌐 Public Routes */}
+    
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/features" element={<Features />} />
@@ -75,32 +74,26 @@ function App() {
         <Route path="/regstud" element={<RegisterStudent />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
 
-        {/* 🧑‍💻 Admin Dashboard */}
+        {/*  Admin Dashboard */}
         <Route path="/adminpage" element={<Adminpage />} />
         <Route path="/doubt" element={<Doubt />} />
         <Route path="/studdata" element={<Studentdata />} />
         <Route path="/teacherdata" element={<Teacherdata />} />
         <Route path="/announce" element={<Addannouncement />} />
 
-        {/* 👩‍🏫 Teacher Dashboard */}
+        {/*  Teacher Dashboard */}
         <Route path="/teacherpage" element={<Teacherpage />} />
         <Route path="/teacher-dashboard" element={<Dashboard />} />
         <Route path="/add-aptitude" element={<AddProblem />} />
         <Route path="/teacherprofile" element={<TeacherProfile />} />
         <Route path="/add-test" element={<AddTest />} />
 
-        {/* 🎓 Student Dashboard */}
+        {/*  Student Dashboard */}
         <Route path="/studentpage" element={<Studentpage />} />
         <Route path="/studentprofile" element={<StudentProfile />} />
 
-        {/* Keep legacy route for student tests (existing) */}
         <Route path="/studenttests" element={<StudentTests />} />
 
-        {/* New canonical student tests routes:
-            - list page
-            - test taking page (testId param)
-            This lets StudentTests navigate to /student/tests/:testId (recommended),
-            while preserving /studenttests for older links. */}
         <Route path="/student/tests" element={<StudentTests />} />
         <Route path="/student/tests/:testId" element={<TestTake />} />
 

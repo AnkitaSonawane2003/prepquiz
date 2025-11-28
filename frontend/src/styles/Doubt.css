@@ -59,7 +59,6 @@
   user-select: none;
 }
 
-/* Optional: Add a subtle "chat bubble" tail on left */
 .doubt-card::before {
   content: '';
   position: absolute;

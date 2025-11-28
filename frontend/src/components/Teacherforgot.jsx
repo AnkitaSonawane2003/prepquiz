@@ -1,4 +1,3 @@
-// src/components/Teacherforgot.jsx
 import axios from "axios";
 import { useState } from "react";
 import "../styles/teacherforgot.css";

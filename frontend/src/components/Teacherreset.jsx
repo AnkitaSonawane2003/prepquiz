@@ -1,4 +1,3 @@
-// src/components/Teacherreset.jsx
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useState } from "react";

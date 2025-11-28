@@ -1,4 +1,4 @@
-/* === Page Layout === */
+
 .evaluation-page {
   background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
   min-height: 100vh;
@@ -6,7 +6,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* === Page Title === */
 .evaluation-title {
   text-align: center;
   color: #004aad;
@@ -16,8 +15,6 @@
   letter-spacing: 0.5px;
   text-shadow: 0 1px 2px rgba(0, 74, 173, 0.15);
 }
-
-/* === Layout Container === */
 .evaluation-content {
   display: flex;
   justify-content: center;
@@ -27,7 +24,6 @@
   width: 100%;
 }
 
-/* === Evaluation Card === */
 .evaluation-card {
   flex: 0 0 380px;
   background: #f9fbff;
@@ -62,8 +58,6 @@
   background: rgba(0, 74, 173, 0.03);
   border-radius: 4px;
 }
-
-/* === Chart Container === */
 .chart-container {
   flex: 0 0 650px;
   background: #f9fbff;
@@ -86,15 +80,12 @@
   margin-bottom: 15px;
   font-size: 1.3rem;
 }
-
-/* === Test Attempts Grid === */
 .test-attempts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 30px;
 }
 
-/* === Topic-wise Performance === */
 .topic-performance {
   margin-top: 15px;
 }
@@ -138,7 +129,6 @@
   background-color: #d0e4ff;
 }
 
-/* === Loading / No Data States === */
 .loading,
 .no-data {
   text-align: center;
@@ -167,7 +157,6 @@
   }
 }
 
-/* === Responsive Layout === */
 @media (max-width: 992px) {
   .evaluation-content {
     flex-direction: column;

@@ -24,7 +24,7 @@ const features = [
 const Home = () => {
   return (
     <main className="home-container">
-      {/* Hero Section */}
+   
       <section className="hero" aria-label="Introduction">
         <div className="hero-content">
           <h1 className="typing-text" aria-live="polite" aria-atomic="true">
@@ -47,7 +47,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About Section */}
+
       <section className="about" aria-label="About PrepQuiz">
         <h2>About PrepQuiz</h2>
         <p>
@@ -59,7 +59,6 @@ const Home = () => {
         </p>
       </section>
 
-      {/* Features Section */}
       <section className="features" aria-label="Platform Features">
         <h2>✨ Platform Features</h2>
         <div className="feature-grid">

@@ -1,10 +1,10 @@
-/* Container */
+
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f3f4f6; /* light gray */
+  background-color: #f3f4f6;
   padding: 16px;
     margin-bottom: 20px;
   margin-left: 300px;
@@ -13,7 +13,6 @@
   border-radius: 40px;
 }
 
-/* Card */
 .register-card {
   background: #fff;
   padding: 32px;
@@ -23,7 +22,6 @@
   max-width: 420px;
 }
 
-/* Title */
 .register-title {
   text-align: center;
   font-size: 1.6rem;
@@ -32,24 +30,21 @@
   color: #1f2937;
 }
 
-/* Form */
 .register-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* Labels aligned to the left */
 .form-group label {
   display: block;
   font-size: 1.35rem;
   font-weight: 900;
   color: #374151;
   margin-bottom: 6px;
-  text-align: left;   /* 👈 ensures label text stays left */
+  text-align: left;   
 }
 
-/* Inputs & Selects */
 .form-group input,
 .form-group select {
   width: 100%;
@@ -67,7 +62,6 @@
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
-/* Button */
 .register-btn {
   width: 100%;
   padding: 12px;
@@ -85,7 +79,6 @@
   background: #4338ca;
 }
 
-/* Footer */
 .register-footer {
   text-align: center;
   font-size: 1.15rem;
@@ -103,7 +96,6 @@
   text-decoration: underline;
 }
 
-/* Responsive */
 @media (max-width: 480px) {
   .register-card {
     padding: 24px 20px;

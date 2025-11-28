@@ -1,4 +1,4 @@
-/* ====== Unified Sidebar (Fixed Professional Design) ====== */
+
 .unified-sidebar {
   position: fixed;
   top: 0;
@@ -17,15 +17,13 @@
   overflow: hidden;
   margin-top: 100px;
 
-  z-index: 1000; /* stays above content but below header/footer if any */
+  z-index: 1000; 
 }
 
 .unified-sidebar:hover {
   width: 250px;
   background: linear-gradient(180deg, #111827, #0f172a);
 }
-
-/* Sidebar Title */
 .unified-sidebar-title {
   font-size: 1.8rem;
   font-weight: 700;
@@ -38,8 +36,6 @@
   text-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
   margin-top: 2px;
 }
-
-/* Sidebar Nav Links */
 .unified-nav-links {
   list-style: none;
   padding: 0;
@@ -93,7 +89,6 @@
   box-shadow: inset 0 0 10px rgba(0, 198, 255, 0.25);
 }
 
-/* Animations */
 @keyframes fadeDown {
   0% {
     opacity: 0;
@@ -104,8 +99,6 @@
     transform: translateY(0);
   }
 }
-
-/* Responsive Sidebar */
 @media (max-width: 768px) {
   .unified-sidebar {
     position: relative;
