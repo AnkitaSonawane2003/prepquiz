@@ -13,10 +13,22 @@ dotenv.config();
 // Initialize App
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+const allowedOrigins = [
+  "https://prepquiz-jrpx-git-ankitaprepquiz-ankita-sonawanes-projects.vercel.app",
+  "https://prepquiz-jrpx-4kybnadud-ankita-sonawanes-projects.vercel.app"
+];
 app.use(
   cors({
-    origin: "https://prepquiz-jrpx-git-ankitaprepquiz-ankita-sonawanes-projects.vercel.app/",
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman or server-to-server)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
