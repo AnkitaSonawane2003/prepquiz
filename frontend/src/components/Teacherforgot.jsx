@@ -1,11 +1,20 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "../styles/teacherforgot.css";
-
+const apiUrl = import.meta.env.VITE_API_URL;
 export default function Teacherforgot() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
 
+
+
+
+  useEffect(() => {
+  fetch(`${apiUrl}/api/tests`)
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+}, []);
   const submit = async (e) => {
     e.preventDefault();
 
