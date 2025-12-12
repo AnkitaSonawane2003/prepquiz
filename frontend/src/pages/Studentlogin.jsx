@@ -29,7 +29,7 @@ export default function StudentLogin() {
 
     try {
     
-      const url = `${import.meta.env.VITE_API_URL}/api/student/login`;
+      const url = "http://localhost:5000/api/student/login";
 
       const payload = {
         email: formData.email.toLowerCase(),

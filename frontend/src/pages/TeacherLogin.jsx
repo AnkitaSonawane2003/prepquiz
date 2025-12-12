@@ -28,7 +28,7 @@ export default function TeacherLogin() {
     setLoading(true);
 
     try {
-      const url = `${import.meta.env.VITE_API_URL}/api/teacher/login`;
+      const url = "http://localhost:5000/api/teacher/login";
 
       const payload = {
         email: formData.email.toLowerCase(),
