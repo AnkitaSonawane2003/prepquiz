@@ -107,7 +107,7 @@ const AddProblem = () => {
 
     delete payload.hiddenTests; 
 
-    const res = await fetch("http://localhost:5000/api/problems/add", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/problems/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -175,7 +175,7 @@ const AddProblem = () => {
 
     setAiLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/gemini/generate-dsa", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/gemini/generate-dsa`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic: aiTopic, difficulty: aiDifficulty }),
