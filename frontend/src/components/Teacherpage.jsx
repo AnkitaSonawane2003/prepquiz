@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
- import '@styles/teacher.css';
+ import '@styles/Teacher.css';
 import '@styles/teacherstyle.css';
 
 function TeacherPage() {
