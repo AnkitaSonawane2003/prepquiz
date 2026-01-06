@@ -11,7 +11,7 @@ const AllEvaluations = () => {
   useEffect(() => {
     const fetchCodingEvaluations = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/submissions/all-evaluations");
+        const res = await axios.get("https://prepquiz.onrender.com/api/submissions/all-evaluations");
         const data = res.data || [];
 
         const grouped = {};
@@ -60,7 +60,7 @@ const AllEvaluations = () => {
           return;
         }
 
-        const res = await axios.get("http://localhost:5000/api/testAttempts/per-student", {
+        const res = await axios.get("https://prepquiz.onrender.com/api/testAttempts/per-student", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

@@ -32,7 +32,7 @@ const Compiler = () => {
 
     const fetchProblem = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/problems/${problemId}`, {
+        const res = await fetch(`https://prepquiz.onrender.com/api/problems/${problemId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -59,7 +59,7 @@ const Compiler = () => {
     try {
       const stdin = problem?.sampleInput.replace(/\\n/g, "\n") || "";
 
-      const res = await fetch("http://localhost:5000/api/compiler/run", {
+      const res = await fetch("https://prepquiz.onrender.com/api/compiler/run", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -113,7 +113,7 @@ const handleSubmit = async () => {
     let allHiddenPassed = true;
 
     for (let test of hiddenCases) {
-      const hiddenRes = await fetch("http://localhost:5000/api/compiler/run", {
+      const hiddenRes = await fetch("https://prepquiz.onrender.com/api/compiler/run", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -154,7 +154,7 @@ const handleSubmit = async () => {
   try {
     const inputForCompiler = problem?.sampleInput.replace(/\\n/g, "\n") || "";
 
-    const res = await fetch("http://localhost:5000/api/submissions", {
+    const res = await fetch("https://prepquiz.onrender.com/api/submissions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

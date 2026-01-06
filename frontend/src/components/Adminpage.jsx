@@ -15,9 +15,9 @@ const Adminpage = () => {
     const fetchCounts = async () => {
       try {
         const [studentRes, teacherRes, contactRes] = await Promise.all([
-          fetch('http://localhost:5000/api/student/count'),
-          fetch('http://localhost:5000/api/teacher/count'),
-          fetch('http://localhost:5000/api/contact/count')
+          fetch('https://prepquiz.onrender.com/api/student/count'),
+          fetch('https://prepquiz.onrender.com/api/teacher/count'),
+          fetch('https://prepquiz.onrender.com/api/contact/count')
         ]);
 
         const studentData = await studentRes.json();
@@ -39,7 +39,7 @@ const Adminpage = () => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/announcement${showAll ? '' : '?limit=3'}`);
+        const res = await fetch(`https://prepquiz.onrender.com/api/announcement${showAll ? '' : '?limit=3'}`);
         const data = await res.json();
         if (data.success) {
           setAnnouncements(data.announcements);

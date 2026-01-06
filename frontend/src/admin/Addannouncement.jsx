@@ -15,7 +15,7 @@ function Addannouncement() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/announcement', {
+      const res = await fetch('https://prepquiz.onrender.com/api/announcement', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

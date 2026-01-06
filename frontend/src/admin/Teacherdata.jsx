@@ -9,7 +9,7 @@ function Teacherdata() {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/teacher/all");
+        const response = await fetch("https://prepquiz.onrender.com/api/teacher/all");
         const data = await response.json();
 
         if (response.ok && data.success) {

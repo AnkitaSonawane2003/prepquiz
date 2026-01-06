@@ -25,7 +25,7 @@ const StudentPage = () => {
 
     async function fetchTestsAttempted() {
       try {
-        const res = await fetch("http://localhost:5000/api/testattempts/my", {
+        const res = await fetch("https://prepquiz.onrender.com/api/testattempts/my", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -40,7 +40,7 @@ const token = localStorage.getItem("studentToken");
 if (token) {
   async function fetchProfile() {
     try {
-      const res = await fetch("http://localhost:5000/api/student/profile", {
+      const res = await fetch("https://prepquiz.onrender.com/api/student/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -54,7 +54,7 @@ if (token) {
     async function fetchProblemsSolved() {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/submissions/problems-solved/${studentEmail}`
+          `https://prepquiz.onrender.com/api/submissions/problems-solved/${studentEmail}`
         );
         const data = await res.json();
         if (data.success) setProblemsSolved(data.solvedCount);
@@ -65,7 +65,7 @@ if (token) {
 
     async function fetchStudentStats() {
       try {
-        const res = await fetch("http://localhost:5000/api/student/stats?limit=3");
+        const res = await fetch("https://prepquiz.onrender.com/api/student/stats?limit=3");
         const data = await res.json();
         if (data.success) {
           setRecentTests(data.recentTests || []);
@@ -78,7 +78,7 @@ if (token) {
 
     async function fetchAnnouncements() {
       try {
-        const res = await fetch("http://localhost:5000/api/announcement?limit=3");
+        const res = await fetch("https://prepquiz.onrender.com/api/announcement?limit=3");
         const data = await res.json();
         if (data.success) setAnnouncements(data.announcements || []);
       } catch (err) {
