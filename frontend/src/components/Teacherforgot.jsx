@@ -19,7 +19,7 @@ export default function Teacherforgot() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("https://prepquiz.onrender.com/api/teacher/forgot-password", { email });
+      const res = await axios.post("http://localhost:5000/api/teacher/forgot-password", { email });
       setMsg("Password reset link generated ,check your email.");
       console.log(res.data);
     } catch (err) {

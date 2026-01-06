@@ -13,7 +13,7 @@ const TeacherProfile = () => {
   
   const fileInputRef = useRef(null);
 
-  const API_BASE = "https://prepquiz.onrender.com";
+  const API_BASE = "http://localhost:5000";
 
   useEffect(() => {
     const token = localStorage.getItem("teacherToken");

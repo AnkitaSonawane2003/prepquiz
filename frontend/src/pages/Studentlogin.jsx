@@ -29,7 +29,7 @@ export default function StudentLogin() {
 
     try {
     
-      const url = "https://prepquiz.onrender.com/api/student/login";
+      const url = "http://localhost:5000/api/student/login";
 
       const payload = {
         email: formData.email.toLowerCase(),

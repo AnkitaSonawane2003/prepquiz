@@ -25,14 +25,14 @@ export default function UserEvaluation() {
         if (token) {
          
           const profileRes = await fetch(
-            "https://prepquiz.onrender.com/api/student/profile",
+            "http://localhost:5000/api/student/profile",
             { headers: { Authorization: `Bearer ${token}` } }
           );
           const profileData = await profileRes.json();
           if (profileData.fullName) setStudentName(profileData.fullName);
           if (userEmail) {
             const evalRes = await fetch(
-              `https://prepquiz.onrender.com/api/evaluation/user/${encodeURIComponent(
+              `http://localhost:5000/api/evaluation/user/${encodeURIComponent(
                 userEmail
               )}`
             );
@@ -40,7 +40,7 @@ export default function UserEvaluation() {
             if (evalData && evalData.email) setData(evalData);
           }
           const attemptsRes = await fetch(
-            "https://prepquiz.onrender.com/api/testattempts/my",
+            "http://localhost:5000/api/testattempts/my",
             { headers: { Authorization: `Bearer ${token}` } }
           );
           const attemptsData = await attemptsRes.json();

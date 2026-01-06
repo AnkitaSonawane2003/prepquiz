@@ -34,7 +34,7 @@ export default function RegisterStudent() {
     setLoading(true);
 
     try {
-      const response = await fetch("https://prepquiz.onrender.com/api/student/register", {
+      const response = await fetch("http://localhost:5000/api/student/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

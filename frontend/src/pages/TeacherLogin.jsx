@@ -28,7 +28,7 @@ export default function TeacherLogin() {
     setLoading(true);
 
     try {
-      const url = "https://prepquiz.onrender.com/api/teacher/login";
+      const url = "http://localhost:5000/api/teacher/login";
 
       const payload = {
         email: formData.email.toLowerCase(),

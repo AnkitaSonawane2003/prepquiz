@@ -19,7 +19,7 @@ function Dashboard() {
     const fetchCodingData = async () => {
       try {
         const res = await axios.get(
-          "https://prepquiz.onrender.com/api/evaluation/all-evaluations"
+          "http://localhost:5000/api/evaluation/all-evaluations"
         );
         const data = res.data || [];
         setCodingStats({
@@ -43,7 +43,7 @@ function Dashboard() {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          "https://prepquiz.onrender.com/api/testAttempts/all",
+          "http://localhost:5000/api/testAttempts/all",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -67,7 +67,7 @@ function Dashboard() {
   useEffect(() => {
     async function fetchAnnouncements() {
       try {
-        const res = await fetch("https://prepquiz.onrender.com/api/announcement?limit=3");
+        const res = await fetch("http://localhost:5000/api/announcement?limit=3");
         const data = await res.json();
         if (data.success) setAnnouncements(data.announcements);
       } catch (err) {

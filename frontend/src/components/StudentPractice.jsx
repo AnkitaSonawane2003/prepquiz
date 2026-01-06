@@ -19,7 +19,7 @@ useEffect(() => {
     try {
       const responses = await Promise.all(
         problems.map((p) =>
-          fetch(`https://prepquiz.onrender.com/api/submissions/${userEmail}/${p._id}`)
+          fetch(`http://localhost:5000/api/submissions/${userEmail}/${p._id}`)
         )
       );
 
@@ -48,7 +48,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchProblems = async () => {
       try {
-        const res = await fetch("https://prepquiz.onrender.com/api/problems");
+        const res = await fetch("http://localhost:5000/api/problems");
         const data = await res.json();
         if (data.success) setProblems(data.problems || []);
         else setProblems([]);
@@ -67,7 +67,7 @@ useEffect(() => {
       try {
         const responses = await Promise.all(
           problems.map((p) =>
-            fetch(`https://prepquiz.onrender.com/api/submissions/${userEmail}/${p._id}`)
+            fetch(`http://localhost:5000/api/submissions/${userEmail}/${p._id}`)
           )
         );
 

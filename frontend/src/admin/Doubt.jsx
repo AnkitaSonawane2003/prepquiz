@@ -9,7 +9,7 @@ function Doubt() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await fetch("https://prepquiz.onrender.com/api/contact");
+        const res = await fetch("http://localhost:5000/api/contact");
         const data = await res.json();
         console.log("Fetched messages:", data.messages);
         if (data.success && Array.isArray(data.messages)) {

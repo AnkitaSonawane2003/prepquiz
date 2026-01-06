@@ -85,7 +85,7 @@ const AddTest = () => {
 
     setGenerating(true);
     try {
-      const resp = await fetch("https://prepquiz.onrender.com/api/generate-questions", {
+      const resp = await fetch("http://localhost:5000/api/generate-questions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topics: topicsArray, countPerTopic: count }),
@@ -131,7 +131,7 @@ const AddTest = () => {
     try {
       const payload = { ...testDetails, questions, date: testDetails.date ? new Date(testDetails.date).toISOString() : undefined };
 
-      const res = await fetch("https://prepquiz.onrender.com/api/tests/add", {
+      const res = await fetch("http://localhost:5000/api/tests/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

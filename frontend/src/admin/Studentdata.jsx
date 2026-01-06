@@ -9,7 +9,7 @@ function Studentdata() {
   useEffect(() => {    
     const fetchStudents = async () => {
   try {
-    const response = await fetch("https://prepquiz.onrender.com/api/student/students")
+    const response = await fetch("http://localhost:5000/api/student/students")
     console.log("Response object:", response);
     const data = await response.json();
     console.log("Parsed JSON data:", data);
