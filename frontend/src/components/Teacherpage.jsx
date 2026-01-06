@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import "../styles/teacher.css";
+import "../styles/Teacher.css";
 
 const Teacherpage = () => {
   return (
