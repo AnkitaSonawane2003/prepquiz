@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="footer-container">
       
         <div className="footer-brand">
-          <h2>PrepQuiz</h2>
+          <h2> PrepQuiz </h2>
           <p>Smart Aptitude & Technical Test Platform for Students</p>
         </div>
 
