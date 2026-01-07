@@ -1,8 +1,7 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import "../styles/Login.css";
 
@@ -11,7 +10,6 @@ export default function TeacherLogin() {
     email: "",
     password: "",
   });
-
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
@@ -30,7 +28,7 @@ export default function TeacherLogin() {
     setLoading(true);
 
     try {
-      const url = "http://localhost:5000/api/teacher/login";
+      const url = "https://prepquiz.onrender.com/api/teacher/login";
 
       const payload = {
         email: formData.email.toLowerCase(),
@@ -46,8 +44,24 @@ export default function TeacherLogin() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token);
-        setError(null);
+     
+        const token = data.token || data.accessToken || data.tokenString;
+        if (!token) {
+          console.error("Login succeeded but server response has no token:", data);
+          setError("Login succeeded but token missing from server response.");
+          setLoading(false);
+          return;
+        }
+
+        localStorage.setItem("token", token);
+     
+        localStorage.setItem("teacherToken", token);
+        localStorage.setItem("userRole", "teacher"); 
+
+        console.log("Token saved:", localStorage.getItem("token"));
+    
+        window.dispatchEvent(new Event("login"));
+
         navigate("/teacherpage");
       } else {
         setError(data.message || "Login failed. Please try again.");
@@ -105,7 +119,9 @@ export default function TeacherLogin() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") togglePasswordVisibility();
+                  if (e.key === "Enter" || e.key === " ") {
+                    togglePasswordVisibility();
+                  }
                 }}
               >
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
@@ -122,6 +138,11 @@ export default function TeacherLogin() {
           <button type="submit" className="login-btn" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
+          <p>
+            <Link to="/teacherforgot" style={{ color: "blue", cursor: "pointer" }}>
+              Forgot Password?
+            </Link>
+          </p>
         </form>
 
         <p>

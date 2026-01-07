@@ -1,6 +1,17 @@
 {
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "framer-motion": "^12.23.24",
     "lucide-react": "^0.545.0",
-    "react-toastify": "^11.0.5"
+    "mongoose": "^8.19.4",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-toastify": "^11.0.5",
+    "recharts": "^3.3.0",
+    "sweetalert2": "^11.26.3"
   }
 }

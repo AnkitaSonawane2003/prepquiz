@@ -1,181 +1,109 @@
-.summary-card {
-  background: linear-gradient(135deg, #1abc9c, #16a085);
-  border-radius: 15px;
-  padding: 30px 40px;
-  color: white;
-  margin-bottom: 30px;
-  box-shadow: 0 8px 20px rgba(26, 188, 156, 0.3);
+
+.student-page-wrapper {
+  display: flex;
+  min-height: 100vh;
+   margin-top: 100px;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 200px; 
+}
+.main-content {
+  flex: 1;
+  padding: 40px;
+  background: #f9fafb;
+  box-sizing: border-box;
+}
+.footer {
+  width: 100%;
+  background-color: #111827;
+  color: #E5E7EB;
+  padding: 2rem 1.5rem;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+.unified-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 200px;
+  background: linear-gradient(180deg, #1f2937, #111827);
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
-.summary-name {
-  font-size: 2.5rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 25px;
-  text-align: center;
-  user-select: none;
+.unified-sidebar:hover {
+  width: 250px;
+  background: linear-gradient(180deg, #111827, #0f172a);
 }
 
-.summary-stats {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  max-width: 700px;
-  gap: 40px;
-}
-.dashboard-section {
-  background: white;
-  padding: 20px 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  margin-bottom: 30px;
-  color: #333;
-}
-
-.dashboard-section h3 {
+.unified-sidebar-title {
   font-size: 1.8rem;
-  margin-bottom: 18px;
   font-weight: 700;
-  border-bottom: 2px solid #1abc9c;
-  padding-bottom: 6px;
-  color: #16a085;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #00c6ff;
 }
-
-.practice-list,
-.test-list,
-.results-list,
-.announcement-list {
+.unified-nav-links {
   list-style: none;
-  padding-left: 0;
-  font-size: 1.2rem;
-  line-height: 1.5;
-  color: #555;
-}
-
-.practice-list li.completed {
-  color: #27ae60;
-  font-weight: 600;
-}
-
-.practice-list li {
-  margin-bottom: 10px;
-}
-
-.test-list li,
-.results-list li,
-.announcement-list li {
-  margin-bottom: 12px;
-}
-
-.profile-completion .progress-bar {
-  background: #ddd;
-  border-radius: 20px;
-  height: 25px;
+  padding: 0;
   width: 100%;
-  max-width: 500px;
-  overflow: hidden;
-  margin-top: 10px;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.profile-completion .progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #1abc9c, #16a085);
-  color: white;
-  font-weight: 700;
-  text-align: center;
-  line-height: 25px;
-  border-radius: 20px 0 0 20px;
-  transition: width 0.5s ease;
+.unified-nav-links li {
+  margin-bottom: 18px;
 }
 
-.profile-completion .completion-note {
-  margin-top: 10px;
+.unified-nav-links a {
+  text-decoration: none;
+  color: #e5e7eb;
   font-size: 1rem;
-  font-style: italic;
-  color: #e67e22;
-}
-
-/* Keep your existing motivation cards CSS */
-
-
-.summary-item {
-  text-align: center;
-  cursor: default;
-  transition: transform 0.3s;
-  flex: 1;
-  min-width: 120px;
-}
-
-.summary-item:hover {
-  transform: scale(1.05);
-}
-
-.summary-number {
-  font-size: 3rem;
-  font-weight: 800;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin-bottom: 6px;
-}
-
-.summary-label {
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-}
-
-/* Motivational cards container */
-.motivation-cards-container {
+  font-weight: 500;
+  padding: 12px 15px;
+  border-radius: 12px;
   display: flex;
-  gap: 30px;
-  flex-wrap: nowrap;
-  margin-bottom: 30px;
-  
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Each motivational card */
-.motivation-card {
-  flex: 1 1 45%;
-  background: #00bfa5; /* teal-ish */
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 8px 20px rgba(0, 191, 165, 0.3);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: white;
-  min-width: 280px;
-  transition: transform 0.3s ease;
+.unified-nav-links a.active-link {
+  background: rgba(0, 198, 255, 0.15);
+  color: #00c6ff;
 }
+@media (max-width: 768px) {
+  .content-wrapper {
+    margin-left: 0;
+  }
 
-.motivation-card:hover {
-  transform: translateY(-5px);
-}
+  .unified-sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 15px 0;
+  }
 
+  .unified-sidebar-title {
+    display: none;
+  }
 
-.motivation-card h3 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-align: center;
-  white-space: normal; /* allow wrapping */
-  overflow: visible;
-  text-overflow: unset;
-}
+  .unified-nav-links {
+    display: flex;
+    justify-content: center;
+  }
 
-.motivation-card p {
-  font-size: 1.3rem;
-  font-style: italic;
-  line-height: 1.5;
-  text-align: center;
-  font-weight: 600;
-  font-family: 'Georgia', serif;
-  white-space: normal; /* allow wrapping */
-  overflow: visible;
-  text-overflow: unset;
+  .unified-nav-links li {
+    margin-bottom: 0;
+  }
 }

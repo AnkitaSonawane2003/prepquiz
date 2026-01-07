@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { ToastContainer, toast } from "react-toastify"; // ✅ Add toastify
-import "react-toastify/dist/ReactToastify.css"; // ✅ Toast styles
+import { ToastContainer, toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/RegisterTeacher.css";
 
 export default function RegisterTeacher() {
@@ -21,19 +21,17 @@ export default function RegisterTeacher() {
 
   const [loading, setLoading] = useState(false);
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/teacher/register", {
+      const response = await fetch("https://prepquiz.onrender.com/api/teacher/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -83,14 +81,14 @@ export default function RegisterTeacher() {
           </div>
 
           <div className="form-group">
-            <label>Email/Username</label>
+            <label>Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="Enter your email/username"
+              placeholder="Enter your email"
             />
           </div>
 
@@ -157,7 +155,6 @@ export default function RegisterTeacher() {
         </p>
       </div>
 
-      {/* ✅ Toast Container for showing messages */}
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );

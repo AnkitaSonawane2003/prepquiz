@@ -1,17 +1,40 @@
-/* studentprofile.css */
 
-/* Container centers the card */
 .profile-container {
   display: flex;
   justify-content: center;
-  margin-top: 80px; /* Added extra top spacing to move below navbar */
-  padding: 15px; /* Some padding for small screens */
+  margin-top: 80px; 
+  padding: 15px; 
+}
+.image-upload-wrapper {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
 }
 
-/* Card styling */
+.clickable-image {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.clickable-image:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+.image-upload-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+
+.profile-image img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4a90e2;
+}
 .profile-card {
   width: 420px;
-  max-width: 95%; /* Responsive width on smaller screens */
+  max-width: 95%; 
   background: #fff;
   padding: 25px;
   border-radius: 12px;
@@ -21,16 +44,13 @@
 }
 
 .profile-card:hover {
-  transform: translateY(-5px); /* subtle lift on hover */
+  transform: translateY(-5px); 
 }
-
-/* Card heading */
 .profile-card h2 {
   margin-bottom: 15px;
   color: #333;
 }
 
-/* Profile image */
 .profile-image img {
   width: 110px;
   height: 110px;
@@ -38,8 +58,6 @@
   margin-bottom: 15px;
   object-fit: cover;
 }
-
-/* Details section */
 .profile-details {
   text-align: left;
   margin-top: 15px;
@@ -69,8 +87,6 @@
 .profile-details input:focus {
   border-color: #007bff;
 }
-
-/* Buttons */
 .profile-buttons {
   margin-top: 20px;
   display: flex;
@@ -116,8 +132,6 @@
 .cancel-btn:hover {
   background: #a71d2a;
 }
-
-/* Responsive adjustments */
 @media (max-width: 480px) {
   .profile-card {
     width: 100%;

@@ -28,8 +28,8 @@ export default function StudentLogin() {
     setLoading(true);
 
     try {
-      // ✅ Student route (not teacher)
-      const url = "http://localhost:5000/api/student/login";
+    
+      const url = "https://prepquiz.onrender.com/api/student/login";
 
       const payload = {
         email: formData.email.toLowerCase(),
@@ -46,8 +46,14 @@ export default function StudentLogin() {
 
       if (response.ok) {
         localStorage.setItem("studentToken", data.token);
+        localStorage.setItem("userEmail", payload.email); 
         setError(null);
-        navigate("/studentpage"); // redirect to student dashboard
+        navigate("/studentpage");
+        localStorage.setItem("userRole", "student");
+
+        window.dispatchEvent(new Event("login"));
+
+        navigate("/studentpage"); 
       } else {
         setError(data.message || "Login failed. Please try again.");
       }
@@ -122,6 +128,14 @@ export default function StudentLogin() {
           <button type="submit" className="login-btn" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
+       
+
+<p>
+  <Link to="/forgot" style={{ color: "blue", cursor: "pointer" }}>
+    Forgot Password?
+  </Link>
+</p>
+
         </form>
 
         <p>

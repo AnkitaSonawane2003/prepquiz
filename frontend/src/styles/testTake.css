@@ -1,0 +1,236 @@
+
+.test-take-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+  margin-top: 120px;
+}
+.resume-modal {
+  animation: popIn 0.25s ease-out;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.resume-modal h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #00897b;
+  font-weight: 600;
+}
+
+.resume-modal p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.resume-modal .modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.resume-modal .cancel-btn {
+  background: #e57373;
+  color: white;
+}
+
+.resume-modal .confirm-btn {
+  background: #26a69a;
+  color: white;
+}
+
+.test-take-container h1 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #1e293b;
+}
+
+.system-message {
+  padding: 12px;
+  background: #dbeafe;
+  color: #1e40af;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.system-message.saved-info {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.system-message.error {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.quiz-timer {
+  text-align: center;
+  margin: 10px 0 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0f172a;
+}
+
+.timer-warning {
+  color: #dc2626;
+}
+
+.question-text {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #1e293b;
+}
+
+.question-text small {
+  display: block;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.option-card {
+  background: #f8fafc;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.option-card input {
+  transform: scale(1.2);
+}
+
+.option-card:hover {
+  background: #e0f2fe;
+  border-color: #38bdf8;
+}
+
+.btn-start,
+.btn-submit,
+.btn-save {
+  padding: 10px 20px;
+  border: none;
+  background: #0ea5e9;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+  transition: 0.2s;
+}
+
+.btn-start:hover,
+.btn-submit:hover,
+.btn-save:hover {
+  background: #0284c7;
+}
+
+.btn-save {
+  background: #14b8a6;
+}
+
+.btn-save:hover {
+  background: #0d9488;
+}
+
+
+.result-box {
+  text-align: center;
+  font-size: 25px;
+  padding: 20px;
+  background: #d1fae5;
+  color: #065f46;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.actions {
+  margin-top: 20px;
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-card {
+  width: 350px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-card h2 {
+  margin-bottom: 10px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.cancel-btn {
+  background: #e2e8f0;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.confirm-btn {
+  background: #ef4444;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+}
+
+.success-popup,
+.saved-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #0ea5e9;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  animation: fadeIn 0.3s ease;
+}
+
+.saved-popup {
+  background: #059669;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

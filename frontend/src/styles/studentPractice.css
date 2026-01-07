@@ -1,0 +1,237 @@
+
+
+.student-practice-wrapper {
+  padding: 100px 24px;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  animation: fadeIn 1s ease-in-out;
+  margin-top: 80px;
+   
+}
+.student-practice-container {
+  width: 100%;
+  max-width: 1150px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(2, 6, 23, 0.1);
+  backdrop-filter: blur(10px);
+  animation: slideUp 0.8s ease-in-out;
+  transition: all 0.4s ease;
+}
+
+.student-practice-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 60px rgba(2, 6, 23, 0.15);
+}
+.sp-card, .sp-footer, .btn {
+  pointer-events: all !important;
+  position: relative;
+  z-index: 2;
+}
+
+.sp-header h1 {
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, #0D9488, #0D9488);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowText 3s infinite alternate;
+}
+
+.sp-header p {
+  color: #475569;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  animation: fadeIn 1.2s ease;
+}
+.sp-loader,
+.sp-empty {
+  text-align: center;
+  padding: 40px;
+  color: #475569;
+  font-size: 1.1rem;
+  animation: pulse 2s infinite;
+}
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+  animation: fadeIn 0.8s ease;
+}
+.sp-card {
+  padding: 20px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffff, #f0f9ff);
+  border: 1px solid #e0e7ff;
+  box-shadow: 0 10px 28px rgba(2, 6, 23, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.sp-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 20% 30%, rgba(59,130,246,0.08), transparent 70%);
+  transform: rotate(25deg);
+  transition: opacity 0.4s;
+  opacity: 0;
+}
+
+.sp-card:hover::before {
+  opacity: 1;
+}
+
+.sp-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 36px rgba(37, 99, 235, 0.15);
+}
+.sp-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.sp-card-header h2 {
+  font-size: 1.15rem;
+  margin: 0;
+  color: #1e293b;
+  transition: color 0.3s ease;
+}
+
+.sp-card:hover h2 {
+  color: #0D9488;
+}
+.tag.difficulty {
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: white;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.tag.difficulty.easy {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+.tag.difficulty.medium {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+.tag.difficulty.hard {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.tag.difficulty:hover {
+  transform: scale(1.1);
+}
+
+.sp-meta {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin-bottom: 10px;
+  animation: fadeIn 1s ease;
+}
+
+.sp-desc {
+  color: #334155;
+  font-size: 0.96rem;
+  flex: 1;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  animation: fadeIn 1s ease;
+}
+.sp-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn.view-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #0D9488, #06b6d4);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+}
+
+.btn.view-btn:hover {
+  background: linear-gradient(90deg, #0D9488, #0891b2);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.created {
+  font-size: 0.82rem;
+  color: #64748b;
+  font-style: italic;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glowText {
+  from { text-shadow: 0 0 10px rgba(59,130,246,0.6); }
+  to { text-shadow: 0 0 25px rgba(59,130,246,0.9); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 980px) {
+  .sp-grid {
+    grid-template-columns: 1fr;
+  }
+  .student-practice-wrapper {
+    padding-top: 120px;
+  }
+  .sp-header h1 {
+    font-size: 1.6rem;
+  }
+  .btn.view-btn {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .student-practice-container {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .sp-card {
+    padding: 16px;
+  }
+  .sp-header h1 {
+    font-size: 1.5rem;
+  }
+}

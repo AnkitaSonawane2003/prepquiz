@@ -1,25 +1,33 @@
-/* Container with sidebar and main content side-by-side */
-.student-page-container {
+
+.teacher-page-container {
   display: flex;
   height: 100vh;
   font-family: Arial, sans-serif;
 
 }
 
-/* Sidebar styles */
-.sidebar {
+.teacher-sidebar {
   width: 220px;
-  background-color: #2c3e50; /* dark blue-gray */
+  background-color: #2c3e50; 
   color: white;
   padding: 20px;
   margin-top: 100px;
   box-sizing: border-box;
   display: flex;
-
   flex-direction: column;
+ 
+}
+.teacher-sidebar .teacher-nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 2rem !important;
+  padding: 10px 14px;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-.sidebar-title {
+.teacher-sidebar-title {
   margin: 0 0 30px 0;
   font-size: 2.5rem;
   font-weight: bold;
@@ -27,40 +35,372 @@
   letter-spacing: 2px;
 }
 
-.nav-links {
+.teacher-nav-links {
   list-style: none;
   padding: 0;
   margin: 0;
   flex-grow: 1;
+   font-size: 2.0rem;
 }
 
-.nav-links li {
-  margin-bottom: 55px;
+.teacher-nav-links li {
+  margin-bottom: 25px;
+   font-size: 2.0rem;
+
 }
 
-.nav-links a {
+.teacher-nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 1.3rem;
-  padding: 8px 12px;
+  font-size: 2.0em; 
+  padding: 10px 14px; 
   display: block;
   border-radius: 4px;
   transition: background-color 0.3s;
 }
 
-.nav-links a:hover {
-  background-color: #34495e; /* slightly lighter */
+
+.teacher-nav-links a:hover {
+  background-color: #34495e; 
 }
 
-.active-link {
-  background-color: #1abc9c; /* turquoise highlight */
-  font-weight: bold;
-}
-
-/* Main content area */
-.main-content {
+.teacher-main-content {
   flex-grow: 1;
-  background-color: #ecf0f1; /* light gray */
+  background-color: #ecf0f1; 
   padding: 30px;
   overflow-y: auto;
+  min-width: 0;
+    margin-top: 100px;
+
+}
+
+
+.summary-card {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
+  border-radius: 15px;
+  padding: 30px 40px;
+  color: white;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 20px rgba(26, 188, 156, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.summary-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+  text-align: center;
+  user-select: none;
+}
+.sidebar .nav-links a {
+  font-size: 1.2rem; 
+  color: white;
+  text-decoration: none;
+  padding: 10px 14px;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.view-all-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.view-all-btn:hover {
+  background-color: #0056b3;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.toggle-button {
+  background-color: #4caf50; 
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.toggle-button:hover {
+  background-color: #45a049;
+}
+
+.view-btn {
+  margin-top: 10px;
+  padding: 6px 14px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.view-btn:hover {
+  background-color: #0056b3;
+}
+
+.summary-stats {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 700px;
+  gap: 40px;
+}
+
+.summary-item {
+  text-align: center;
+  cursor: default;
+  transition: transform 0.3s;
+  flex: 1;
+  min-width: 120px;
+}
+
+.summary-item:hover {
+  transform: scale(1.05);
+}
+
+.summary-number {
+  font-size: 3rem;
+  font-weight: 800;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 6px;
+}
+
+.summary-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.dashboard-section {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.dashboard-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 18px;
+  font-weight: 700;
+  border-bottom: 2px solid #1abc9c;
+  padding-bottom: 6px;
+  
+}
+
+.activity-list,
+.schedule-list,
+.announcement-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+
+.activity-list li.pending {
+  color: #e67e22;
+  font-weight: 600;
+}
+
+.activity-list li,
+.schedule-list li,
+.announcement-list li {
+  margin-bottom: 12px;
+}
+
+.motivation-cards-container {
+  display: flex;
+  gap: 30px;
+  flex-wrap: nowrap;
+  margin-bottom: 30px;
+}
+.motivation-card {
+  flex: 1 1 45%;
+  background: #00bfa5; 
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0, 191, 165, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  min-width: 280px;
+  transition: transform 0.3s ease;
+}
+
+.motivation-card:hover {
+  transform: translateY(-5px);
+}
+
+.motivation-card p {
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Georgia', serif;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+.summary-card {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
+  border-radius: 15px;
+  padding: 30px 40px;
+  color: white;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 20px rgba(26, 188, 156, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.summary-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+  text-align: center;
+  user-select: none;
+}
+.sidebar .nav-links a {
+  font-size: 1.2rem; 
+  color: white;
+  text-decoration: none;
+  padding: 10px 14px;
+  display: block;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.summary-stats {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 700px;
+  gap: 40px;
+}
+
+.summary-item {
+  text-align: center;
+  cursor: default;
+  transition: transform 0.3s;
+  flex: 1;
+  min-width: 120px;
+}
+
+.summary-item:hover {
+  transform: scale(1.05);
+}
+
+.summary-number {
+  font-size: 3rem;
+  font-weight: 800;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 6px;
+}
+
+.summary-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.dashboard-section {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.dashboard-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 18px;
+  font-weight: 700;
+  border-bottom: 2px solid #1abc9c;
+  padding-bottom: 6px;
+  
+}
+
+.activity-list,
+.schedule-list,
+.announcement-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+
+.activity-list li.pending {
+  color: #e67e22;
+  font-weight: 600;
+}
+
+.activity-list li,
+.schedule-list li,
+.announcement-list li {
+  margin-bottom: 12px;
+}
+
+.motivation-cards-container {
+  display: flex;
+  gap: 30px;
+  flex-wrap: nowrap;
+  margin-bottom: 30px;
+}
+.motivation-card {
+  flex: 1 1 45%;
+  background: #00bfa5; 
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0, 191, 165, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  min-width: 280px;
+  transition: transform 0.3s ease;
+}
+
+.motivation-card:hover {
+  transform: translateY(-5px);
+}
+
+.motivation-card p {
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Georgia', serif;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
 }

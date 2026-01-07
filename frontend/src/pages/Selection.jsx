@@ -1,12 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import backgroundImage from "../assets/background.webp"; // Make sure this path is correct
+import backgroundImage from "../assets/background.webp"; 
 import "../styles/selection.css";
 
 function Selection() {
   const navigate = useNavigate();
 
-  // ✅ Only routing paths updated
   const options = [
     { label: "Student", path: "/studentlogin", color: "#6c63ff" },
     { label: "Teacher", path: "/teacherlogin", color: "#ff6584" },

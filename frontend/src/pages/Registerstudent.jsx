@@ -34,7 +34,7 @@ export default function RegisterStudent() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/student/register", {
+      const response = await fetch("https://prepquiz.onrender.com/api/student/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -51,17 +51,15 @@ export default function RegisterStudent() {
           password: "",
           department: "",
         });
-
-        // Delay redirect to allow time for toast message
         setTimeout(() => {
           navigate("/studentlogin", { replace: true });
         }, 2000);
       } else {
-        toast.error(data.message || "Registration failed. Please try again."); // ✅ TOAST for errors
+        toast.error(data.message || "Registration failed. Please try again."); 
       }
     } catch (err) {
       console.error("Registration error:", err);
-      toast.error("Server error. Please try again later."); // ✅ TOAST for server errors
+      toast.error("Server error. Please try again later."); 
     } finally {
       setLoading(false);
     }
@@ -86,7 +84,7 @@ export default function RegisterStudent() {
           </div>
 
           <div className="form-group">
-            <label>Email/Username</label>
+            <label>Email</label>
             <input
               type="email"
               name="email"
@@ -178,7 +176,6 @@ export default function RegisterStudent() {
         </p>
       </div>
 
-      {/* ✅ Toast container */}
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );

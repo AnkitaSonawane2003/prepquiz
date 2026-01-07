@@ -1,8 +1,9 @@
+
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
-// Pages & Components
+
 import Home from "./pages/Home";
 import About from "./components/About";
 import Features from "./components/Features";
@@ -21,19 +22,44 @@ import StudentLogin from "./pages/Studentlogin";
 import RegisterStudent from "./pages/Registerstudent";
 import AdminLogin from "./pages/Adminlogin";
 
+import Doubt from "./admin/Doubt";
+import Studentdata from "./admin/Studentdata";
+import Teacherdata from "./admin/Teacherdata";
+import Addannouncement from "./admin/Addannouncement";
+
 import Adminpage from "./components/Adminpage";
 import Teacherpage from "./components/Teacherpage";
-import StudentPage from "./components/Studentpage";
+import AddProblem from "./components/AddProblem";
+import AddTest from "./components/AddTest";
+import StudentTests from "./components/StudentTests";
+import StudentPractice from "./components/StudentPractice";
+
+import Studentpage from "./components/Studentpage"; // ✅ correct import
 import StudentProfile from "./components/studentprofile";
 import TeacherProfile from "./components/teacherprofile";
+import Dashboard from "./components/Dashboard";
+import Compiler from "./components/Compiler";
+import Evaluation from "./components/Evaluation"
+import AllEvaluation from "./components/AllEvaluation"
+import ViewAttempt from "./components/ViewAttempt";
+import TestCard from "./components/TestCard";
+import Forgot from "./components/Forgot";
+import ResetPassword from "./components/ResetPassword";
+
+import Teacherforgot from "./components/Teacherforgot";
+import Teacherrest from "./components/Teacherreset";
+
+
+import TestTake from "./components/TestTake";
 
 function App() {
   return (
     <>
+   
       <Navbar />
 
       <Routes>
-        {/* Public Routes */}
+    
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/features" element={<Features />} />
@@ -49,14 +75,46 @@ function App() {
         <Route path="/regstud" element={<RegisterStudent />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
 
-        {/* Dashboards */}
+        {/*  Admin Dashboard */}
         <Route path="/adminpage" element={<Adminpage />} />
-        <Route path="/teacherpage" element={<Teacherpage />} />
-        <Route path="/studentpage" element={<StudentPage />} />
+        <Route path="/doubt" element={<Doubt />} />
+        <Route path="/studdata" element={<Studentdata />} />
+        <Route path="/teacherdata" element={<Teacherdata />} />
+        <Route path="/announce" element={<Addannouncement />} />
 
-        {/* Profile pages */}
-        <Route path="/studentprofile" element={<StudentProfile />} />
+        {/*  Teacher Dashboard */}
+        <Route path="/teacherpage" element={<Teacherpage />} />
+        <Route path="/teacher-dashboard" element={<Dashboard />} />
+        <Route path="/add-aptitude" element={<AddProblem />} />
         <Route path="/teacherprofile" element={<TeacherProfile />} />
+        <Route path="/add-test" element={<AddTest />} />
+
+        {/*  Student Dashboard */}
+        <Route path="/studentpage" element={<Studentpage />} />
+        <Route path="/studentprofile" element={<StudentProfile />} />
+
+        <Route path="/studenttests" element={<StudentTests />} />
+
+        <Route path="/student/tests" element={<StudentTests />} />
+        <Route path="/student/tests/:testId" element={<TestTake />} />
+
+        <Route path="/studentmodules" element={<StudentPractice />} />
+        <Route path="/studentevaluation" element={<Evaluation/>}/>
+        <Route path="allevaluation" element={<AllEvaluation/>}/>
+        <Route path="/student/tests/:testId/view" element={<ViewAttempt />} />
+        <Route path="/testcard" element={<TestCard/>}/>
+<Route path="/forgot" element={<Forgot />} />
+<Route path="/teacher/forgot" element={<Forgot />} />
+
+<Route path="/reset-password/:token" element={<ResetPassword />} />
+<Route path="/teacher/reset-password/:token" element={<ResetPassword />} />
+         <Route path="/compiler/:problemId" element={<Compiler />} />
+
+
+
+<Route path="/teacherforgot" element={<Teacherforgot/>}/>
+<Route pat="/teacherreset" element={<Teacherrest/>}/>
+
       </Routes>
 
       <Footer />
@@ -65,3 +123,4 @@ function App() {
 }
 
 export default App;
+

@@ -28,7 +28,7 @@ export default function Adminlogin() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/admin/login", {
+      const response = await fetch("https://prepquiz.onrender.com/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -38,7 +38,7 @@ export default function Adminlogin() {
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        navigate("/adminpage"); // redirect to teacher/admin page
+        navigate("/adminpage"); 
       } else {
         setError(data.message || "Invalid credentials");
       }

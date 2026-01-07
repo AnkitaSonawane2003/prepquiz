@@ -3,7 +3,7 @@
   margin: auto;
   padding: 40px 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #1f2937; /* gray-800 */
+  color: #1f2937; 
   background-color: #f9fafb;
     margin-bottom: 40px;
       margin-top: 150px;
@@ -24,21 +24,21 @@
 
 .about-subtitle {
   font-size: 1.2rem;
-  color: #4b5563; /* gray-600 */
+  color: #4b5563; 
 }
 
 .about-content h2 {
   font-size: 1.5rem;
   margin-top: 30px;
   margin-bottom: 10px;
-  color: #0f172a; /* gray-900 */
+  color: #0f172a; 
 }
 
 .about-content p {
   font-size: 1rem;
   line-height: 1.7;
   margin-bottom: 20px;
-  color: #374151; /* gray-700 */
+  color: #374151; 
 }
 
 .about-content ul {
