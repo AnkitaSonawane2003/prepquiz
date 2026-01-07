@@ -12,7 +12,7 @@ const TestCard = ({ attempt, token }) => {
     try {
       setLoading(true);
       const res = await axios.get(
-       `http://localhost:5000/api/testattempts/${testId}/analysis`,
+       `https://prepquiz.onrender.com/api/testattempts/${testId}/analysis`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

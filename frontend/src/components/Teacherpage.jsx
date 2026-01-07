@@ -29,7 +29,7 @@ function TeacherPage() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const res = await fetch(`http://localhost:5000/api/teacher/stats?limit=${showAllTests || showAllChallenges ? 50 : 3}`);
+        const res = await fetch(`https://prepquiz.onrender.com/api/teacher/stats?limit=${showAllTests || showAllChallenges ? 50 : 3}`);
         const data = await res.json();
         if (data.success) {
           setStats(data.stats);
@@ -44,7 +44,7 @@ function TeacherPage() {
   useEffect(() => {
     async function fetchCodeSubmissions() {
       try {
-        const res = await fetch("http://localhost:5000/api/evaluation/all-evaluations");
+        const res = await fetch("https://prepquiz.onrender.com/api/evaluation/all-evaluations");
         const data = await res.json();
         if (Array.isArray(data)) {
           const total = data.reduce((acc, evalItem) => acc + (evalItem.totalSubmissions || 0), 0);
@@ -60,7 +60,7 @@ function TeacherPage() {
   useEffect(() => {
     async function fetchTotalTestsSubmitted() {
       try {
-        const res = await fetch("http://localhost:5000/api/testAttempts/total-submitted", {
+        const res = await fetch("https://prepquiz.onrender.com/api/testAttempts/total-submitted", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("teacherToken")}`,
           },
@@ -78,7 +78,7 @@ function TeacherPage() {
   useEffect(() => {
     async function fetchAnnouncements() {
       try {
-        const res = await fetch('http://localhost:5000/api/announcement');
+        const res = await fetch('hhttps://prepquiz.onrender.com/api/announcement');
         const data = await res.json();
         if (data.success) {
           setAnnouncements(data.announcements);
