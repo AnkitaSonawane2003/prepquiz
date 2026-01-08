@@ -78,7 +78,7 @@ function TeacherPage() {
   useEffect(() => {
     async function fetchAnnouncements() {
       try {
-        const res = await fetch('hhttps://prepquiz.onrender.com/api/announcement');
+        const res = await fetch('https://prepquiz.onrender.com/api/announcement');
         const data = await res.json();
         if (data.success) {
           setAnnouncements(data.announcements);
