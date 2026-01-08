@@ -1,6 +1,7 @@
-import axios from "axios";
+
 import { useState,useEffect } from "react";
 import "../styles/teacherforgot.css";
+import API from "../api/axiosConfig";
 const apiUrl = import.meta.env.VITE_API_URL;
 export default function Teacherforgot() {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ export default function Teacherforgot() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("https://prepquiz.onrender.com/api/teacher/forgot-password", { email });
+      const res = await API.post("/api/teacher/forgot-password", { email });
       setMsg("Password reset link generated ,check your email.");
       console.log(res.data);
     } catch (err) {
